@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pre-commit = "*"
+jupytext = "*"
+pylint = "*"
+rope = "*"
+pytest = "*"
+jupyterlab = "*"
+
+[packages]
+jupyter = "*"
+spacy = "*"
+textacy = "*"
+bokeh = "*"
+click = "*"
+gensim = "*"
+matplotlib = "*"
+
+[requires]
+python_version = "3.8"
