@@ -20,7 +20,7 @@ def setup_logger(logger=None, to_file=False, filename=None, level=logging.DEBUG)
     Setup logging of import messages to both file and console
     '''
     if logger is None:
-        logger = logging.getLogger("westac")
+        logger = logging.getLogger("humlab_text_analytic_tools")
 
     logger.handlers = []
 
@@ -29,7 +29,7 @@ def setup_logger(logger=None, to_file=False, filename=None, level=logging.DEBUG)
 
     if to_file is True or filename is not None:
         if filename is None:
-            filename = 'westac_{}.log'.format(time.strftime("%Y%m%d"))
+            filename = 'humlab_text_analytic_tools_{}.log'.format(time.strftime("%Y%m%d"))
         fh = logging.FileHandler(filename)
         fh.setLevel(level)
         fh.setFormatter(formatter)

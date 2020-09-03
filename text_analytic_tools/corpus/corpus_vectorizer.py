@@ -3,9 +3,9 @@ import pandas as pd
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-from westac.corpus import text_corpus
-from westac.corpus import vectorized_corpus
-from westac.corpus import file_text_reader
+from text_analytic_tools.corpus import text_corpus
+from text_analytic_tools.corpus import vectorized_corpus
+from text_analytic_tools.corpus import file_text_reader
 
 import logging
 

@@ -19,7 +19,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 # logging.basicConfig(filename="newfile.log", format='%(asctime)s %(message)s', filemode='w')
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("westac")
+logger = logging.getLogger("text_analytic_tools")
 
 class VectorizedCorpus():
 

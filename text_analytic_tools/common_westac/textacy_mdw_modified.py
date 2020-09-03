@@ -22,7 +22,7 @@ from textacy import vsm
 
 from memoization import cached
 
-logger = logging.getLogger("westac")
+logger = logging.getLogger("humlab_text_analytic_tools")
 logger.setLevel(logging.INFO)
 
 def compute_most_discriminating_terms(x_corpus, top_n_terms=25, max_n_terms=1000, group1_indices=None, group2_indices=None):

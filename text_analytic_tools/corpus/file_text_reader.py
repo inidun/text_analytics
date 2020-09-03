@@ -1,6 +1,6 @@
 import os
 
-import westac.common.utility as utility
+import text_analytic_tools.common.utility as utility
 
 class FileTextReader:
 
