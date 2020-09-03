@@ -19,6 +19,11 @@ bokeh = "*"
 click = "*"
 gensim = "*"
 matplotlib = "*"
+pandas = "*"
+memoization = "*"
+nltk = "*"
+wordcloud = "*"
+ftfy = "*"
 
 [requires]
 python_version = "3.8"
