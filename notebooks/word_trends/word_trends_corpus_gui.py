@@ -3,7 +3,7 @@ import os
 import glob
 import types
 import ipywidgets as widgets
-import westac.corpus.vectorized_corpus as vectorized_corpus
+import text_analytic_tools.corpus.vectorized_corpus as vectorized_corpus
 
 from IPython.display import display
 
@@ -16,9 +16,14 @@ def get_corpus_tags(corpus_folder):
 def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_axis=None, year_range=(1922, 1989)):
 
     try:
-        year_filter = lambda x: year_range[0] <= x['year'] <= year_range[1]
+        
         x_corpus = vectorized_corpus.VectorizedCorpus\
-            .load(corpus_tag, folder=corpus_folder)\
+            .load(corpus_tag, folder=corpus_folder)
+
+        year_range = (x_corpus.document_index.year.min(), x_corpus.document_index.year.max())
+        year_filter = lambda x: year_range[0] <= x['year'] <= year_range[1]
+
+        x_corpus = x_corpus \
             .filter(year_filter)\
             .group_by_year()\
             .slice_by_n_count(n_count)\
@@ -31,7 +36,8 @@ def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_
 
     except Exception as ex:
         print(ex)
-        return None
+        raise
+        #return None
 
 def display_gui(corpus_folder, container=None):
 
@@ -41,7 +47,7 @@ def display_gui(corpus_folder, container=None):
         print("Please install at least one vectorized corpus")
         return
 
-    year_range = [1922, 1989]
+    year_range = [1920, 2020]
     normalize_options = {
         'None': [],
         'Over year': [ 0 ],
@@ -50,8 +56,8 @@ def display_gui(corpus_folder, container=None):
     }
     gui = types.SimpleNamespace(
         corpus_tag=widgets.Dropdown(description="Corpus", options=corpus_tags, value=corpus_tags[0], layout=widgets.Layout(width='420px', color='green')),
-        n_min_count=widgets.IntSlider(description="Min count", min=100, max=10000, value=500, layout=widgets.Layout(width='400px', color='green')),
-        n_top_count=widgets.IntSlider(description="Top count", min=100, max=1000000, value=5000, layout=widgets.Layout(width='400px', color='green')),
+        n_min_count=widgets.IntSlider(description="Min count", min=1, max=10000, value=1, layout=widgets.Layout(width='400px', color='green')),
+        n_top_count=widgets.IntSlider(description="Top count", min=10, max=1000000, value=5000, layout=widgets.Layout(width='400px', color='green')),
         normalize=widgets.Dropdown(description="Normalize", options=normalize_options, value=[ 0 ], disabled=False, layout=widgets.Layout(width='420px', color='green')),
         load=widgets.Button(description="Load", disabled=False, layout=widgets.Layout(width='80px', color='green')),
         year_range=widgets.IntRangeSlider(value=year_range, min=year_range[0],  max=year_range[1], step=1, description='Period:'),

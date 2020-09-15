@@ -2,10 +2,10 @@ import ipywidgets as widgets
 from IPython.display import display
 import bokeh.plotting
 import bokeh.io
-import notebooks.common.distributions_plot as plotter
+import text_analytic_tools.common_westac.distributions_plot as plotter
 import numpy as np
 import bokeh
-import westac.common.curve_fit as cf
+import text_analytic_tools.common_westac.curve_fit as cf
 import math
 import itertools
 import pandas as pd
@@ -105,12 +105,14 @@ def display_bar_plot(data, **kwargs):
     p.xaxis.major_label_orientation = math.pi / 4
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
-    p.legend.location = "top_right"
-    p.legend.orientation = "vertical"
-
-    legend = bokeh.models.Legend(items=[(x, [v[i]]) for i, x in enumerate(tokens)])
-
+    
+    # Note: Fixed Bokeh legend error 
+    #p.legend.location = "top_right"
+    #p.legend.orientation = "vertical"
+    
+    legend = bokeh.models.Legend(items=[(x, [v[i]]) for i, x in enumerate(tokens)])    
     p.add_layout(legend, 'left')
+    
 
     bokeh.io.show(p)
 
@@ -137,7 +139,7 @@ def take(n, iterable):
 def display_gui(container):
 
     output_widget       = widgets.Output(layout=widgets.Layout(width='600px', height='200px'))
-    words_widget        = widgets.Textarea(description="", rows=4, value="och eller hur", layout=widgets.Layout(width='600px', height='200px'))
+    words_widget        = widgets.Textarea(description="", rows=4, value="cultural diversity property heritage", layout=widgets.Layout(width='600px', height='200px'))
     tab_widget          = widgets.Tab()
     tab_widget.children = [ widgets.Output(), widgets.Output(), widgets.Output() ]
 
