@@ -4,6 +4,7 @@ import zipfile
 
 import ftfy
 import textacy
+from textacy import preprocessing
 
 import text_analytic_tools.utility as utility
 
@@ -29,11 +30,11 @@ def preprocess_text(source_filename, target_filename, tick=utility.noop):
     with zipfile.ZipFile(target_filename, 'w', zipfile.ZIP_DEFLATED) as zf:
         for filename, text in texts:
             text = re.sub(HYPHEN_REGEXP, r"\1\2\n", text)
-            text = textacy.preprocess.normalize_whitespace(text)
+            text = preprocessing.normalize_whitespace(text)
             text = ftfy.fix_text(text)
-            text = textacy.preprocess.replace_currency_symbols(text)
-            text = textacy.preprocess.unpack_contractions(text)
-            text = textacy.preprocess.remove_accents(text)
+            text = preprocessing.replace_currency_symbols(text)
+            #text = preprocessing.unpack_contractions(text)
+            text = preprocessing.remove_accents(text)
             zf.writestr(filename, text)
             tick()
     tick(0)
