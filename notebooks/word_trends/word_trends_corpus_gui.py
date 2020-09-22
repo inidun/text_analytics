@@ -13,7 +13,7 @@ def get_corpus_tags(corpus_folder):
     tags = [ x[0:len(x)-len("_vectorizer_data.pickle")] for x in filenames ]
     return tags
 
-def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_axis=None, year_range=(1922, 1989)):
+def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_axis=None, year_range=(1920, 2020)):
 
     try:
         

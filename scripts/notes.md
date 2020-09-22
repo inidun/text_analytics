@@ -2,6 +2,7 @@
 
 - [ ] Change colors in plot
 - [ ] Add ipyaggrid to Pipfile
+- [ ] Add new graphs, e.g. rolling average
 
 ## Commands
 
