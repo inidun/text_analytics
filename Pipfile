@@ -10,6 +10,7 @@ pylint = "*"
 rope = "*"
 pytest = "*"
 jupyterlab = "*"
+black = "*"
 
 [packages]
 jupyter = "*"
