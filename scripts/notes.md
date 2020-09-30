@@ -1,8 +1,26 @@
 ## TODO
 
+### New tools
+
+- [ ] [Notebook with collocate measuring tool · Issue #8](https://github.com/inidun/tasks/issues/8)
+- [ ] [Notebook with most discriminating terms · Issue #9](https://github.com/inidun/tasks/issues/9)
+
+### POS
+
+- [ ] Add tab: line diagram
+- [ ] Add tab: bar diagram
+
+### Improvements
+
 - [ ] Change colors in plot
 - [ ] Add ipyaggrid to Pipfile
 - [ ] Add new graphs, e.g. rolling average
+
+### Other
+
+- [ ] Add flake
+
+---
 
 ## Commands
 
@@ -20,7 +38,9 @@ nvm install v14.10.1
 jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @bokeh/jupyter_bokeh \
-    jupyter-matplotlib
+    jupyter-matplotlib \
+    ipyaggrid
+
 jupyter labextension update --all
 jupyter lab build
 ```
@@ -33,8 +53,8 @@ nltk.download('punkt')
 
 ### Filename patterns, example
 
-- DECLARATION_0201_013175_1995.txt
-- CONVENTION_0201_015241_1971_paris.txt
+- `DECLARATION_0201_013175_1995.txt`
+- `CONVENTION_0201_015241_1971_paris.txt`
 
 ### Run vectorize script
 

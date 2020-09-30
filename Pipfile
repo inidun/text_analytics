@@ -10,7 +10,7 @@ pylint = "*"
 rope = "*"
 pytest = "*"
 jupyterlab = "*"
-black = "*"
+yapf = "*"
 
 [packages]
 jupyter = "*"
@@ -25,6 +25,7 @@ memoization = "*"
 nltk = "*"
 wordcloud = "*"
 ftfy = "*"
+ipyaggrid = "*"
 
 [requires]
 python_version = "3.8"

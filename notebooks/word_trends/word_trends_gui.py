@@ -205,10 +205,10 @@ def display_gui(container):
     words_widget.observe(update_plot, names='value')
     tab_widget.observe(update_plot, 'selected_index')
 
-    display(widgets.VBox([
+    g = widgets.VBox([
         widgets.HBox([words_widget, output_widget]),
         tab_widget
-    ]))
+    ])
 
-
-    update_plot()
+    #update_plot()
+    return g
