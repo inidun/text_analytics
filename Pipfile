@@ -26,6 +26,7 @@ nltk = "*"
 wordcloud = "*"
 ftfy = "*"
 ipyaggrid = "*"
+jupyterlab = "*"
 
 [requires]
 python_version = "3.8"
