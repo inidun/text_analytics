@@ -27,6 +27,8 @@ wordcloud = "*"
 ftfy = "*"
 ipyaggrid = "*"
 jupyterlab = "*"
+glove-python-binary = "*"
+penelope = {file = "https://github.com/humlab/penelope/releases/download/v0.1.0/penelope-0.1.0.tar.gz"}
 
 [requires]
 python_version = "3.8"
