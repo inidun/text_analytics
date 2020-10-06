@@ -1,21 +1,11 @@
-import os
-from os import close
-import sys
 import click
-import re
-import pandas as pd
-from pprint import pprint as pp
+import penelope.corpus.vectorizer as corpus_vectorizer
 
-root_folder = os.path.join(os.getcwd().split('text_analytics')[0], 'text_analytics')
-
-sys.path = list(set(sys.path + [ root_folder ]))
-
-import text_analytic_tools.common.utility as utility
-import westac.corpus.corpus_vectorizer as corpus_vectorizer
 
 def split_filename(filename, sep='_'):
     parts = filename.replace('.', sep).split(sep)
     return parts
+
 
 def parse_extractor(data):
 
@@ -30,23 +20,25 @@ def parse_extractor(data):
 
     raise Exception("to many parts in extract expression")
 
+
 def parser_meta_fields(meta_field):
 
     try:
-        meta_extract = {
-            x[0]: parse_extractor(x[1:]) for x in [ y.split(':') for y in meta_field ]
-        }
+        meta_extract = {x[0]: parse_extractor(x[1:]) for x in [y.split(':') for y in meta_field]}
 
         return meta_extract
     except:
         print("parse error: meta-fields, must be in format 'name:regexp'")
         exit(-1)
 
+
 @click.command()
 @click.argument('filename')
 @click.argument('output-folder')
 @click.option('--to-lower/--no-to-lower', '-l', default=True, help='Transform text to lower case.')
-@click.option('--remove-accents/--no-remove-accents', '-d', default=False, is_flag=True, help='Remove accents to lower case.')
+@click.option(
+    '--remove-accents/--no-remove-accents', '-d', default=False, is_flag=True, help='Remove accents to lower case.'
+)
 @click.option('--min-length', default=2, help='Minimum length of words to keep', type=click.INT)
 @click.option('--max-length', default=None, help='Maximum length of words to keep', type=click.INT)
 @click.option('--keep-numerals/--no-keep-numerals', default=True, is_flag=True, help='')
@@ -67,7 +59,7 @@ def vectorize_text_corpus(
     only_alphanumeric=True,
     only_alphabetic=True,
     file_pattern='*.txt',
-    meta_field=None
+    meta_field=None,
 ):
 
     kwargs = dict(
@@ -80,10 +72,11 @@ def vectorize_text_corpus(
         symbols=keep_symbols,
         only_alphabetic=only_alphabetic,
         pattern=file_pattern,
-        meta_extract=parser_meta_fields(meta_field)
+        meta_extract=parser_meta_fields(meta_field),
     )
 
     corpus_vectorizer.generate_corpus(filename, output_folder=output_folder, **kwargs)
+
 
 if __name__ == "__main__":
     vectorize_text_corpus()

@@ -2,13 +2,13 @@ import scipy.sparse as sp
 import numpy as np
 import pandas as pd
 import itertools
-import text_analytic_tools.utility as utility
-import text_analytic_tools.common.text_corpus as text_corpus
+import penelope.utility as utility
+from penelope.vendor.gensim.utils import build_vocab
 
 logger = utility.getLogger('corpus_text_analysis')
 
-class HyperspaceAnalogueToLanguageVectorizer():
 
+class HyperspaceAnalogueToLanguageVectorizer:
     def __init__(self, corpus=None, token2id=None, tick=utility.noop):
         """
         Build vocabulary and create nw_xy term-term matrix and nw_x term global occurence vector
@@ -36,20 +36,20 @@ class HyperspaceAnalogueToLanguageVectorizer():
         self.term_count = sum(map(len, value or []))
 
         if self.token2id is None and value is not None:
-            self.token2id = text_corpus.build_vocab(value)
+            self.token2id = build_vocab(value)
             self._id2token = None
 
     @property
     def id2token(self):
         if self._id2token is None:
             if self.token2id is not None:
-                self._id2token = { v:k for k,v in self.token2id.items() }
+                self._id2token = {v: k for k, v in self.token2id.items()}
         return self._id2token
 
     def sliding_window(self, seq, n):
         it = itertools.chain(iter(seq), [None] * n)
-        memory = tuple(itertools.islice(it, n+1))
-        if len(memory) == n+1:
+        memory = tuple(itertools.islice(it, n + 1))
+        if len(memory) == n + 1:
             yield memory
         for x in it:
             memory = memory[1:] + (x,)
@@ -65,18 +65,18 @@ class HyperspaceAnalogueToLanguageVectorizer():
         assert self.token2id is not None, "Fit with no vocabulary!"
         assert self.corpus is not None, "Fit with no corpus!"
 
-        nw_xy = sp.lil_matrix ((len(self.token2id), len(self.token2id)), dtype=np.int32)
+        nw_xy = sp.lil_matrix((len(self.token2id), len(self.token2id)), dtype=np.int32)
         nw_x = np.zeros(len(self.token2id), dtype=np.int32)
 
         for terms in corpus:
 
-            id_terms = ( self.token2id[size] for size in terms)
+            id_terms = (self.token2id[size] for size in terms)
 
             self.tick()
 
             for win in self.sliding_window(id_terms, size):
 
-                #logger.info([ self.id2token[x] if x is not None else None for x in win])
+                # logger.info([ self.id2token[x] if x is not None else None for x in win])
 
                 if win[0] is None:
                     continue
@@ -85,7 +85,7 @@ class HyperspaceAnalogueToLanguageVectorizer():
                     if x is not None:
                         nw_x[x] += 1
 
-                for i in range(1, size+1):
+                for i in range(1, size + 1):
 
                     if win[i] is None:
                         continue
@@ -94,31 +94,26 @@ class HyperspaceAnalogueToLanguageVectorizer():
                         if win[0] == win[i]:
                             continue
 
-                    d = float(i) # abs(n - i)
-                    if distance_metric == 0: #  linear i.e. adjacent equals window size, then decreasing by one
-                        w = (size - d + 1) # / size
-                    elif distance_metric == 1: # f(d) = 1 / d
+                    d = float(i)  # abs(n - i)
+                    if distance_metric == 0:  # linear i.e. adjacent equals window size, then decreasing by one
+                        w = size - d + 1  # / size
+                    elif distance_metric == 1:  # f(d) = 1 / d
                         w = 1.0 / d
-                    elif distance_metric == 2: # Constant value of 1
+                    elif distance_metric == 2:  # Constant value of 1
                         w = 1
 
-                    #print('*', i, self.id2token[win[0]], self.id2token[win[i]], w, [ self.id2token[x] if x is not None else None for x in win])
+                    # print('*', i, self.id2token[win[0]], self.id2token[win[i]], w, [ self.id2token[x] if x is not None else None for x in win])
                     nw_xy[win[0], win[i]] += w
 
         self.nw_x = nw_x
         self.nw_xy = nw_xy
-        #self.f_xy = nw_xy / np.max(nw_xy)
+        # self.f_xy = nw_xy / np.max(nw_xy)
 
         return self
 
     def to_df(self):
-        columns = [ self.id2token[i] for i in range(0,len(self.token2id))]
-        return pd.DataFrame(
-            data=self.nw_xy.todense(),
-            index=list(columns),
-            columns=list(columns),
-            dtype=np.float64
-        ).T
+        columns = [self.id2token[i] for i in range(0, len(self.token2id))]
+        return pd.DataFrame(data=self.nw_xy.todense(), index=list(columns), columns=list(columns), dtype=np.float64).T
 
     # def xxx_cwr(self, direction_sensitive=False, normalize='size'):
 
@@ -194,15 +189,16 @@ class HyperspaceAnalogueToLanguageVectorizer():
 
         df_nw_x = pd.DataFrame(self.nw_x, columns=['nw'])
 
-        df = pd.DataFrame({
-            'x_id': coo_matrix.row,
-            'y_id': coo_matrix.col,
-            'nw_xy': coo_matrix.data
-        })[['x_id', 'y_id', 'nw_xy']].sort_values(['x_id', 'y_id']).reset_index(drop=True)
+        df = (
+            pd.DataFrame({'x_id': coo_matrix.row, 'y_id': coo_matrix.col, 'nw_xy': coo_matrix.data})[
+                ['x_id', 'y_id', 'nw_xy']
+            ]
+            .sort_values(['x_id', 'y_id'])
+            .reset_index(drop=True)
+        )
 
         df = df.assign(
-            x_term=df.x_id.apply(lambda x: self.id2token[x]),
-            y_term=df.y_id.apply(lambda x: self.id2token[x])
+            x_term=df.x_id.apply(lambda x: self.id2token[x]), y_term=df.y_id.apply(lambda x: self.id2token[x])
         )
 
         df = df.merge(df_nw_x, left_on='x_id', right_index=True, how='inner').rename(columns={'nw': 'nw_x'})
@@ -221,7 +217,7 @@ class HyperspaceAnalogueToLanguageVectorizer():
         else:
             assert False, 'Unknown normalize specifier'
 
-        #logger.info('Normalizing for document corpus size %s.', norm)
+        # logger.info('Normalizing for document corpus size %s.', norm)
 
         df_nw_xy = df.assign(cwr=((df.nw_xy / (df.nw_x + df.nw_y - df.nw_xy)) / norm))
 
@@ -230,42 +226,43 @@ class HyperspaceAnalogueToLanguageVectorizer():
 
         return df_nw_xy[df_nw_xy.cwr > 0]
 
+
 def test_burgess_litmus_test():
     terms = 'The Horse Raced Past The Barn Fell .'.lower().split()
     answer = {
-     'barn':  {'.': 4,  'barn': 0,  'fell': 5,  'horse': 0,  'past': 0,  'raced': 0,  'the': 0},
-     'fell':  {'.': 5,  'barn': 0,  'fell': 0,  'horse': 0,  'past': 0,  'raced': 0,  'the': 0},
-     'horse': {'.': 0,  'barn': 2,  'fell': 1,  'horse': 0,  'past': 4,  'raced': 5,  'the': 3},
-     'past':  {'.': 2,  'barn': 4,  'fell': 3,  'horse': 0,  'past': 0,  'raced': 0,  'the': 5},
-     'raced': {'.': 1,  'barn': 3,  'fell': 2,  'horse': 0,  'past': 5,  'raced': 0,  'the': 4},
-     'the':   {'.': 3,  'barn': 6,  'fell': 4,  'horse': 5,  'past': 3,  'raced': 4,  'the': 2}
+        'barn': {'.': 4, 'barn': 0, 'fell': 5, 'horse': 0, 'past': 0, 'raced': 0, 'the': 0},
+        'fell': {'.': 5, 'barn': 0, 'fell': 0, 'horse': 0, 'past': 0, 'raced': 0, 'the': 0},
+        'horse': {'.': 0, 'barn': 2, 'fell': 1, 'horse': 0, 'past': 4, 'raced': 5, 'the': 3},
+        'past': {'.': 2, 'barn': 4, 'fell': 3, 'horse': 0, 'past': 0, 'raced': 0, 'the': 5},
+        'raced': {'.': 1, 'barn': 3, 'fell': 2, 'horse': 0, 'past': 5, 'raced': 0, 'the': 4},
+        'the': {'.': 3, 'barn': 6, 'fell': 4, 'horse': 5, 'past': 3, 'raced': 4, 'the': 2},
     }
     df_answer = pd.DataFrame(answer).astype(np.int32)[['the', 'horse', 'raced', 'past', 'barn', 'fell']].sort_index()
-    #display(df_answer)
+    # display(df_answer)
     vectorizer = HyperspaceAnalogueToLanguageVectorizer()
     vectorizer.fit([terms], size=5, distance_metric=0)
     df_imp = vectorizer.to_df().astype(np.int32)[['the', 'horse', 'raced', 'past', 'barn', 'fell']].sort_index()
     assert df_imp.equals(df_answer), "Test failed"
-    #df_imp == df_answer
+    # df_imp == df_answer
 
     # Example in Chen, Lu:
     terms = 'The basic concept of the word association'.lower().split()
     vectorizer = HyperspaceAnalogueToLanguageVectorizer().fit([terms], size=5, distance_metric=0)
     df_imp = vectorizer.to_df().astype(np.int32)[['the', 'basic', 'concept', 'of', 'word', 'association']].sort_index()
-    df_answer = pd.DataFrame({
-        'the': [2, 5, 4, 3, 6, 4],
-        'basic': [3, 0, 5, 4, 2, 1],
-        'concept': [4, 0, 0, 5, 3, 2],
-        'of': [5, 0, 0, 0, 4, 3],
-        'word': [0, 0, 0, 0, 0, 5],
-        'association': [0, 0, 0, 0, 0, 0]
+    df_answer = pd.DataFrame(
+        {
+            'the': [2, 5, 4, 3, 6, 4],
+            'basic': [3, 0, 5, 4, 2, 1],
+            'concept': [4, 0, 0, 5, 3, 2],
+            'of': [5, 0, 0, 0, 4, 3],
+            'word': [0, 0, 0, 0, 0, 5],
+            'association': [0, 0, 0, 0, 0, 0],
         },
         index=['the', 'basic', 'concept', 'of', 'word', 'association'],
-        dtype=np.int32
+        dtype=np.int32,
     ).sort_index()[['the', 'basic', 'concept', 'of', 'word', 'association']]
     assert df_imp.equals(df_answer), "Test failed"
     print('Test run OK')
-
 
 
 test_burgess_litmus_test()
