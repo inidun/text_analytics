@@ -11,7 +11,7 @@ root_folder = os.path.join(os.getcwd().split('text_analytics')[0], 'text_analyti
 sys.path = list(set(sys.path + [ root_folder ]))
 
 import text_analytic_tools.common.utility as utility
-import text_analytic_tools.corpus.corpus_vectorizer as corpus_vectorizer
+import westac.corpus.corpus_vectorizer as corpus_vectorizer
 
 def split_filename(filename, sep='_'):
     parts = filename.replace('.', sep).split(sep)
