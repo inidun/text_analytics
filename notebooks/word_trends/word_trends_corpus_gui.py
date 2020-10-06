@@ -3,7 +3,7 @@ import os
 import glob
 import types
 import ipywidgets as widgets
-import text_analytic_tools.corpus.vectorized_corpus as vectorized_corpus
+import westac.corpus.vectorized_corpus as vectorized_corpus
 
 from IPython.display import display
 
@@ -16,7 +16,7 @@ def get_corpus_tags(corpus_folder):
 def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_axis=None, year_range=(1920, 2020)):
 
     try:
-        
+
         x_corpus = vectorized_corpus.VectorizedCorpus\
             .load(corpus_tag, folder=corpus_folder)
 
@@ -87,11 +87,11 @@ def display_gui(corpus_folder, container=None):
             gui.load.disabled = False
             gui.corpus_tag.disabled = False
             gui.load.description = 'Load'
-            
+
         #gui.output.clear_output()
-        
+
         #with gui.output:
-            
+
         #    print("Corpus loaded.")
 
     gui.load.on_click(load)
@@ -109,5 +109,5 @@ def display_gui(corpus_folder, container=None):
         ]),
         gui.output,
     ]))
-    
+
     return gui

@@ -19,7 +19,7 @@ from spacy.tokens.doc import Doc as SpacyDoc
 
 import text_analytic_tools.common.text_corpus as text_corpus
 import text_analytic_tools.common.textacy_utility as textacy_utility
-import text_analytic_tools.corpus.vectorized_corpus as vectorized_corpus
+import westac.corpus.vectorized_corpus as vectorized_corpus
 import text_analytic_tools.utility.utils as utility
 
 

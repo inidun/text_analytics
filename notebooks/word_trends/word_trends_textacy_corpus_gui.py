@@ -7,7 +7,7 @@ from IPython.display import display
 from sklearn.feature_extraction.text import CountVectorizer
 
 import notebooks.word_trends.corpus_tools as corpus_tools
-import text_analytic_tools.corpus.vectorized_corpus as vectorized_corpus
+import westac.corpus.vectorized_corpus as vectorized_corpus
 from notebooks.word_trends.word_trends_gui import display_gui as result_gui
 
 # python scripts/vectorize_corpus.py \

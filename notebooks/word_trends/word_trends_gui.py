@@ -1,17 +1,20 @@
-import ipywidgets as widgets
-from IPython.display import display
-import bokeh.plotting
-import bokeh.io
-import text_analytic_tools.common_westac.distributions_plot as plotter
-import numpy as np
-import bokeh
-import text_analytic_tools.common_westac.curve_fit as cf
-import math
 import itertools
+import math
+from pprint import pprint as pp
+
+import bokeh
+import bokeh.io
+import bokeh.plotting
+import ipywidgets as widgets
+import numpy as np
 import pandas as pd
+from IPython.display import display
+
+import westac.common.curve_fit as cf
+import notebooks.common.distributions_plot as plotter
+
 #import qgrid
 
-from pprint import pprint as pp
 
 def compile_multiline_data(x_corpus, indices, smoothers=None):
 
@@ -105,21 +108,21 @@ def display_bar_plot(data, **kwargs):
     p.xaxis.major_label_orientation = math.pi / 4
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
-    
-    # Note: Fixed Bokeh legend error 
+
+    # Note: Fixed Bokeh legend error
     #p.legend.location = "top_right"
     #p.legend.orientation = "vertical"
-    
-    legend = bokeh.models.Legend(items=[(x, [v[i]]) for i, x in enumerate(tokens)])    
+
+    legend = bokeh.models.Legend(items=[(x, [v[i]]) for i, x in enumerate(tokens)])
     p.add_layout(legend, 'left')
-    
+
 
     bokeh.io.show(p)
 
 def display_as_table(data, **kwargs):
     df = pd.DataFrame(data=data)
     df = df[['year']+[x for x in df.columns if x!= 'year']].set_index('year')
-    
+
     display(df)
 
 # def display_as_qgrid(data, **kwargs):
