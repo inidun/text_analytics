@@ -1,0 +1,33 @@
+[tool]
+[tool.poetry]
+name = "text_analytics"
+version = "0.1.0"
+description = "INIDUN text text analysis"
+authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
+
+[tool.poetry.dependencies]
+python = "==3.8.5"
+bokeh = "*"
+click = "*"
+ftfy = "*"
+gensim = "*"
+glove-python-binary = "*"
+ipyaggrid = "*"
+jupyter = "*"
+jupyterlab = "*"
+matplotlib = "*"
+memoization = "*"
+nltk = "*"
+pandas = "*"
+penelope = "*"
+spacy = "*"
+textacy = "*"
+wordcloud = "*"
+
+[tool.poetry.dev-dependencies]
+jupytext = "*"
+pre-commit = "*"
+pylint = "*"
+pytest = "*"
+rope = "*"
+yapf = "*"
