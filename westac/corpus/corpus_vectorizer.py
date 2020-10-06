@@ -1,13 +1,11 @@
+import logging
 import os
-import pandas as pd
 
+import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 
-from text_analytic_tools.corpus import text_corpus
-from text_analytic_tools.corpus import vectorized_corpus
-from text_analytic_tools.corpus import file_text_reader
-
-import logging
+import westac.corpus.iterators.text_tokenizer as text_tokenizer
+from westac.corpus import tokenized_corpus, vectorized_corpus
 
 logger = logging.getLogger("corpus_vectorizer")
 
@@ -18,16 +16,9 @@ class CorpusVectorizer():
         self.kwargs = kwargs
         self.tokenizer = lambda x: x.split()
 
-    def fit_transform(self, corpus):
+    def fit_transform(self, corpus: tokenized_corpus.TokenizedCorpus):
 
-        def text_iterator(x):
-            n_documents = 0
-            for meta, tokens in x.documents():
-                n_documents += 1
-                yield ' '.join(tokens)
-
-        #texts = (' '.join(tokens) for _, tokens in corpus.documents())
-        texts = text_iterator(corpus)
+        texts = (' '.join(tokens) for _, tokens in corpus)
 
         #https://github.com/scikit-learn/scikit-learn/blob/1495f6924/sklearn/feature_extraction/text.py#L1147
         self.vectorizer = CountVectorizer(tokenizer=self.tokenizer, **self.kwargs)
@@ -43,7 +34,7 @@ class CorpusVectorizer():
     def _document_index(self, corpus):
         """ Groups matrix by vales in column summing up all values in each category
         """
-        metadata = corpus.get_metadata()
+        metadata = corpus.metadata
         df = pd.DataFrame([ x.__dict__ for x in metadata ], columns=metadata[0].__dict__.keys())
         df['document_id'] = list(df.index)
         return df
@@ -57,8 +48,8 @@ def generate_corpus(filename, output_folder, **kwargs):
     dump_tag = '{}_{}_{}_{}'.format(
         os.path.basename(filename).split('.')[0],
         'L{}'.format(kwargs.get('min_len', 0)),
-        '-N' if kwargs.get('numerals', False) else '+N',
-        '-S' if kwargs.get('symbols', False) else '+S',
+        '-N' if kwargs.get('keep_numerals', False) else '+N',
+        '-S' if kwargs.get('keep_symbols', False) else '+S',
     )
 
     if vectorized_corpus.VectorizedCorpus.dump_exists(dump_tag):
@@ -67,13 +58,17 @@ def generate_corpus(filename, output_folder, **kwargs):
         os.remove(os.path.join(output_folder, '{}_vectorizer_data.pickle'.format(dump_tag)))
 
     logger.info('Creating new corpus...')
-    reader = file_text_reader.FileTextReader(
-        filename, meta_extract=kwargs.get("meta_extract"),
-        compress_whitespaces=True,
-        dehyphen=True,
-        pattern=kwargs.get("pattern", "*.txt")
+
+    reader = text_tokenizer.TextTokenizer(
+        source_path=None,
+        filename_pattern=kwargs.get("pattern", "*.txt"),
+        tokenize=None,
+        as_binary=False,
+        fix_whitespaces=True,
+        fix_hyphenation=True,
+        filename_fields=kwargs.get("filename_fields")
     )
-    corpus = text_corpus.ProcessedCorpus(reader, **kwargs)
+    corpus = tokenized_corpus.TokenizedCorpus(reader, **kwargs)
 
     logger.info('Creating document-term matrix...')
     vectorizer = CorpusVectorizer()

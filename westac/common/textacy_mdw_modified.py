@@ -13,17 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import operator
-import pandas as pd
 import logging
-import numpy as np
+import operator
 
+import numpy as np
+import pandas as pd
+from memoization import cached
 from textacy import vsm
 
-from memoization import cached
-
-logger = logging.getLogger("humlab_text_analytic_tools")
+logger = logging.getLogger("westac")
 logger.setLevel(logging.INFO)
+
+# pylint: disable=too-many-locals
 
 def compute_most_discriminating_terms(x_corpus, top_n_terms=25, max_n_terms=1000, group1_indices=None, group2_indices=None):
 

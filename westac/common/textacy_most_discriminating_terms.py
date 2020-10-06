@@ -13,17 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import math
 import operator
-import pandas as pd
-import logging
-import numpy as np
-
 from decimal import Decimal
+
+import numpy as np
+import pandas as pd
 from textacy import vsm
 
-logger = logging.getLogger("humlab_text_analytic_tools")
+logger = logging.getLogger("westac")
 logger.setLevel(logging.INFO)
+
+# pylint: disable=too-many-locals
 
 def compute_most_discriminating_terms(x_corpus, top_n_terms=25, max_n_terms=1000, group1_indices=None, group2_indices=None):
 
@@ -168,7 +170,7 @@ def most_discriminating_terms(
         grp1_terms_likelihoods[id2term[term_id]] = term1 * term2
     top_grp1_terms = [
         term
-        for term, likelihood in sorted(
+        for term, _ in sorted(
             grp1_terms_likelihoods.items(), key=operator.itemgetter(1), reverse=True
         )[:top_n_terms]
     ]
@@ -213,7 +215,7 @@ def most_discriminating_terms(
         grp2_terms_likelihoods[id2term[term_id]] = term1 * term2
     top_grp2_terms = [
         term
-        for term, likelihood in sorted(
+        for term, _ in sorted(
             grp2_terms_likelihoods.items(), key=operator.itemgetter(1), reverse=True
         )[:top_n_terms]
     ]
