@@ -1,12 +1,16 @@
 [MESSAGES CONTROL]
-
-# Enable the message, report, category or checker with the given id(s). You can
-# either give multiple identifier separated by comma (,) or put this option
-# multiple time.
 #enable=
+disable=pointless-string-statement,
+        global-statement,
+        missing-module-docstring,
+        missing-class-docstring,
+        missing-function-docstring,
+        invalid-name,
+        line-too-long,
 
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifier separated by comma (,) or put this option
-# multiple time (only on the command line, not in the configuration file where
-# it should appear only once).
-disable=pointless-string-statement,global-statement
+
+[BASIC]
+good-names=df
+
+[DESIGN]
+max-args=8

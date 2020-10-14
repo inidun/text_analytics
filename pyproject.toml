@@ -19,21 +19,29 @@ matplotlib = "*"
 memoization = "*"
 nltk = "*"
 pandas = "*"
-penelope = {path = "../../penelope"}
 spacy = "*"
 textacy = "*"
 wordcloud = "*"
-black = "^20.8b1"
-yapf = "^0.30.0"
-isort = "^5.5.4"
-flake8 = "^3.8.4"
-pylint = "^2.6.0"
+penelope = {path = "../../penelope"}
 
 [tool.poetry.dev-dependencies]
+coverage = "*"
+dephell = "*"
+invoke = "*"
 jupytext = "*"
+nbstripout = "*"
 pre-commit = "*"
 pylint = "*"
 pytest = "*"
 rope = "*"
-yapf = "*"
-autopep8 = "^1.5.4"
+yapf = "^0.30.0"
+black = "^20.8b1"
+isort = "^5.5.4"
+flake8 = "^3.8.4"
+mypy = "^0.782"
+
+
+[build-system]
+requires = [
+    "setuptools!=50.0",
+]
