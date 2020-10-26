@@ -1,3 +1,6 @@
+[MASTER]
+init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
+
 [MESSAGES CONTROL]
 #enable=
 disable=pointless-string-statement,
@@ -10,7 +13,13 @@ disable=pointless-string-statement,
 
 
 [BASIC]
-good-names=df
+
+argument-naming-style=snake_case
+attr-naming-style=snake_case
 
 [DESIGN]
 max-args=8
+
+[EXCEPTIONS]
+
+overgeneral-exceptions=BaseException
