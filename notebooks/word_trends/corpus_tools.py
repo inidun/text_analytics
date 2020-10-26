@@ -1,17 +1,16 @@
 import pandas as pd
-
-import penelope.vendor.textacy.utils as textacy_utility
 import penelope.corpus.readers as readers
+import penelope.vendor.textacy as textacy_utility
 
 
-def get_document_stream(prepped_source_path, document_index):
+def get_document_stream(prepped_source_path, documents):
 
     reader = readers.ZipTextIterator(prepped_source_path, filename_pattern="*.txt")
-    document_index = document_index.set_index('filename')
+    documents = documents.set_index('filename')
 
     for document_name, text in reader:
 
-        metadata = document_index.loc[document_name].to_dict()
+        metadata = documents.loc[document_name].to_dict()
         document_id = metadata['unesco_id']
 
         yield document_name, document_id, text, metadata
@@ -19,12 +18,12 @@ def get_document_stream(prepped_source_path, document_index):
 
 def get_textacy_corpus(corpus_path, index_path):
 
-    document_index = pd.read_csv(index_path, sep=';', header=0)
-    stream = get_document_stream(corpus_path, document_index)
-    nlp = textacy_utility.setup_nlp_language_model('en', disable=('ner',))
-    corpus = textacy_utility.create_textacy_corpus(stream, nlp)
+    documents = pd.read_csv(index_path, sep=';', header=0)
+    stream = get_document_stream(corpus_path, documents)
+    nlp = textacy_utility.create_nlp('en', disable=('ner',))
+    corpus = textacy_utility.create_corpus(stream, nlp)
 
-    return corpus, document_index
+    return corpus, documents
 
 
 def infrequent_words(corpus, normalize="lemma", weighting="count", threshold=0, as_strings=False):
@@ -34,16 +33,18 @@ def infrequent_words(corpus, normalize="lemma", weighting="count", threshold=0, 
         return set([])
 
     word_counts = corpus.word_counts(normalize=normalize, weighting=weighting, as_strings=as_strings)
-    words = set([w for w in word_counts if word_counts[w] < threshold])
+    words = {w for w in word_counts if word_counts[w] < threshold}
 
     return words
 
 
 def frequent_document_words(corpus, normalize="lemma", weighting="freq", dfs_threshold=80, as_strings=True):
     """Returns set of words that occurrs freuently in many documents, candidate stopwords"""
-    document_freqs = corpus.word_doc_counts(normalize=normalize, weighting=weighting, smooth_idf=True, as_strings=True)
-    frequent_document_words = {w for w, f in document_freqs.items() if int(round(f, 2) * 100) >= dfs_threshold}
-    return frequent_document_words
+    document_freqs = corpus.word_doc_counts(
+        normalize=normalize, weighting=weighting, smooth_idf=True, as_strings=as_strings
+    )
+    frequent_words = {w for w, f in document_freqs.items() if int(round(f, 2) * 100) >= dfs_threshold}
+    return frequent_words
 
 
 def extract_document_terms(doc, extract_args):

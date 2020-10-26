@@ -1,8 +1,10 @@
 import glob
 import os
 import types
+from typing import Any, Dict, Tuple
 
 import ipywidgets as widgets
+import pandas as pd
 import penelope.corpus.vectorized_corpus as vectorized_corpus
 from IPython.display import display
 from sklearn.feature_extraction.text import CountVectorizer
@@ -27,35 +29,30 @@ from notebooks.word_trends.word_trends_gui import display_gui as result_gui
 
 def vectorize_textacy_corpus(
     corpus,
-    document_index,
-    n_count,
-    n_top,
+    documents: pd.DataFrame,
+    n_count: int,
+    n_top: int,
     normalize_axis=None,
-    year_range=(1920, 2020),
-    extract_args=None,
+    year_range: Tuple[int, int] = (1920, 2020),
+    extract_args: Dict[str, Any] = None,
     vecargs=None,
 ):
 
     # FIXME: index column unesco_id
-    # extract fields
 
     document_stream = (
-        " ".join([w for w in doc])
-        for doc in corpus_tools.extract_corpus_terms(corpus, extract_args=(extract_args or {}))
+        " ".join(doc) for doc in corpus_tools.extract_corpus_terms(corpus, extract_args=(extract_args or {}))
     )
 
-    tokenizer = lambda x: x.split()
-
-    vectorizer = CountVectorizer(tokenizer=tokenizer, **(vecargs or {}))
+    vectorizer = CountVectorizer(tokenizer=lambda x: x.split(), **(vecargs or {}))
 
     bag_term_matrix = vectorizer.fit_transform(document_stream)
-    token2id = vectorizer.vocabulary_
 
-    x_corpus = vectorized_corpus.VectorizedCorpus(bag_term_matrix, token2id, document_index)
+    x_corpus = vectorized_corpus.VectorizedCorpus(bag_term_matrix, vectorizer.vocabulary_, documents)
 
     year_range = (
-        x_corpus.document_index.year.min(),
-        x_corpus.document_index.year.max(),
+        x_corpus.documents.year.min(),
+        x_corpus.documents.year.max(),
     )
     year_filter = lambda x: year_range[0] <= x["year"] <= year_range[1]
 
@@ -72,27 +69,27 @@ def display_gui(corpus_folder, container=None):
 
     year_range = [1920, 2020]
     POS_LIST = [
-        '',
-        'ADJ',
-        'ADP',
-        'ADV',
-        'AUX',
-        'CONJ',
-        'CCONJ',
-        'DET',
-        'INTJ',
-        'NOUN',
-        'NUM',
-        'PART',
-        'PRON',
-        'PROPN',
-        'PUNCT',
-        'SCONJ',
-        'SYM',
-        'VERB',
-        'X',
-        'EOL',
-        'SPACE',
+        "",
+        "ADJ",
+        "ADP",
+        "ADV",
+        "AUX",
+        "CONJ",
+        "CCONJ",
+        "DET",
+        "INTJ",
+        "NOUN",
+        "NUM",
+        "PART",
+        "PRON",
+        "PROPN",
+        "PUNCT",
+        "SCONJ",
+        "SYM",
+        "VERB",
+        "X",
+        "EOL",
+        "SPACE",
     ]
 
     normalize_options = {
@@ -153,21 +150,21 @@ def display_gui(corpus_folder, container=None):
             step=1,
             description="Min lenght:",
         ),
-        filter_stops=widgets.Checkbox(value=True, description='Filter stops', disabled=False, indent=False),
-        filter_punct=widgets.Checkbox(value=True, description='Filter puncts', disabled=False, indent=False),
-        filter_nums=widgets.Checkbox(value=True, description='Filter nums', disabled=False, indent=False),
+        filter_stops=widgets.Checkbox(value=True, description="Filter stops", disabled=False, indent=False),
+        filter_punct=widgets.Checkbox(value=True, description="Filter puncts", disabled=False, indent=False),
+        filter_nums=widgets.Checkbox(value=True, description="Filter nums", disabled=False, indent=False),
         include_pos=widgets.SelectMultiple(
             options=POS_LIST,
-            value=['ADJ', 'NOUN', 'VERB'],
+            value=["ADJ", "NOUN", "VERB"],
             # rows=10,
-            description='Include POS:',
+            description="Include POS:",
             disabled=False,
         ),
         exclude_pos=widgets.SelectMultiple(
             options=POS_LIST,
             value=[],
             # rows=10,
-            description='Exclude POS:',
+            description="Exclude POS:",
             disabled=False,
         ),
         # FIXME: lägg in dropdown för postaggar, multiselect (lista på all postaggar, default alla)
@@ -254,13 +251,20 @@ def display_gui(corpus_folder, container=None):
     )
 
     extra_args_widget = widgets.VBox(
-        [gui.normalize, gui.n_min_count, gui.n_top_count, gui.year_range, gui.min_length, gui.prepare]
+        [
+            gui.normalize,
+            gui.n_min_count,
+            gui.n_top_count,
+            gui.year_range,
+            gui.min_length,
+            gui.prepare,
+        ]
     )
 
     tab_widget = widgets.Tab()
     tab_widget.children = [corpus_widget, extra_args_widget, result_gui(container)]
-    tab_titles = ['1. Annotate', '2. Prepare', '3. Display']
-    [tab_widget.set_title(i, x) for i, x in enumerate(tab_titles)]
+    tab_titles = ["1. Annotate", "2. Prepare", "3. Display"]
+    _ = [tab_widget.set_title(i, x) for i, x in enumerate(tab_titles)]
 
     display(widgets.HBox([tab_widget, gui.output]))
 

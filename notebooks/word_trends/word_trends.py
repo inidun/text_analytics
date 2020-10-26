@@ -1,0 +1,64 @@
+# ---
+# jupyter:
+#   jupytext:
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.6.0
+#   kernelspec:
+#     display_name: Python 3
+#     language: python
+#     name: python3
+# ---
+
+# %% [markdown]
+# # Setup Notebook
+
+# %% tags=[] vscode={}
+# %load_ext autoreload
+# %autoreload 2
+
+import os
+import types
+
+import __paths__
+import bokeh.plotting
+import word_trends_textacy_corpus_gui as textacy_corpus_gui
+
+root_folder = os.path.join(os.getcwd().split('text_analytics')[0], 'text_analytics')
+corpus_folder = os.path.join(root_folder, 'data')
+bokeh.plotting.output_notebook(hide_banner=True)
+
+container = types.SimpleNamespace(
+    corpus=None, t_corpus=None, index=None, handle=None, data_source=None, data=None, figure=None
+)
+
+
+# %% [markdown]
+# ### Load and display corpus
+#
+#
+# The corpus was created with the following settings:
+#  - Tokens were converted to lower case.
+#  - Only tokens that contains at least one alphanumeric character (isalnum).
+#  - Accents are ot removed (deacc)
+#  - Min token length 2 (min_len)
+#  - Max length not set (max_len)
+#  - Numerals are removed (numerals, -N)
+#  - Symbols are removed (symbols, -S)
+#
+# Use the `vectorize_corpus` script to create a new corpus with different settings.
+#
+# The corpus is processed in the following ways when loaded:
+#
+#  - Exclude tokens having a total word count less than `Min count`
+#  - Include at most `Top count` most frequent words.
+#  - Group and sum up documents by year.
+#  - Normalize token distribution over years to 1.0
+#
+
+# %% tags=[]
+
+_ = textacy_corpus_gui.display_gui(corpus_folder, container=container)

@@ -1,9 +1,9 @@
-import os
 import glob
+import os
 import types
+
 import ipywidgets as widgets
 import penelope.corpus.vectorized_corpus as vectorized_corpus
-
 from IPython.display import display
 
 
@@ -20,7 +20,7 @@ def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_
 
         x_corpus = vectorized_corpus.VectorizedCorpus.load(corpus_tag, folder=corpus_folder)
 
-        year_range = (x_corpus.document_index.year.min(), x_corpus.document_index.year.max())
+        year_range = (x_corpus.documents.year.min(), x_corpus.documents.year.max())
         year_filter = lambda x: year_range[0] <= x['year'] <= year_range[1]
 
         x_corpus = x_corpus.filter(year_filter).group_by_year().slice_by_n_count(n_count).slice_by_n_top(n_top)
@@ -42,7 +42,7 @@ def display_gui(corpus_folder, container=None):
 
     if len(corpus_tags) == 0:
         print("Please install at least one vectorized corpus")
-        return
+        return None
 
     year_range = [1920, 2020]
     normalize_options = {'None': [], 'Over year': [0], 'Over word': [1], 'Over year and word': [0, 1]}
