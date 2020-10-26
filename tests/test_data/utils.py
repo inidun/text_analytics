@@ -1,7 +1,7 @@
 import os
 from typing import Callable
 
-import westac.corpus.iterators.text_tokenizer as text_tokenizer
+from penelope.corpus.readers import TextTokenizer
 
 TEST_CORPUS_FILENAME = './westac/tests/test_data/test_corpus.zip'
 
@@ -36,5 +36,5 @@ def create_text_tokenizer(
         tokenize=tokenize,
         filename_fields=filename_fields,
     )
-    reader = text_tokenizer.TextTokenizer(source_path, **kwargs)
+    reader = TextTokenizer(source_path, **kwargs)
     return reader

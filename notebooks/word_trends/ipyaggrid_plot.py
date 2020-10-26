@@ -1,5 +1,4 @@
 import pandas as pd
-
 from ipyaggrid import Grid
 
 
@@ -18,7 +17,7 @@ def default_column_defs(df):
     return column_defs
 
 
-def display(data, **kwargs):
+def display(data, **_):
 
     if isinstance(data, dict):
         df = pd.DataFrame(data=data)  # .set_index('year')
