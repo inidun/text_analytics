@@ -22,7 +22,7 @@ pandas = "*"
 spacy = "*"
 textacy = "*"
 wordcloud = "*"
-penelope = {path = "../../penelope"}
+humlab-penelope = {path = "../../penelope"}
 
 [tool.poetry.dev-dependencies]
 coverage = "*"
