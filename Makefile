@@ -2,10 +2,15 @@
 SHELL := /bin/bash
 SOURCE_FOLDERS=notebooks scripts tests
 
-init:
+init: tools
+	@poetry install
+
+version:
+	@echo $(shell grep "^version \= " pyproject.toml | sed "s/version = //" | sed "s/\"//g")
+
+tools:
 	@pip install --upgrade pip
 	@pip install poetry --upgrade
-	@poetry install
 
 build: penelope requirements.txt write_to_ipynb
 	@poetry build
@@ -13,17 +18,36 @@ build: penelope requirements.txt write_to_ipynb
 penelope:
 	@poetry update penelope
 
+release: bump.patch tag
+
+bump.patch:
+	@poetry run dephell project bump patch
+	@git add pyproject.toml
+	@git commit -m "Bump version patch"
+	@git push
+
+tag:
+	@git push
+	@git tag $(shell grep "^version \= " pyproject.toml | sed "s/version = //" | sed "s/\"//g") -a
+	@git push origin --tags
+
 test-coverage:
 	-poetry run coverage --rcfile=.coveragerc run -m pytest
 	-poetry run coveralls
 
 test: clean
+	@mkdir -p ./tests/output
 	@poetry run pytest --verbose --durations=0 \
 		--cov=notebooks \
 		--cov-report=term \
 		--cov-report=xml \
 		--cov-report=html \
 		tests
+	@rm -rf ./tests/output/*
+
+pytest:
+	@mkdir -p ./tests/output
+	@poetry run pytest --quiet tests
 
 pylint:
 	@poetry run pylint $(SOURCE_FOLDERS)
@@ -31,7 +55,7 @@ pylint:
 	# @poetry run mypy .
 
 pylint2:
-	@find $(SOURCE_FOLDERS) -type f -name "*.py" | grep -v .ipynb_checkpoints | xargs poetry run pylint --disable=W0511
+	@find $(SOURCE_FOLDERS) -type f -name "*.py" | grep -v .ipynb_checkpoints | xargs poetry run pylint --disable=W0511 | sort | uniq
 
 pylint2nb:
 	@find notebooks -type f -name "*.py" | grep -v .ipynb_checkpoints | xargs poetry run pylint --disable=W0511
@@ -42,23 +66,20 @@ flake8:
 
 lint: pylint flake8
 
-lint2file:
-	@poetry run flake8 --version
-	@poetry run flake8
-	# @poetry run pylint $(SOURCE_FOLDERS) | sort | uniq | grep -v "************* Module" > pylint.log
-
 format: clean black isort
 
 isort:
-	@poetry run isort $(SOURCE_FOLDERS)
+	@poetry run isort --profile black --float-to-top --line-length 120 --py 38 $(SOURCE_FOLDERS)
 
 yapf: clean
 	@poetry run yapf --version
 	@poetry run yapf --in-place --recursive $(SOURCE_FOLDERS)
 
-black:clean
+black: clean
 	@poetry run black --version
 	@poetry run black --line-length 120 --target-version py38 --skip-string-normalization $(SOURCE_FOLDERS)
+
+tidy: black isort
 
 clean:
 	@rm -rf .pytest_cache build dist .eggs *.egg-info
