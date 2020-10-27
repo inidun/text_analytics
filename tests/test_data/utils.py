@@ -1,7 +1,8 @@
 import os
-from typing import Callable
+from typing import Callable, Sequence
 
 from penelope.corpus.readers import TextTokenizer
+from penelope.utility import IndexOfSplitOrCallableOrRegExp
 
 TEST_CORPUS_FILENAME = './westac/tests/test_data/test_corpus.zip'
 
@@ -23,7 +24,7 @@ def create_text_tokenizer(
     fix_hyphenation=True,
     as_binary: bool = False,
     tokenize: Callable = None,
-    filename_fields=None,
+    filename_fields: Sequence[IndexOfSplitOrCallableOrRegExp] = None,
 ):
     kwargs = dict(
         transforms=transforms,
