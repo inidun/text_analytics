@@ -55,7 +55,7 @@ pylint:
 	# @poetry run mypy .
 
 pylint2:
-	@find $(SOURCE_FOLDERS) -type f -name "*.py" | grep -v .ipynb_checkpoints | xargs poetry run pylint --disable=W0511 | sort | uniq
+	@find $(SOURCE_FOLDERS) -type f -name "*.py" | grep -vE '.ipynb_checkpoints|deprecated' | xargs poetry run pylint -j 2 --disable=W0511 | sort | uniq
 
 pylint2nb:
 	@find notebooks -type f -name "*.py" | grep -v .ipynb_checkpoints | xargs poetry run pylint --disable=W0511
