@@ -21,40 +21,28 @@
 # %autoreload 2
 
 # %%
-
 import collections
 import os
 from typing import List
 
-import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
+# pylint: disable=wrong-import-order
+import __paths__
+
+# import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 import pandas as pd
-import paths
 import penelope.utility.utils as utility
 import penelope.vendor.textacy as textacy_utility
 import textacy
 from IPython.display import display
-from penelope.corpus import preprocess_text_corpus
-from penelope.corpus.readers import ZipTextIterator
+from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
+import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 
-ROOT_FOLDER = paths.ROOT_FOLDER
+ROOT_FOLDER = __paths__.ROOT_FOLDER
 CORPUS_FOLDER = os.path.join(ROOT_FOLDER, "data")
 
 
 # %% [markdown]
 # ## Prepare and load `SSI Legal Intruments` corpus
-
-
-def get_document_stream(prepped_source_path: str, documents: pd.DataFrame):
-
-    reader = ZipTextIterator(prepped_source_path)
-    documents = documents.set_index("filename")
-
-    for document_name, text in reader:
-
-        metadata = documents.loc[document_name].to_dict()
-        document_id = metadata["unesco_id"]
-
-        yield document_name, document_id, text, metadata
 
 
 def get_pos_statistics(doc):
@@ -102,41 +90,26 @@ def compute_corpus_statistics(
     return documents[columns]
 
 
-def load_corpus(source_path: str, documents: pd.DataFrame, lang="en"):
-
-    nlp = textacy_utility.create_nlp(lang, disable=("ner",))
-
-    prepped_source_path = utility.path_add_suffix(source_path, "_preprocessed")
-    textacy_corpus_path = textacy_utility.generate_corpus_filename(prepped_source_path, lang)
-
-    if not os.path.isfile(prepped_source_path):
-        preprocess_text_corpus(source_path, prepped_source_path)
-
-    textacy_corpus: textacy.Corpus = None
-    if not os.path.isfile(textacy_corpus_path):
-
-        stream = get_document_stream(prepped_source_path, documents)
-        textacy_corpus = textacy_utility.create_corpus(stream, nlp)
-        textacy_corpus.save(textacy_corpus_path)
-
-    else:
-        textacy_corpus = textacy_utility.load_corpus(textacy_corpus_path, nlp)
-
-    return textacy_corpus
-
-
 def display_corpus_statistics(
     corpus_folder: str,
     lang: str,
 ):
 
     source_path = os.path.join(corpus_folder, "legal_instrument_corpus.zip")
-
     documents = pd.read_csv(os.path.join(corpus_folder, "legal_instrument_index.csv"), sep=";", header=0)
+    filename_fields = ["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt']
 
-    textacy_corpus = load_corpus(source_path, documents, lang)
+    options = dict(filename=source_path, lang=lang, documents=documents, filename_fields=filename_fields)
+    tasks = [
+        PreprocessTask,
+        CreateTask,
+        SaveTask,
+        LoadTask,
+    ]
+    pipeline = TextacyCorpusPipeline(**options, tasks=tasks)
+    corpus = pipeline.process().corpus
 
-    corpus_stats: pd.DataFrame = compute_corpus_statistics(documents, textacy_corpus)
+    corpus_stats: pd.DataFrame = compute_corpus_statistics(documents, corpus)
 
     display(ipyaggrid_plot.simple_plot(corpus_stats))
 
