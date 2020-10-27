@@ -11,6 +11,7 @@ disable=pointless-string-statement,
         missing-function-docstring,
         invalid-name,
         line-too-long,
+        wrong-import-order,
         R0801
 
 [MISCELLANEOUS]
