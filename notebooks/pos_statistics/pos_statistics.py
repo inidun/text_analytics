@@ -21,22 +21,22 @@
 # %autoreload 2
 
 # %%
+
 import collections
 import os
-import sys
 from typing import List
 
-from penelope.vendor import textacy
-
-import __paths__
+import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 import pandas as pd
+import paths
 import penelope.utility.utils as utility
 import penelope.vendor.textacy as textacy_utility
+import textacy
 from IPython.display import display
+from penelope.corpus import preprocess_text_corpus
 from penelope.corpus.readers import ZipTextIterator
-import notebooks.word_trends.ipyaggrid_plot as ipyaggrid_plot
 
-ROOT_FOLDER = os.path.join(os.getcwd().split("text_analytics")[0], "text_analytics")
+ROOT_FOLDER = paths.ROOT_FOLDER
 CORPUS_FOLDER = os.path.join(ROOT_FOLDER, "data")
 
 
@@ -63,13 +63,13 @@ def get_pos_statistics(doc):
     pos_counts = dict(collections.Counter(pos_iter))
     stats = utility.extend(
         dict(document_id=doc.user_data["textacy"]["meta"]["document_id"]),
-        dict(POS_TO_COUNT),
+        dict(textacy_utility.POS_TO_COUNT),
         pos_counts,
     )
     return stats
 
 
-def add_corpus_metadata(corpus: textacy.corpus.Corpus, documents: pd.DataFrame) -> pd.DataFrame:
+def add_corpus_metadata(corpus: textacy.Corpus, documents: pd.DataFrame) -> pd.DataFrame:
 
     metadata = [get_pos_statistics(doc) for doc in corpus]
     df = pd.DataFrame(metadata).set_index("document_id")
@@ -81,7 +81,7 @@ def add_corpus_metadata(corpus: textacy.corpus.Corpus, documents: pd.DataFrame) 
 
 def compute_corpus_statistics(
     documents: pd.DataFrame,
-    textacy_corpus: textacy.corpus.Corpus,
+    textacy_corpus: textacy.Corpus,
     group_by_column: str = "year",
     include_pos: List[str] = None,
 ):
@@ -110,12 +110,13 @@ def load_corpus(source_path: str, documents: pd.DataFrame, lang="en"):
     textacy_corpus_path = textacy_utility.generate_corpus_filename(prepped_source_path, lang)
 
     if not os.path.isfile(prepped_source_path):
-        textacy_utility.preprocess_text(source_path, prepped_source_path)
+        preprocess_text_corpus(source_path, prepped_source_path)
 
+    textacy_corpus: textacy.Corpus = None
     if not os.path.isfile(textacy_corpus_path):
 
         stream = get_document_stream(prepped_source_path, documents)
-        textacy_corpus = textacy_utility.create_textacy_corpus(stream, nlp)
+        textacy_corpus = textacy_utility.create_corpus(stream, nlp)
         textacy_corpus.save(textacy_corpus_path)
 
     else:
@@ -138,7 +139,6 @@ def display_corpus_statistics(
     corpus_stats: pd.DataFrame = compute_corpus_statistics(documents, textacy_corpus)
 
     display(ipyaggrid_plot.simple_plot(corpus_stats))
-
 
 
 display_corpus_statistics(corpus_folder=CORPUS_FOLDER, lang="en")

@@ -1,5 +1,6 @@
 [MASTER]
 init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
+ignore-patterns=deprecated
 
 [MESSAGES CONTROL]
 #enable=
@@ -10,7 +11,12 @@ disable=pointless-string-statement,
         missing-function-docstring,
         invalid-name,
         line-too-long,
+        R0801
 
+[MISCELLANEOUS]
+
+notes=
+#notes=FIXME, XXX, TODO
 
 [BASIC]
 

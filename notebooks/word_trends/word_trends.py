@@ -19,15 +19,15 @@
 # %% tags=[] vscode={}
 # %load_ext autoreload
 # %autoreload 2
-
 import os
 import types
 
-import __paths__
 import bokeh.plotting
-import word_trends_textacy_corpus_gui as textacy_corpus_gui
+import paths
 
-root_folder = os.path.join(os.getcwd().split('text_analytics')[0], 'text_analytics')
+from . import word_trends_textacy_corpus_gui as textacy_corpus_gui
+
+root_folder = paths.ROOT_FOLDER
 corpus_folder = os.path.join(root_folder, 'data')
 bokeh.plotting.output_notebook(hide_banner=True)
 
