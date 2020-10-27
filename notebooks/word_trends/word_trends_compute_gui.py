@@ -4,15 +4,15 @@ import types
 from typing import Any, Dict, Tuple
 
 import ipywidgets as widgets
+import notebooks.word_trends.word_trends_output_gui as result_gui
 import pandas as pd
 import penelope.corpus.vectorized_corpus as vectorized_corpus
+import penelope.vendor.textacy as textacy_utility
 from IPython.display import display
+from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
 from sklearn.feature_extraction.text import CountVectorizer
 
-import notebooks.word_trends.corpus_tools as corpus_tools
-from notebooks.word_trends.word_trends_gui import display_gui as result_gui
-
-# python scripts/vectorize_corpus.py \
+# vectorize_corpus \
 #         --to-lower \
 #         --no-remove-accents \
 #         --min-length 2 \
@@ -38,10 +38,8 @@ def vectorize_textacy_corpus(
     vecargs=None,
 ):
 
-    # FIXME: index column unesco_id
-
     document_stream = (
-        " ".join(doc) for doc in corpus_tools.extract_corpus_terms(corpus, extract_args=(extract_args or {}))
+        " ".join(doc) for doc in textacy_utility.extract_corpus_terms(corpus, extract_args=(extract_args or {}))
     )
 
     vectorizer = CountVectorizer(tokenizer=lambda x: x.split(), **(vecargs or {}))
@@ -63,7 +61,7 @@ def vectorize_textacy_corpus(
     return x_corpus
 
 
-def display_gui(corpus_folder, container=None):
+def display_gui(corpus_folder, container=None, lang: str = 'en'):
 
     candidate_corpus_filenames = [os.path.basename(x) for x in glob.glob(os.path.join(corpus_folder, "*.zip"))]
 
@@ -174,7 +172,7 @@ def display_gui(corpus_folder, container=None):
         output=widgets.Output(layout=widgets.Layout(width="500px")),
     )
 
-    def load(*args):  # pylint: disable=unused-argument
+    def load(*_):
 
         gui.output.clear_output()
 
@@ -186,8 +184,22 @@ def display_gui(corpus_folder, container=None):
 
             corpus_filename = os.path.join(corpus_folder, gui.corpus_filename.value)
             index_filename = os.path.join(corpus_folder, "legal_instrument_index.csv")
+            filename_fields = ["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt']
 
-            container.t_corpus, container.index = corpus_tools.get_textacy_corpus(corpus_filename, index_filename)
+            documents = pd.read_csv(index_filename, sep=";", header=0)
+
+            options = dict(filename=corpus_filename, lang=lang, documents=documents, filename_fields=filename_fields)
+            tasks = [
+                PreprocessTask,
+                CreateTask,
+                SaveTask,
+                LoadTask,
+            ]
+
+            pipeline = TextacyCorpusPipeline(**options, tasks=tasks)
+
+            container.t_corpus = pipeline.process().corpus
+            container.index = documents
 
             gui.load.disabled = False
             gui.prepare.disabled = False
@@ -196,7 +208,7 @@ def display_gui(corpus_folder, container=None):
 
             print("Corpus loaded.")
 
-    def prepare(*args):  # pylint: disable=unused-argument
+    def prepare(*_):
 
         gui.output.clear_output()
 
@@ -262,7 +274,7 @@ def display_gui(corpus_folder, container=None):
     )
 
     tab_widget = widgets.Tab()
-    tab_widget.children = [corpus_widget, extra_args_widget, result_gui(container)]
+    tab_widget.children = [corpus_widget, extra_args_widget, result_gui.display_gui(container)]
     tab_titles = ["1. Annotate", "2. Prepare", "3. Display"]
     _ = [tab_widget.set_title(i, x) for i, x in enumerate(tab_titles)]
 

@@ -19,15 +19,17 @@
 # %% tags=[] vscode={}
 # %load_ext autoreload
 # %autoreload 2
+
+# pylint: disable=wrong-import-order, no-member
 import os
 import types
 
+import __paths__
 import bokeh.plotting
-import paths
 
-from . import word_trends_textacy_corpus_gui as textacy_corpus_gui
+from . import word_trends_compute_gui as word_trends_gui
 
-root_folder = paths.ROOT_FOLDER
+root_folder = __paths__.ROOT_FOLDER
 corpus_folder = os.path.join(root_folder, 'data')
 bokeh.plotting.output_notebook(hide_banner=True)
 
@@ -61,4 +63,4 @@ container = types.SimpleNamespace(
 
 # %% tags=[]
 
-_ = textacy_corpus_gui.display_gui(corpus_folder, container=container)
+_ = word_trends_gui.display_gui(corpus_folder, container=container)
