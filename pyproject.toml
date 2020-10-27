@@ -19,15 +19,88 @@ matplotlib = "*"
 memoization = "*"
 nltk = "*"
 pandas = "*"
-penelope = "*"
 spacy = "*"
 textacy = "*"
 wordcloud = "*"
+humlab-penelope = {path = "../../penelope"}
+pandocfilters = "==1.4.2"
 
 [tool.poetry.dev-dependencies]
+coverage = "*"
+dephell = "*"
+invoke = "*"
 jupytext = "*"
+nbstripout = "*"
 pre-commit = "*"
 pylint = "*"
 pytest = "*"
 rope = "*"
-yapf = "*"
+yapf = "^0.30.0"
+black = "^20.8b1"
+isort = "^5.5.4"
+flake8 = "^3.8.4"
+mypy = "^0.782"
+
+
+# [build-system]
+# requires = [
+#     "setuptools!=50.0",
+# ]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra",
+    "-q",
+    "-s",
+]
+log_cli = "False"
+testpaths = [
+    "tests",
+]
+python_files = "*_test.py"
+python_functions = "test_*"
+filterwarnings = [
+#   "ignore",
+  "ignore::_pytest.warning_types.PytestCollectionWarning"
+]
+
+[tool.dephell.main]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "poetry", path = "pyproject.toml"}
+
+[tool.black]
+line-length = 120
+target-version = ["py38"]
+skip-string-normalization = true
+# include = '\.pyi?$'
+exclude = '''
+(
+  \.git
+  | \.pypy_cache
+  | \.pytest_cache
+  | deprecated
+)
+'''
+
+[tool.isort]
+# https://github.com/timothycrosley/isort/wiki/isort-Settings
+profile = "black"
+line_length = 120
+py_version = "auto"
+float_to_top = true
+src_paths = [ "text_analytics", "tests" ]
+
+[tool.coverage]
+# https://github.com/nedbat/coveragepy
+
+    [tool.coverage.run]
+    source = ["penelope"]
+    branch = true
+    omit = ['']
+
+    [tool.coverage.report]
+    exclude_lines = [
+        "pragma: no cover",
+        "raise NotImplementedError"
+    ]

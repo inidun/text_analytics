@@ -9,22 +9,21 @@ env:
     global:
         - NLTK_DATA="$HOME/nltk_data"
         - PIP_CACHE_DIR=$HOME/.cache/pip
-        - PIPENV_CACHE_DIR=$HOME/.cache/pipenv
-        - PIPENV_IGNORE_VIRTUALENVS=1
+        - POETRY_CACHE_DIR=$HOME/.cache/pypoetry
 
 cache:
   directories:
     - $HOME/nltk_data
     - $PIP_CACHE_DIR
-    - $PIPENV_CACHE_DIR
+    - $POETRY_CACHE_DIR
 
 install:
-- pip install pipenv
-- pipenv install --dev --skip-lock
-- mkdir ./tests/output
-- travis_wait 30 pipenv run python -m nltk.downloader stopwords -d $HOME/nltk_data
-- travis_wait 30 pipenv run python -m nltk.downloader punkt -d $HOME/nltk_data
+- pip install poetry
+- poetry install
+- mkdir -p ./tests/output
+- travis_wait 30 poetry run python -m nltk.downloader stopwords -d $HOME/nltk_data
+- travis_wait 30 poetry run python -m nltk.downloader punkt -d $HOME/nltk_data
 
 script:
-- pipenv run python -m pytest
+- poetry run python -m pytest
 

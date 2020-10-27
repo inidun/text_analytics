@@ -1,12 +1,31 @@
+[MASTER]
+init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
+ignore-patterns=deprecated
+
 [MESSAGES CONTROL]
-
-# Enable the message, report, category or checker with the given id(s). You can
-# either give multiple identifier separated by comma (,) or put this option
-# multiple time.
 #enable=
+disable=pointless-string-statement,
+        global-statement,
+        missing-module-docstring,
+        missing-class-docstring,
+        missing-function-docstring,
+        invalid-name,
+        line-too-long,
+        R0801
 
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifier separated by comma (,) or put this option
-# multiple time (only on the command line, not in the configuration file where
-# it should appear only once).
-disable=pointless-string-statement,global-statement
+[MISCELLANEOUS]
+
+notes=
+#notes=FIXME, XXX, TODO
+
+[BASIC]
+
+argument-naming-style=snake_case
+attr-naming-style=snake_case
+
+[DESIGN]
+max-args=8
+
+[EXCEPTIONS]
+
+overgeneral-exceptions=BaseException
