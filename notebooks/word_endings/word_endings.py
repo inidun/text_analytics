@@ -17,11 +17,13 @@
 
 
 # %%
+
+import __paths__ # isort:skip
+
 import itertools
 import os
 from typing import Sequence
 
-import __paths__
 import pandas as pd
 import textacy
 from penelope.corpus import CorpusVectorizer, VectorizedCorpus

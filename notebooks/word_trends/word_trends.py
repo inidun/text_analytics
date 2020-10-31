@@ -20,11 +20,12 @@
 # %load_ext autoreload
 # %autoreload 2
 
+import __paths__ # isort:skip
+
 # pylint: disable=wrong-import-order, no-member
 import os
 import types
 
-import __paths__
 import bokeh.plotting
 
 from . import word_trends_compute_gui as word_trends_gui

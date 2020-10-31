@@ -21,12 +21,12 @@
 # %autoreload 2
 
 # %%
+
+import __paths__ # isort:skip
+
 import collections
 import os
 from typing import List
-
-# pylint: disable=wrong-import-order
-import __paths__
 
 # import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 import pandas as pd
@@ -35,7 +35,17 @@ import penelope.vendor.textacy as textacy_utility
 import textacy
 from IPython.display import display
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
+
 import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
+
+
+
+
+
+
+
+# pylint: disable=wrong-import-order
+
 
 ROOT_FOLDER = __paths__.ROOT_FOLDER
 CORPUS_FOLDER = os.path.join(ROOT_FOLDER, "data")
