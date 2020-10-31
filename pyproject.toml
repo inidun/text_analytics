@@ -89,13 +89,13 @@ profile = "black"
 line_length = 120
 py_version = "auto"
 float_to_top = true
-src_paths = [ "text_analytics", "tests" ]
+src_paths = [ "notebooks", "tests" ]
 
 [tool.coverage]
 # https://github.com/nedbat/coveragepy
 
     [tool.coverage.run]
-    source = ["penelope"]
+    source = ["notebooks"]
     branch = true
     omit = ['']
 
