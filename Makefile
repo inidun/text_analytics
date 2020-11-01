@@ -1,4 +1,4 @@
-.DEFAULT_GOAL=lint
+.DEFAULT_GOAL=start.lab
 SHELL := /bin/bash
 SOURCE_FOLDERS=notebooks scripts tests
 
@@ -95,13 +95,19 @@ clean_cache:
 update:
 	@poetry update
 
-labextension:
+lab.install:
 	@poetry run jupyter labextension install \
 		@jupyter-widgets/jupyterlab-manager \
 		@bokeh/jupyter_bokeh \
 		jupyter-matplotlib \
 		jupyterlab-jupytext \
 		ipyaggrid
+
+lab.build:
+	@poetry run jupyter lab build
+
+lab.start:
+	@poetry run jupyter lab . --no-browser
 
 requirements.txt: poetry.lock
 	@poetry export -f requirements.txt --output requirements.txt
@@ -139,9 +145,10 @@ unpair_ipynb:
 
 # The `sync` command updates paired file types based on latest timestamp
 sync_ipynb:
-	for ipynb_path in $(IPYNB_FILES) ; do \
-        poetry run jupytext --sync $$ipynb_path ;\
-	done
+	@echo "Syncing of py/ipynb is TURNED OFF. Only one-way write of PY to IPYNB is allowed"
+	# for ipynb_path in $(IPYNB_FILES) ; do \
+    #     poetry run jupytext --sync $$ipynb_path ;\
+	# done
 
 # Forces overwrite of ìpynb` using `--to notebook`
 write_to_ipynb:
@@ -165,5 +172,10 @@ nltk_download:
 
 .ONESHELL: pair_ipynb unpair_ipynb sync_ipynb update_ipynb
 
-.PHONY: init build format yapf black lint pylint pylint2 flake8 clean test test-coverage update labextension \
-	pair_ipynb unpair_ipynb sync_ipynb update_ipynb write_to_ipynb nltk_download spacy_download models
+.PHONY: init build clean update
+.PHONY: test test-coverage
+.PHONY: lint pylint pylint2 flake8
+.PHONY: format yapf black tidy
+.PHONY:	pair_ipynb unpair_ipynb sync_ipynb update_ipynb write_to_ipynb
+.PHONY: nltk_download spacy_download models
+.PHONY: lab.install lab.build lab.start
