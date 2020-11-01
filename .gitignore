@@ -34,7 +34,7 @@ clone
 archive
 lib
 whl
-
+htmlcov
 secrets/
 userlist
 .DS_Store
