@@ -7,7 +7,7 @@ import ipywidgets as widgets
 import notebooks.word_trends.word_trends_output_gui as result_gui
 import pandas as pd
 import penelope.corpus.vectorized_corpus as vectorized_corpus
-import penelope.vendor.textacy as textacy_utility
+from penelope.vendor.textacy import ExtractPipeline
 from IPython.display import display
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
 from sklearn.feature_extraction.text import CountVectorizer
@@ -25,6 +25,29 @@ from sklearn.feature_extraction.text import CountVectorizer
 #         --meta-field "year:_:3" \
 #         ./data/legal_instrument_corpus.txt.zip \
 #         ./data \
+POS_LIST = [
+    "",
+    "ADJ",
+    "ADP",
+    "ADV",
+    "AUX",
+    "CONJ",
+    "CCONJ",
+    "DET",
+    "INTJ",
+    "NOUN",
+    "NUM",
+    "PART",
+    "PRON",
+    "PROPN",
+    "PUNCT",
+    "SCONJ",
+    "SYM",
+    "VERB",
+    "X",
+    "EOL",
+    "SPACE",
+]
 
 
 def vectorize_textacy_corpus(
@@ -38,9 +61,10 @@ def vectorize_textacy_corpus(
     vecargs=None,
 ):
 
-    document_stream = (
-        " ".join(doc) for doc in textacy_utility.extract_corpus_terms(corpus, extract_args=(extract_args or {}))
-    )
+
+    target = extract_args.get("normalize", "lemma")
+
+    document_stream = ExtractPipeline.build(corpus, target).ingest(**extract_args).process()
 
     vectorizer = CountVectorizer(tokenizer=lambda x: x.split(), **(vecargs or {}))
 
@@ -66,29 +90,6 @@ def display_gui(corpus_folder, container=None, lang: str = 'en'):
     candidate_corpus_filenames = [os.path.basename(x) for x in glob.glob(os.path.join(corpus_folder, "*.zip"))]
 
     year_range = [1920, 2020]
-    POS_LIST = [
-        "",
-        "ADJ",
-        "ADP",
-        "ADV",
-        "AUX",
-        "CONJ",
-        "CCONJ",
-        "DET",
-        "INTJ",
-        "NOUN",
-        "NUM",
-        "PART",
-        "PRON",
-        "PROPN",
-        "PUNCT",
-        "SCONJ",
-        "SYM",
-        "VERB",
-        "X",
-        "EOL",
-        "SPACE",
-    ]
 
     normalize_options = {
         "None": [],
