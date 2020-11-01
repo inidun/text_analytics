@@ -20,15 +20,14 @@
 # %load_ext autoreload
 # %autoreload 2
 
-import __paths__ # isort:skip
+import __paths__  # isort:skip
 
 # pylint: disable=wrong-import-order, no-member
 import os
 import types
 
 import bokeh.plotting
-
-from . import word_trends_compute_gui as word_trends_gui
+import notebooks.word_trends.word_trends_compute_gui as word_trends_gui
 
 root_folder = __paths__.ROOT_FOLDER
 corpus_folder = os.path.join(root_folder, 'data')
@@ -65,3 +64,5 @@ container = types.SimpleNamespace(
 # %% tags=[]
 
 _ = word_trends_gui.display_gui(corpus_folder, container=container)
+
+# %%

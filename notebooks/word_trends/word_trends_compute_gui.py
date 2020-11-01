@@ -7,8 +7,8 @@ import ipywidgets as widgets
 import notebooks.word_trends.word_trends_output_gui as result_gui
 import pandas as pd
 import penelope.corpus.vectorized_corpus as vectorized_corpus
-from penelope.vendor.textacy import ExtractPipeline
 from IPython.display import display
+from penelope.vendor.textacy import ExtractPipeline
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -60,7 +60,6 @@ def vectorize_textacy_corpus(
     extract_args: Dict[str, Any] = None,
     vecargs=None,
 ):
-
 
     target = extract_args.get("normalize", "lemma")
 

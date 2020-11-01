@@ -22,27 +22,18 @@
 
 # %%
 
-import __paths__ # isort:skip
-
 import collections
 import os
 from typing import List
 
-# import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
+import __paths__
+import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 import pandas as pd
 import penelope.utility.utils as utility
 import penelope.vendor.textacy as textacy_utility
 import textacy
 from IPython.display import display
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
-
-import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
-
-
-
-
-
-
 
 # pylint: disable=wrong-import-order
 

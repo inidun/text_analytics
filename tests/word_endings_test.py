@@ -1,9 +1,8 @@
 import numpy as np
 import pytest
 import textacy
-
-from penelope.vendor import textacy as textacy_utility
 from penelope.corpus import CorpusVectorizer, VectorizedCorpus
+from penelope.vendor import textacy as textacy_utility
 
 
 @pytest.fixture(scope="module")
@@ -23,7 +22,7 @@ def mary_had_a_little_lamb_corpus() -> textacy.Corpus:
     return corpus
 
 
-def test_word_endings(mary_had_a_little_lamb_corpus):
+def test_word_endings(mary_had_a_little_lamb_corpus):  # pylint: disable=redefined-outer-name
 
     expected_matrix = np.matrix([[0, 0], [0, 0], [1, 0], [0, 1], [0, 0], [0, 0], [0, 0], [0, 0]])
 

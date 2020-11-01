@@ -18,7 +18,7 @@
 
 # %%
 
-import __paths__ # isort:skip
+import __paths__  # isort:skip
 
 import itertools
 import os
@@ -49,7 +49,7 @@ def load_corpus(filename, documents, filename_fields, lang="en"):
     return corpus
 
 
-def slice_by_word_ending(corpus: textacy.Corpus, word_endings: Sequence[str], documents: pd.DataFrame=None):
+def slice_by_word_ending(corpus: textacy.Corpus, word_endings: Sequence[str], documents: pd.DataFrame = None):
     """
     Add an ability to enter a number of specific word endings such as -ment, -tion and -sion.
     The system should finds all words having the specified endings, and displays the (optionally normalized)
@@ -60,8 +60,7 @@ def slice_by_word_ending(corpus: textacy.Corpus, word_endings: Sequence[str], do
 
     See Moretti, Pestre Bank Speek, page 89
     """
-    terms = ExtractPipeline(corpus, target=None)\
-            .min_character_filter(2).process()
+    terms = ExtractPipeline(corpus, target=None).min_character_filter(2).process()
 
     document_terms = itertools.zip_longest(documents.filename, terms)
 
@@ -77,33 +76,27 @@ def slice_by_word_ending(corpus: textacy.Corpus, word_endings: Sequence[str], do
 
     return w_corpus
 
-
 # %%
 
-documents = pd.read_csv(os.path.join(CORPUS_FOLDER, "legal_instrument_index.csv"), sep=";", header=0)
+ssi_documents = pd.read_csv(os.path.join(CORPUS_FOLDER, "legal_instrument_index.csv"), sep=";", header=0)
 
-corpus = load_corpus(
+ssi_corpus = load_corpus(
     filename=os.path.join(CORPUS_FOLDER, "legal_instrument_corpus.zip"),
-    documents=documents,
+    documents=ssi_documents,
     filename_fields=["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt'],
     lang="en",
 )
 
-# %%
+we_corpus = slice_by_word_ending(corpus=ssi_corpus, documents=ssi_documents, word_endings={"ment", "tion", "sion"})
 
-we_corpus = slice_by_word_ending(corpus=corpus, documents=documents, word_endings={"ment", "tion", "sion"})
-
-# %%
-we_corpus.data.shape
-# %%
-statement = we_corpus.data[:,we_corpus.token2id['statement']].todense().A1
+statement = we_corpus.data[:, we_corpus.token2id['statement']].todense().A1
 pd.DataFrame(data={'statement': statement}).plot()
 
 # %%
-we_corpus.data.sum(axis=0).toarray()
+print(we_corpus.data.sum(axis=0).toarray())
 # %%
 pd.DataFrame(we_corpus.data.sum(axis=0).A1).plot()
 
 # %%
-we_corpus.group_by_year()
+print(we_corpus.group_by_year())
 # %%

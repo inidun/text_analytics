@@ -18,7 +18,7 @@ def load_vectorized_corpus(corpus_folder, corpus_tag, n_count, n_top, normalize_
 
     try:
 
-        x_corpus = vectorized_corpus.VectorizedCorpus.load(corpus_tag, folder=corpus_folder)
+        x_corpus = vectorized_corpus.VectorizedCorpus.load(tag=corpus_tag, folder=corpus_folder)
 
         year_range = (x_corpus.documents.year.min(), x_corpus.documents.year.max())
         year_filter = lambda x: year_range[0] <= x['year'] <= year_range[1]

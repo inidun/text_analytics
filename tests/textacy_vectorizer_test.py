@@ -2,8 +2,6 @@ import numpy as np
 import penelope.vendor.textacy as textacy_utility
 import pytest
 import textacy
-
-from penelope.vendor import textacy as textacy_utility
 from penelope.corpus import CorpusVectorizer, VectorizedCorpus
 
 
@@ -24,7 +22,7 @@ def mary_had_a_little_lamb_corpus() -> textacy.Corpus:
     return corpus
 
 
-def test_vectorizer(mary_had_a_little_lamb_corpus: textacy.Corpus):
+def test_vectorizer(mary_had_a_little_lamb_corpus: textacy.Corpus):  # pylint: disable=redefined-outer-name
 
     expected_dtm = np.matrix(
         [
@@ -43,7 +41,7 @@ def test_vectorizer(mary_had_a_little_lamb_corpus: textacy.Corpus):
         textacy_utility.ExtractPipeline(mary_had_a_little_lamb_corpus, target='lemma')
         .pos(include_pos=('NOUN', 'PROPN'))
         .remove_stopwords(extra_stopwords=[])
-        .attributes_filter(filter_nums=True, filter_punct=True)
+        .ingest(filter_nums=True, filter_punct=True)
         .min_character_filter(2)
         .transform(transformer=lambda x: x.lower())
         .process()
