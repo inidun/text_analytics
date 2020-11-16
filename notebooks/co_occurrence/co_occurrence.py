@@ -16,13 +16,12 @@
 # ---
 
 # %%
-
-# %%
 import os
 import sys
 
 import glove
 from penelope.corpus.readers import TextTokenizer
+from penelope.corpus import TextTransformOpts
 
 root_folder = (lambda x: os.path.join(os.getcwd().split(x)[0], x))("text_analytics")
 sys.path.insert(0, root_folder)
@@ -34,9 +33,8 @@ corpus_path = os.path.join(corpus_folder, "legal_instrument_corpus_preprocessed.
 tokenizer = TextTokenizer(
     source=corpus_path,
     filename_pattern="*.txt",
-    fix_whitespaces=True,
-    fix_hyphenation=True,
     filename_fields=None,
+    text_transform_opts=TextTransformOpts(fix_whitespaces=True, fix_hyphenation=True),
 )
 
 reader = (tokens for _, tokens in tokenizer)
