@@ -2,6 +2,7 @@ import os
 from typing import Callable, Sequence
 
 from penelope.corpus.readers import TextTokenizer
+from penelope.corpus.readers.text_transformer import TextTransformOpts
 from penelope.utility import IndexOfSplitOrCallableOrRegExp
 
 TEST_CORPUS_FILENAME = './westac/tests/test_data/test_corpus.zip'
@@ -31,8 +32,9 @@ def create_text_tokenizer(
         chunk_size=chunk_size,
         filename_pattern=filename_pattern,
         filename_filter=filename_filter,
-        fix_whitespaces=fix_whitespaces,
-        fix_hyphenation=fix_hyphenation,
+        text_transform_opts=TextTransformOpts(
+            fix_whitespaces=fix_whitespaces, fix_hyphenation=fix_hyphenation
+        ),
         as_binary=as_binary,
         tokenize=tokenize,
         filename_fields=filename_fields,
