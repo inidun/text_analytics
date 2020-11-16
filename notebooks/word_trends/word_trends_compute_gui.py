@@ -1,16 +1,14 @@
 import glob
 import os
 import types
-from typing import Any, Dict, Tuple
 
 import ipywidgets as widgets
 import notebooks.word_trends.word_trends_output_gui as result_gui
 import pandas as pd
-import penelope.corpus.vectorized_corpus as vectorized_corpus
 from IPython.display import display
-from penelope.vendor.textacy import ExtractPipeline
+from penelope.vendor.textacy import vectorize_textacy_corpus
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
-from sklearn.feature_extraction.text import CountVectorizer
+
 
 # vectorize_corpus \
 #         --to-lower \
@@ -25,63 +23,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 #         --meta-field "year:_:3" \
 #         ./data/legal_instrument_corpus.txt.zip \
 #         ./data \
-POS_LIST = [
-    "",
-    "ADJ",
-    "ADP",
-    "ADV",
-    "AUX",
-    "CONJ",
-    "CCONJ",
-    "DET",
-    "INTJ",
-    "NOUN",
-    "NUM",
-    "PART",
-    "PRON",
-    "PROPN",
-    "PUNCT",
-    "SCONJ",
-    "SYM",
-    "VERB",
-    "X",
-    "EOL",
-    "SPACE",
-]
-
-
-def vectorize_textacy_corpus(
-    corpus,
-    documents: pd.DataFrame,
-    n_count: int,
-    n_top: int,
-    normalize_axis=None,
-    year_range: Tuple[int, int] = (1920, 2020),
-    extract_args: Dict[str, Any] = None,
-    vecargs=None,
-):
-
-    target = extract_args.get("normalize", "lemma")
-
-    document_stream = ExtractPipeline.build(corpus, target).ingest(**extract_args).process()
-
-    vectorizer = CountVectorizer(tokenizer=lambda x: x.split(), **(vecargs or {}))
-
-    bag_term_matrix = vectorizer.fit_transform(document_stream)
-
-    x_corpus = vectorized_corpus.VectorizedCorpus(bag_term_matrix, vectorizer.vocabulary_, documents)
-
-    year_range = (
-        x_corpus.documents.year.min(),
-        x_corpus.documents.year.max(),
-    )
-    year_filter = lambda x: year_range[0] <= x["year"] <= year_range[1]
-
-    x_corpus = x_corpus.filter(year_filter).group_by_year().slice_by_n_count(n_count).slice_by_n_top(n_top)
-
-    for axis in normalize_axis or []:
-        x_corpus = x_corpus.normalize(axis=axis, keep_magnitude=False)
-    return x_corpus
 
 
 def display_gui(corpus_folder, container=None, lang: str = 'en'):
