@@ -1,16 +1,31 @@
 [tool]
 [tool.poetry]
-name = "text_analytics"
+name = "humlab-inidun"
 version = "0.1.0"
-description = "INIDUN text text analysis"
+description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
+packages = [
+    { include = "notebooks" }
+]
+classifiers = [
+    'License :: OSI Approved :: Apache Software License',
+    'Operating System :: OS Independent',
+    'Topic :: Software Development',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://inidun.github.io"
+repository = "https://github.com/inidun/text_analytics"
+
 
 [tool.poetry.dependencies]
 bokeh = "*"
 click = "*"
 ftfy = "*"
 gensim = "*"
-glove-python-binary = "*"
 humlab-penelope = {path = "../../penelope"}
 ipyaggrid = "*"
 jupyter = "*"
@@ -24,6 +39,12 @@ python = "==3.8.5"
 spacy = "*"
 textacy = "*"
 wordcloud = "*"
+qgrid = "^1.3.1"
+ipyfilechooser = "^0.4.0"
+jupyter-bokeh = "^2.0.4"
+ipywidgets = "^7.5.1"
+tqdm = "^4.51.0"
+glove-python-binary = "^0.2.0"
 
 
 [tool.poetry.dev-dependencies]
@@ -48,22 +69,18 @@ pytest-cov = "^2.10.1"
 rope = "*"
 yapf = "^0.30.0"
 
-# [build-system]
-# requires = [
-#     "setuptools!=50.0",
-# ]
-
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = [
     "-ra",
     "-q",
-    "-s",
+    # "-s",
 ]
 log_cli = "False"
 testpaths = [
     "tests",
 ]
+norecursedirs = ['notebooks', '.git', 'data', 'output', 'deprecated', '__pycache__', 'tmp']
 python_files = "*_test.py"
 python_functions = "test_*"
 filterwarnings = [
@@ -85,6 +102,7 @@ exclude = '''
   \.git
   | \.pypy_cache
   | \.pytest_cache
+  | \.ipynb_checkpoints
   | deprecated
 )
 '''
@@ -111,3 +129,7 @@ known_first_party = [ "__paths__" ]
         "pragma: no cover",
         "raise NotImplementedError"
     ]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
