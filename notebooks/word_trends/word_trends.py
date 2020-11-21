@@ -22,47 +22,34 @@
 
 import __paths__  # isort:skip
 
+# %% [markdown]
+# ### Load and display corpus
+import importlib
+
 # pylint: disable=wrong-import-order, no-member
 import os
-import types
 
-import bokeh.plotting
-import notebooks.word_trends.word_trends_compute_gui as word_trends_gui
+import notebooks.word_trends.word_trends_compute_gui as vectorize_corpus_gui
+import penelope.notebook.vectorized_corpus_load_gui as load_corpus_gui
+from bokeh.plotting import output_notebook
+from penelope.notebook.word_trends import display_word_trends
 
 root_folder = __paths__.ROOT_FOLDER
 corpus_folder = os.path.join(root_folder, 'data')
-bokeh.plotting.output_notebook(hide_banner=True)
+output_notebook(hide_banner=True)
 
-container = types.SimpleNamespace(
-    corpus=None, t_corpus=None, index=None, handle=None, data_source=None, data=None, figure=None
+
+importlib.reload(vectorize_corpus_gui)
+
+filename_fields = ["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt']
+year_range = [1945, 2020]
+
+vectorize_corpus_gui.display_gui(
+    filename_fields=filename_fields,
+    corpus_folder=corpus_folder,
+    year_range=year_range,
+    display_callback=display_word_trends,
 )
 
-
-# %% [markdown]
-# ### Load and display corpus
-#
-#
-# The corpus was created with the following settings:
-#  - Tokens were converted to lower case.
-#  - Only tokens that contains at least one alphanumeric character (isalnum).
-#  - Accents are ot removed (deacc)
-#  - Min token length 2 (min_len)
-#  - Max length not set (max_len)
-#  - Numerals are removed (numerals, -N)
-#  - Symbols are removed (symbols, -S)
-#
-# Use the `vectorize_corpus` script to create a new corpus with different settings.
-#
-# The corpus is processed in the following ways when loaded:
-#
-#  - Exclude tokens having a total word count less than `Min count`
-#  - Include at most `Top count` most frequent words.
-#  - Group and sum up documents by year.
-#  - Normalize token distribution over years to 1.0
-#
-
-# %% tags=[]
-
-_ = word_trends_gui.display_gui(corpus_folder, container=container)
-
 # %%
+load_corpus_gui.display_gui(loaded_callback=display_word_trends)
