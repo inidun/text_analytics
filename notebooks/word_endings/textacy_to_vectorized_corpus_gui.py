@@ -5,8 +5,8 @@ import ipywidgets as widgets
 import pandas as pd
 import textacy
 from notebooks.word_endings.word_endings import CORPUS_FOLDER
-from penelope.utility import flatten
-from penelope.vendor.textacy import PoS_tag_groups, vectorize_textacy_corpus
+from penelope.utility import PoS_TAGS_SCHEMES, flatten
+from penelope.vendor.textacy import vectorize_textacy_corpus
 
 # from penelope.utility.utils import right_chop, getLogger
 
@@ -18,6 +18,8 @@ from penelope.vendor.textacy import PoS_tag_groups, vectorize_textacy_corpus
 def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callback: Callable):
     lw = lambda w: widgets.Layout(width=w)
 
+    pos_schema = PoS_TAGS_SCHEMES.Universal
+
     gui = types.SimpleNamespace(
         corpus_tag=widgets.Text(
             value='',
@@ -27,8 +29,8 @@ def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callb
             layout=lw('400px'),
         ),
         pos_includes=widgets.SelectMultiple(
-            options=PoS_tag_groups,
-            value=[PoS_tag_groups['Noun'], PoS_tag_groups['Verb']],
+            options=pos_schema.groups,
+            value=[pos_schema.groups['Noun'], pos_schema.groups['Verb']],
             rows=8,
             description='PoS',
             disabled=False,
@@ -37,12 +39,8 @@ def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callb
         count_threshold=widgets.IntSlider(
             description='Min Count', min=1, max=1000, step=1, value=1, layout=lw('400px')
         ),
-        lemmatize=widgets.ToggleButton(
-            value=True, description='Lemmatize', icon='check', layout=lw('140px')
-        ),
-        to_lowercase=widgets.ToggleButton(
-            value=True, description='To Lower', icon='check', layout=lw('140px')
-        ),
+        lemmatize=widgets.ToggleButton(value=True, description='Lemmatize', icon='check', layout=lw('140px')),
+        to_lowercase=widgets.ToggleButton(value=True, description='To Lower', icon='check', layout=lw('140px')),
         remove_stopwords=widgets.ToggleButton(value=True, description='No Stopwords', icon='check', layout=lw('140px')),
         button=widgets.Button(
             description='Load',
@@ -71,7 +69,7 @@ def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callb
                 documents,
                 n_count=gui.count_threshold.value,
                 n_top=None,
-                normalize_axis=[0,1],
+                normalize_axis=[0, 1],
                 year_range=(1920, 2020),
                 extract_args=dict(
                     normalize='lemma' if gui.lemmatize.value else None,
@@ -89,7 +87,12 @@ def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callb
             v_corpus.dump(CORPUS_FOLDER, gui.corpus_tag.value)
 
             if generated_callback is not None:
-                generated_callback(gui.output, corpus=v_corpus, corpus_folder=CORPUS_FOLDER, corpus_tag=gui.corpus_tag.value, )
+                generated_callback(
+                    gui.output,
+                    corpus=v_corpus,
+                    corpus_folder=CORPUS_FOLDER,
+                    corpus_tag=gui.corpus_tag.value,
+                )
 
             gui.button.disabled = False
 
@@ -112,4 +115,3 @@ def display_gui(corpus: textacy.Corpus, documents: pd.DataFrame, generated_callb
             gui.output,
         ]
     )
-
