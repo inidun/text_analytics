@@ -1,32 +1,49 @@
 [MASTER]
 init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
-ignore-patterns=deprecated
+jobs=0
 
 [MESSAGES CONTROL]
-#enable=
-disable=pointless-string-statement,
-        global-statement,
+
+disable=invalid-name,
         missing-module-docstring,
         missing-class-docstring,
         missing-function-docstring,
-        invalid-name,
         line-too-long,
-        wrong-import-order,
-        R0801
+        no-self-use,
+        pointless-string-statement,
+        global-statement,
+        c-extension-no-member,
+        too-few-public-methods,
+        logging-format-interpolation,
+        logging-fstring-interpolation,
+        consider-using-enumerate,
+        unnecessary-comprehension,
+        # misplaced-comparison-constant,
+        broad-except,
+        wrong-import-order
+
+
+[REPORTS]
+score=no
+
+[SPELLING]
+max-spelling-suggestions=4
+
+[VARIABLES]
+#callbacks=cb_,
+#          _cb
+
+[DESIGN]
+
+max-args=8
 
 [MISCELLANEOUS]
 
 notes=
 #notes=FIXME, XXX, TODO
 
-[BASIC]
-
-argument-naming-style=snake_case
-attr-naming-style=snake_case
-
-[DESIGN]
-max-args=8
-
 [EXCEPTIONS]
 
 overgeneral-exceptions=BaseException
+    #, Exception
+
