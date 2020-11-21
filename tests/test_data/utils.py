@@ -32,9 +32,7 @@ def create_text_tokenizer(
         chunk_size=chunk_size,
         filename_pattern=filename_pattern,
         filename_filter=filename_filter,
-        text_transform_opts=TextTransformOpts(
-            fix_whitespaces=fix_whitespaces, fix_hyphenation=fix_hyphenation
-        ),
+        text_transform_opts=TextTransformOpts(fix_whitespaces=fix_whitespaces, fix_hyphenation=fix_hyphenation),
         as_binary=as_binary,
         tokenize=tokenize,
         filename_fields=filename_fields,

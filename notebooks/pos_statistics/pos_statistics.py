@@ -17,10 +17,8 @@
 # # Setup notebook
 
 # %% tags=[]
-# %load_ext autoreload
-# %autoreload 2
 
-# %%
+# pylint: disable=wrong-import-order
 
 import collections
 import os
@@ -34,9 +32,6 @@ import penelope.vendor.textacy as textacy_utility
 import textacy
 from IPython.display import display
 from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
-
-# pylint: disable=wrong-import-order
-
 
 ROOT_FOLDER = __paths__.ROOT_FOLDER
 CORPUS_FOLDER = os.path.join(ROOT_FOLDER, "data")
