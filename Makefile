@@ -45,12 +45,15 @@ guard_clean_working_repository:
 		exit 65
 	fi
 
+wc:
+	@poetry run time find . -name '*.py' -type f -exec cat \{} \; | tqdm | wc -l
+
 version:
 	@echo $(shell grep "^version \= " pyproject.toml | sed "s/version = //" | sed "s/\"//g")
 
 tools:
-	@pip install --upgrade pip --quiet
-	@pip install poetry --upgrade --quiet
+	@poetry run pip install --upgrade pip --quiet
+	@poetry run pip install poetry --upgrade --quiet
 
 penelope-pypi:
 	@poetry remove humlab-penelope
@@ -216,6 +219,7 @@ gh-exists: ; @which gh > /dev/null
 .PHONY: data spacy_data nltk_data
 .PHONY: pair_ipynb unpair_ipynb sync_ipynb update_ipynb write_to_ipynb
 .PHONY: labextension
+.PHONY: wc
 
 help:
 	@echo "Higher level recepies: "
