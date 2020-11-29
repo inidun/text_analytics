@@ -8,7 +8,7 @@ def find_root_folder(x):
 
 root_folder = ''
 
-if os.environ.get("JUPYTER_IMAGE_SPEC", "") == "westac_lab":
+if os.environ.get("JUPYTER_IMAGE_SPEC", "") != "":
     root_folder = "/home/jovyan/work/text_analytics"
 else:
     root_folder = find_root_folder("text_analytics")
