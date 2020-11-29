@@ -26,7 +26,7 @@ bokeh = "*"
 click = "*"
 ftfy = "*"
 gensim = "*"
-humlab-penelope = {path = "../../penelope"}
+humlab-penelope = {path = "../../penelope", develop=true}
 ipyaggrid = "*"
 jupyter = "*"
 jupyterlab = "*"
