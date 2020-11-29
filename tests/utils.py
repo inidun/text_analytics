@@ -2,7 +2,9 @@ import os
 
 from penelope.corpus.readers import streamify_text_source
 
+
 TEST_CORPUS_FILENAME = './tests/test_data/test_corpus.zip'
+TEST_OUTPUT_FOLDER = './tests/output'
 
 if __file__ in globals():
     this_file = os.path.dirname(__file__)

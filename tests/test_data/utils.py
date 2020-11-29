@@ -19,20 +19,20 @@ if __file__ in globals():
 def create_text_tokenizer(
     source_path=TEST_CORPUS_FILENAME,
     # TextTransformOpts
-    fix_whitespaces: bool=False,
-    fix_hyphenation: bool=True,
-    extra_transforms: List[Callable]=None,
+    fix_whitespaces: bool = False,
+    fix_hyphenation: bool = True,
+    extra_transforms: List[Callable] = None,
     # TextReaderOpts
     as_binary: bool = False,
     filename_pattern: str = "*.txt",
     filename_filter: str = None,
     filename_fields: Sequence[IndexOfSplitOrCallableOrRegExp] = None,
-    filename_fields_key: str=None,
+    filename_fields_key: str = None,
     # TokenizeOpts:
     tokenize: Callable = None,
     chunk_size: int = None,
 ):
-    text_transform_opts = TextTransformOpts(
+    transform_opts = TextTransformOpts(
         fix_whitespaces=fix_whitespaces, fix_hyphenation=fix_hyphenation, extra_transforms=extra_transforms
     )
     reader_opts = TextReaderOpts(
@@ -45,9 +45,9 @@ def create_text_tokenizer(
 
     reader = TextTokenizer(
         source=source_path,
-        text_transform_opts=text_transform_opts,
+        transform_opts=transform_opts,
         reader_opts=reader_opts,
         chunk_size=chunk_size,
-        tokenize=tokenize
+        tokenize=tokenize,
     )
     return reader
