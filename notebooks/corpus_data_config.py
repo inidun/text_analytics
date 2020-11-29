@@ -1,6 +1,5 @@
 from penelope.corpus.readers import TextReaderOpts
-from penelope.pipeline import CorpusConfig, PipelinePayload, CorpusType
-
+from penelope.pipeline import CorpusConfig, CorpusType, PipelinePayload
 
 SSI = CorpusConfig(
     corpus_name='legal_instrument_unesco',

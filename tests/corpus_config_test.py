@@ -1,5 +1,5 @@
 from penelope.corpus.readers.interfaces import TextReaderOpts
-from penelope.pipeline import PipelinePayload, CorpusConfig
+from penelope.pipeline import CorpusConfig, PipelinePayload
 
 
 def test_corpus_config_set_folder():
