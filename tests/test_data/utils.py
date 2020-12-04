@@ -27,7 +27,7 @@ def create_text_tokenizer(
     filename_pattern: str = "*.txt",
     filename_filter: str = None,
     filename_fields: Sequence[IndexOfSplitOrCallableOrRegExp] = None,
-    filename_fields_key: str = None,
+    index_field: str = None,
     # TokenizeOpts:
     tokenize: Callable = None,
     chunk_size: int = None,
@@ -39,7 +39,7 @@ def create_text_tokenizer(
         filename_pattern=filename_pattern,
         filename_filter=filename_filter,
         filename_fields=filename_fields,
-        filename_fields_key=filename_fields_key,
+        index_field=index_field,
         as_binary=as_binary,
     )
 
