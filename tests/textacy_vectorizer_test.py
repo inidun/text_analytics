@@ -50,7 +50,7 @@ def test_vectorizer(mary_had_a_little_lamb_corpus: textacy.Corpus):  # pylint: d
     document_terms = ((f'document_{i}.txt', tokens) for i, tokens in enumerate(terms))
     vectorizer = CorpusVectorizer()
 
-    v_corpus: VectorizedCorpus = vectorizer.fit_transform(document_terms, tokenizer=None)
+    v_corpus: VectorizedCorpus = vectorizer.fit_transform(document_terms, already_tokenized=True)
 
     assert v_corpus is not None
 
