@@ -11,7 +11,7 @@ build: penelope-pypi requirements.txt write_to_ipynb
 	@poetry build
 	@echo "Penelope, requirements and ipynb files is now up-to-date"
 
-lint: pylint flake8
+lint: tidy pylint flake8
 
 tidy: black isort
 
