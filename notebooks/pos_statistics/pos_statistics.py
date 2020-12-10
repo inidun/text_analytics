@@ -23,15 +23,11 @@ from typing import Iterable, List
 
 import numpy as np
 import pandas as pd
-import penelope.vendor.textacy as textacy_utility
-import spacy
 from IPython.display import display
-from penelope.corpus.readers.text_reader import TextReaderOpts
-from penelope.corpus.readers.text_transformer import TextTransformOpts
-from penelope.vendor.spacy.pipeline import PipelinePayload, SpacyPipeline
+from penelope.corpus.readers import TextReaderOpts, TextTransformOpts
+from penelope.pipeline import PipelinePayload, SpacyPipeline
 
 import __paths__
-import notebooks.common.ipyaggrid_plot as ipyaggrid_plot
 
 CORPUS_FOLDER = os.path.join(__paths__.ROOT_FOLDER, "data")
 
@@ -40,6 +36,25 @@ CORPUS_FOLDER = os.path.join(__paths__.ROOT_FOLDER, "data")
 # # ## Prepare and load SSI Legal Intruments corpus
 
 # %% tags=[]
+
+POS_TO_COUNT = {
+    'SYM': 0,
+    'PART': 0,
+    'ADV': 0,
+    'NOUN': 0,
+    'CCONJ': 0,
+    'ADJ': 0,
+    'DET': 0,
+    'ADP': 0,
+    'INTJ': 0,
+    'VERB': 0,
+    'NUM': 0,
+    'PRON': 0,
+    'PROPN': 0,
+}
+
+POS_NAMES = list(sorted(POS_TO_COUNT.keys()))
+
 
 def compute_corpus_statistics(
     document_index: pd.DataFrame,
@@ -63,7 +78,7 @@ def compute_corpus_statistics(
         .reset_index()
     )
 
-    value_columns = list(textacy_utility.POS_NAMES) if (len(include_pos or [])) == 0 else list(include_pos)
+    value_columns = list(POS_NAMES) if (len(include_pos or [])) == 0 else list(include_pos)
 
     datuma["lustrum"] = (datuma.year - datuma.year.mod(5)).astype(int)
     datuma["decade"] = (datuma.year - datuma.year.mod(10)).astype(int)
@@ -92,33 +107,27 @@ def display_corpus_statistics(
 
     filename_fields = ["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt']
 
-    nlp = spacy.load("en_core_web_sm")
     reader_opts = TextReaderOpts(filename_pattern="*.txt", filename_fields=filename_fields)
     transform_opts = TextTransformOpts()
     payload = PipelinePayload(source=source_path, document_index=document_index)
 
     df_docs = (
         SpacyPipeline(payload=payload)
-        .load(reader_opts=reader_opts, transform_opts=transform_opts)
-        .text_to_spacy(nlp=nlp)
+        .load_text(reader_opts=reader_opts, transform_opts=transform_opts)
+        .set_spacy_model("en_core_web_sm")
+        .text_to_spacy()
         .passthrough()
-        .spacy_to_pos_dataframe(nlp=nlp)
-        .checkpoint_dataframe(os.path.join(CORPUS_FOLDER, "ssi_pos_csv.zip"))
+        .spacy_to_pos_tagged_frame()
+        .checkpoint(os.path.join(CORPUS_FOLDER, "ssi_pos_csv.zip"))
         .to_content()
     ).resolve()
 
-    # df_docs = (
-    #     SpacyPipeline(payload=payload)
-    #     .laod_dataframe("hej.zip")
-    #     .tqdm()
-    #     .to_content()
-    # ).resolve()
-
-    # display(ipyaggrid_plot.simple_plot(corpus_stats))
-
-    datuma: pd.DataFrame = compute_corpus_statistics(document_index, df_docs=df_docs, group_by_column="lustrum", include_pos=None)
+    datuma: pd.DataFrame = compute_corpus_statistics(
+        document_index, df_docs=df_docs, group_by_column="lustrum", include_pos=None
+    )
 
     display(datuma)
+
 
 display_corpus_statistics(CORPUS_FOLDER, lang="en")
 
