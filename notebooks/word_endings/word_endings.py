@@ -15,88 +15,69 @@
 #     name: 'Python 3.8.5 64-bit (''text-analytics-symNAVlf-py3.8'': venv)'
 # ---
 
-
 # %%
+# %load_ext autoreload
+# %autoreload 2
 
-import __paths__  # isort:skip
-
-import itertools
 import os
-from typing import Sequence
+from dataclasses import dataclass
 
-import pandas as pd
-import textacy
-from penelope.corpus import CorpusVectorizer, VectorizedCorpus
-from penelope.vendor.textacy.extract import ExtractPipeline
-from penelope.vendor.textacy.pipeline import CreateTask, LoadTask, PreprocessTask, SaveTask, TextacyCorpusPipeline
+import penelope.notebook.vectorized_corpus_load_gui as load_corpus_gui
+import penelope.notebook.word_trends as word_trends
+from bokeh.plotting import output_notebook
+from IPython.core.display import display
+from penelope.corpus import VectorizedCorpus
+from penelope.pipeline import CorpusConfig
 
-CORPUS_FOLDER = os.path.join(__paths__.ROOT_FOLDER, "data")
+import __paths__
+from notebooks.corpus_data_config import SSI
 
-# %%
+data_folder = os.path.join(__paths__.ROOT_FOLDER, "data")
 
-
-def load_corpus(filename, documents, filename_fields, lang="en"):
-
-    options = dict(filename=filename, lang=lang, documents=documents, filename_fields=filename_fields)
-    tasks = [
-        PreprocessTask,
-        CreateTask,
-        SaveTask,
-        LoadTask,
-    ]
-    pipeline = TextacyCorpusPipeline(**options, tasks=tasks)
-    corpus = pipeline.process().corpus
-    return corpus
+output_notebook()
 
 
-def slice_by_word_ending(corpus: textacy.Corpus, word_endings: Sequence[str], documents: pd.DataFrame = None):
-    """
-    Add an ability to enter a number of specific word endings such as -ment, -tion and -sion.
-    The system should finds all words having the specified endings, and displays the (optionally normalized)
-    frequency list as a table, or bar chart. It should also be possible to export the list, and to a apply a
-    filter that excludes any number of words (in a text box).
+@dataclass
+class State:
+    word_trend_data: word_trends.WordTrendData = None
 
-    It should be possible to display the data grouped by document, year or user defined periods.
 
-    See Moretti, Pestre Bank Speek, page 89
-    """
-    terms = ExtractPipeline(corpus, target=None).min_character_filter(2).process()
+ssi: CorpusConfig = SSI(corpus_folder=__paths__.data_folder)
+state = State(word_trend_data=word_trends.WordTrendData())
 
-    document_terms = itertools.zip_longest(documents.filename, terms)
 
-    vectorizer = CorpusVectorizer()
-    v_corpus: VectorizedCorpus = vectorizer.fit_transform(document_terms, documents=documents, tokenizer=None)
-    v_corpus = v_corpus.normalize(axis=1)
+def corpus_loaded_callback(
+    corpus: VectorizedCorpus, corpus_tag: str, corpus_folder: str
+):  # pylint: disable=unused-argument
+    global state
+    print("Corpus succesfully vectorized!")
+    print("Generating trend data!")
+    state.word_trend_data.update(
+        corpus=corpus.group_by_year(),
+        corpus_folder=corpus_folder,
+        corpus_tag=corpus_tag,
+        n_count=1000,
+    )
+    print("Data successfully created!")
 
-    vocabulary = list(v_corpus.token2id.keys())
-
-    candidates = {x for x in vocabulary if any(x.endswith(word_ending) for word_ending in word_endings)}
-
-    w_corpus = v_corpus.slice_by(lambda w: w in candidates)
-
-    return w_corpus
 
 # %%
 
-ssi_documents = pd.read_csv(os.path.join(CORPUS_FOLDER, "legal_instrument_index.csv"), sep=";", header=0)
-
-ssi_corpus = load_corpus(
-    filename=os.path.join(CORPUS_FOLDER, "legal_instrument_corpus.zip"),
-    documents=ssi_documents,
-    filename_fields=["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt'],
-    lang="en",
+gui_load = load_corpus_gui.display_gui(
+    corpus_folder=__paths__.data_folder,
+    loaded_callback=corpus_loaded_callback,
 )
 
-we_corpus = slice_by_word_ending(corpus=ssi_corpus, documents=ssi_documents, word_endings={"ment", "tion", "sion"})
-
-statement = we_corpus.data[:, we_corpus.token2id['statement']].todense().A1
-pd.DataFrame(data={'statement': statement}).plot()
+display(gui_load.layout())
 
 # %%
-print(we_corpus.data.sum(axis=0).toarray())
-# %%
-pd.DataFrame(we_corpus.data.sum(axis=0).A1).plot()
 
-# %%
-print(we_corpus.group_by_year())
+gui_trends = word_trends.create_gui(
+    corpus=state.word_trend_data.corpus,
+    corpus_folder=state.word_trend_data.corpus_folder,
+    corpus_tag=state.word_trend_data.corpus_tag,
+    word_trend_data=state.word_trend_data,
+)
+display(gui_trends.layout())
+
 # %%
