@@ -95,6 +95,7 @@ RUN jupyter labextension install \
          @jupyter-widgets/jupyterlab-manager \
          jupyter-matplotlib@0.7.2 \
          @bokeh/jupyter_bokeh@2.0.2 \
+        @jupyter-widgets/jupyterlab-sidecar \
          @jupyterlab/toc \
          @jupyterlab/google-drive \
          jupyter-cytoscape
