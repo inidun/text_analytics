@@ -7,13 +7,12 @@ import ipyfilechooser
 import pandas as pd
 import pytest
 from penelope.corpus import TokensTransformOpts, VectorizedCorpus, VectorizeOpts
-from penelope.corpus.readers import ExtractTaggedTokensOpts, TaggedTokensFilterOpts, TextReaderOpts, TextTransformOpts
+from penelope.corpus.readers import ExtractTaggedTokensOpts, TaggedTokensFilterOpts, TextTransformOpts
 from penelope.notebook.dtm.compute_DTM_pipeline import compute_document_term_matrix
 from penelope.notebook.utility import shorten_filechooser_label
-from penelope.pipeline import CorpusConfig, CorpusType, DocumentPayload, PipelinePayload, SpacyPipeline
+from penelope.pipeline import CorpusConfig, DocumentPayload, SpacyPipeline
+from penelope.pipeline.spacy.pipelines import spaCy_DTM_pipeline
 from sklearn.feature_extraction.text import CountVectorizer
-
-from notebooks.common.spacy_pipelines import spaCy_DTM_pipeline
 
 CORPUS_FOLDER = './tests/test_data'
 OUTPUT_FOLDER = './tests/output'
@@ -21,33 +20,23 @@ OUTPUT_FOLDER = './tests/output'
 # pylint: disable=redefined-outer-name
 
 
+def fake_config() -> CorpusConfig:
+    corpus_config: CorpusConfig = CorpusConfig.load('./tests/test_data/ssi_corpus_config.yaml').files(
+        source='./tests/test_data/legal_instrument_five_docs_test.zip',
+        index_source='./tests/test_data/legal_instrument_five_docs_test.csv',
+    )
+    return corpus_config
+
+
 @pytest.fixture(scope='module')
 def config():
-    return CorpusConfig(
-        corpus_name='legal_instrument_unesco',
-        corpus_type=CorpusType.Text,
-        text_reader_opts=TextReaderOpts(
-            filename_fields=["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt'],
-            index_field=None,
-            filename_filter=None,
-            filename_pattern="*.txt",
-            as_binary=False,
-        ),
-        pipeline_payload=PipelinePayload(
-            source=os.path.join(CORPUS_FOLDER, "legal_instrument_five_docs_test.zip"),
-            document_index_source=os.path.join(CORPUS_FOLDER, "legal_instrument_five_docs_test.csv"),
-            document_index_key=None,
-            document_index_sep=';',
-            pos_schema_name="Universal",
-            memory_store={'tagger': 'spaCy', 'spacy_model': "en_core_web_sm", 'nlp': None, 'lang': 'en,'},
-        ),
-    )
+    return fake_config()
 
 
 def test_corpus_config_set_folder(config: CorpusConfig):
 
     current_source = config.pipeline_payload.source
-    config.set_folder(CORPUS_FOLDER)
+    config.folder(CORPUS_FOLDER)
 
     assert config.pipeline_payload.source == os.path.join(CORPUS_FOLDER, current_source)
 
@@ -215,31 +204,6 @@ def test_pipeline_to_dtm_succeeds(config: CorpusConfig):
     assert len(corpus.token2id) == corpus.data.shape[1]
 
 
-@pytest.fixture
-def fake_config() -> CorpusConfig:
-    return CorpusConfig(
-        corpus_name='legal_instrument_unesco',
-        corpus_type=CorpusType.Text,
-        corpus_pattern="*.zip",
-        language='english',
-        text_reader_opts=TextReaderOpts(
-            filename_fields=["unesco_id:_:2", "year:_:3", r'city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt'],
-            index_field=None,  # Use filename as key
-            filename_filter=None,
-            filename_pattern="*.txt",
-            as_binary=False,
-        ),
-        pipeline_payload=PipelinePayload(
-            source="./tests/test_data/legal_instrument_five_docs_test.zip",
-            document_index_source="./tests/test_data/legal_instrument_five_docs_test.csv",
-            document_index_key=None,
-            document_index_sep=';',
-            pos_schema_name="Universal",
-            memory_store={'tagger': 'spaCy', 'spacy_model': "en_core_web_sm", 'nlp': None, 'lang': 'en,'},
-        ),
-    )
-
-
 class MockGUI:
     corpus_tag: str = "SSI-test"
     corpus_filename: str = "./tests/test_data/legal_instrument_five_docs_test.zip"
@@ -273,7 +237,7 @@ class MockGUI:
 
 
 # pylint: disable=too-many-locals
-def test_compute_document_term_matrix_when_persist_is_false(fake_config: CorpusConfig):
+def test_compute_document_term_matrix_when_persist_is_false(config: CorpusConfig):
 
     gui: MockGUI = MockGUI()
 
@@ -287,7 +251,7 @@ def test_compute_document_term_matrix_when_persist_is_false(fake_config: CorpusC
         options: Dict,
         output: Any,  # pylint: disable=unused-argument
     ):
-        nonlocal done_callback_is_called, done_corpus, fake_config
+        nonlocal done_callback_is_called, done_corpus, config
 
         assert corpus is not None
         assert corpus_tag == gui.corpus_tag
@@ -301,7 +265,7 @@ def test_compute_document_term_matrix_when_persist_is_false(fake_config: CorpusC
         corpus.dump(tag=gui.corpus_tag, folder=gui.corpus_folder)
 
     compute_document_term_matrix(
-        corpus_config=fake_config,
+        corpus_config=config,
         pipeline_factory=spaCy_DTM_pipeline,
         args=gui,
         persist=False,
