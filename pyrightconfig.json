@@ -1,0 +1,15 @@
+{
+    "include": [
+        "notebooks",
+        "tests"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "**/.pytest_cache",
+        "**/.ipynb_checkpoints",
+        "**/__init__.py",
+        "deprecated",
+        "data"
+    ]
+}
