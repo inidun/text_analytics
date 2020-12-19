@@ -187,6 +187,7 @@ labextension:
 	@poetry run jupyter labextension install \
 		@jupyter-widgets/jupyterlab-manager \
 		@bokeh/jupyter_bokeh \
+		@jupyter-widgets/jupyterlab-sidecar \
 		jupyter-matplotlib \
 		jupyterlab-jupytext \
 		ipyaggrid \
