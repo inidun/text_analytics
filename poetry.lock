@@ -1527,6 +1527,18 @@ pytz = ">=2017.2"
 test = ["pytest (>=4.0.2)", "pytest-xdist", "hypothesis (>=3.58)"]
 
 [[package]]
+name = "pandas-bokeh"
+version = "0.5.2"
+description = "Bokeh plotting backend for Pandas, GeoPandas & Pyspark"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+bokeh = ">=2.0"
+pandas = ">=0.22.0"
+
+[[package]]
 name = "pandocfilters"
 version = "1.4.2"
 description = "Utilities for writing pandoc filters in python"
@@ -2521,7 +2533,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.5"
-content-hash = "a5cb925da018e2fc2263adfbc3e5bdbec3b581a37a8f0e371151b02623bdc91d"
+content-hash = "b123ecbccd450edd1d67861b81890ec2885692319d33bcb2629ceafac168f754"
 
 [metadata.files]
 aiohttp = [
@@ -3445,6 +3457,10 @@ pandas = [
     {file = "pandas-1.1.4-cp39-cp39-win32.whl", hash = "sha256:09e0503758ad61afe81c9069505f8cb8c1e36ea8cc1e6826a95823ef5b327daf"},
     {file = "pandas-1.1.4-cp39-cp39-win_amd64.whl", hash = "sha256:0a11a6290ef3667575cbd4785a1b62d658c25a2fd70a5adedba32e156a8f1773"},
     {file = "pandas-1.1.4.tar.gz", hash = "sha256:a979d0404b135c63954dea79e6246c45dd45371a88631cdbb4877d844e6de3b6"},
+]
+pandas-bokeh = [
+    {file = "pandas-bokeh-0.5.2.tar.gz", hash = "sha256:5d5b26b9842996b7be5accefb152a01157644986ef9944a01e586a2393882dd4"},
+    {file = "pandas_bokeh-0.5.2-py2.py3-none-any.whl", hash = "sha256:dc01566321d5b2949cbf0ce0db47c1766f3c5af495ada23f865ba985e93153b8"},
 ]
 pandocfilters = [
     {file = "pandocfilters-1.4.2.tar.gz", hash = "sha256:b3dd70e169bb5449e6bc6ff96aea89c5eea8c5f6ab5e207fc2f521a2cf4a0da9"},
