@@ -1,6 +1,7 @@
 import os
 from dataclasses import dataclass
 from typing import Callable, List
+from bokeh.io import output_notebook
 
 import ipywidgets as widgets
 import pandas as pd
@@ -21,7 +22,7 @@ logger = getLogger("penelope")
 
 TOKEN_COUNT_GROUPINGS = ['decade', 'lustrum', 'year']
 
-
+debug_view=widgets.Output()
 # pylint: disable=too-many-instance-attributes
 @dataclass
 class TokenCountsGUI:
@@ -35,7 +36,7 @@ class TokenCountsGUI:
     document_index: pd.DataFrame = None
 
     _corpus_configs: widgets.Dropdown = widgets.Dropdown(
-        description='Corpus', options=['SSI'], value='SSI', layout=widgets.Layout(width="200px")
+        description='', options=['SSI'], value='SSI', layout={'width': '200px'}
     )
     _normalize: widgets.ToggleButton = widgets.ToggleButton(
         description="Normalize", icon='check', value=False, layout=widgets.Layout(width='140px')
@@ -48,14 +49,14 @@ class TokenCountsGUI:
         value='year',
         description='',
         disabled=False,
-        layout=widgets.Layout(width='75px'),
+        layout=widgets.Layout(width='90px'),
     )
     _status: widgets.Label = widgets.Label(layout=widgets.Layout(width='50%', border="0px transparent white"))
     _categories: widgets.SelectMultiple = widgets.SelectMultiple(
         options=[],
         value=[],
         rows=12,
-        layout=widgets.Layout(width='140px'),
+        layout=widgets.Layout(width='120px'),
     )
 
     _output = widgets.Output()
@@ -69,7 +70,7 @@ class TokenCountsGUI:
                     [
                         widgets.HTML("<b>PoS groups</b>"),
                         self._categories,
-                    ]
+                    ], layout={'width': '140px'}
                 ),
                 widgets.VBox(
                     [
@@ -85,11 +86,11 @@ class TokenCountsGUI:
                         widgets.HBox(
                             [
                                 self._tab,
-                            ]
+                            ], layout={'width': '98%'}
                         ),
-                    ]
+                    ], layout={'width': '98%'}
                 ),
-            ]
+            ], layout={'width': '98%'}
         )
 
     def _plot_counts(self, *_):
@@ -139,7 +140,7 @@ class TokenCountsGUI:
         self.display(corpus_config_name=self._corpus_configs.value)
 
     def display(self, *, corpus_config_name: str):
-
+        global debug_view
         corpus_config: CorpusConfig = self.load_corpus_config_callback(corpus_config_name)
         pos_schema = corpus_config.pos_schema
         self._categories.values = []
@@ -148,6 +149,7 @@ class TokenCountsGUI:
 
         self.document_index = self.load_document_index_callback(corpus_config)
 
+        debug_view.clear_output()
         self._output.clear_output()
 
         with self._output:
@@ -180,7 +182,7 @@ class TokenCountsGUI:
 
 DATA = None
 
-
+@debug_view.capture()
 def compute_token_count_data(args: TokenCountsGUI, document_index: pd.DataFrame) -> pd.DataFrame:
     global DATA
     if len(args.categories or []) > 0:
@@ -200,6 +202,7 @@ def compute_token_count_data(args: TokenCountsGUI, document_index: pd.DataFrame)
     return data.reset_index()
 
 
+@debug_view.capture()
 def load_corpus_config(corpus_config_name: str) -> pd.DataFrame:
     corpus_config: CorpusConfig = CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(
         __paths__.data_folder
@@ -207,6 +210,7 @@ def load_corpus_config(corpus_config_name: str) -> pd.DataFrame:
     return corpus_config
 
 
+@debug_view.capture()
 def load_document_index(corpus_config: CorpusConfig) -> pd.DataFrame:
 
     checkpoint_filename: str = path_add_suffix(corpus_config.pipeline_payload.source, '_pos_csv')
@@ -243,6 +247,7 @@ def create_token_count_gui(
     # pd.set_option('plotting.backend', 'pandas_bokeh')
     # pd.plotting.output_notebook()
     # pandas_bokeh.output_notebook()
+    output_notebook()
 
     gui = (
         TokenCountsGUI(
