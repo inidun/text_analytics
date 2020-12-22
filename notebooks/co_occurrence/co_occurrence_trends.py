@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.6.0
+#       jupytext_version: 1.7.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -15,60 +15,56 @@
 # ---
 
 # %% [markdown]
-# ## Concept Context Co-Occurrences Analysis
+# ### Overview
 
-# %% [markdown]
-# ### Setup notebook
+# This notebook implements a processing pipeline from computes word co-occurrences from plain text. The term-term co-occurrence matrix is transformed into a DTM corpus that has a vocabulary consisting of token-pairs. The co-occurring word trends can hence be xxplored using the ordinary word trends analysis tools.
+
+# For large corpora the processing time can be considerable and in such a case you
+# should consider using the CLI-version of the processing pipeline.
+
+# ### Text Processing Pipeline
+
+# | | Building block | Arguments | Description |
+# | -- | :------------- | :------------- | :------------- |
+# | ⚙ | <b>SetTagger</b>SpacyModel | 'en' | spaCy as PoS tagger
+# | 📜| <b>LoadText</b> | reader_opts, transform_opts | Text stream provider
+# | 🔎 | <b>Tqdm</b> | ⚪ | Progress indicator
+# | ⌛ | <b>Passthrough</b> | ⚪ | Passthrough
+# | 🔨 | Spacy<b>ToTaggedFrame</b> | spaCy tagger | PoS tagging
+# | 💾 | <b>Checkpoint</b> | checkpoint_filename | Checkpoint (tagged frames) to file
+# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_tagged_tokens_opts, filter_opts | Tokens extractor
+# | 🔨 | <b>TokensTransform</b> | tokens_transform_opts | Tokens transformer
+# | 🔨 | <b>Vocabulary</b> | ⚪ | Generate a token to integer ID mappin
+# | 🔨 | <b>ToDocumentContentTuple</b> | ⚪ | Protocol/API adapter
+# | 🔨 | <i>Partition</i> | ⚪ | Partition corpus into subsets based on predicate (year)
+# | 🔎 | <b>ToCoOccurrence</b> | ⚪ | Transform each partition to TTM matrices
+# | 🔨 | <i>ToCooFrame</i> | ⚪| Transform TTM into data frame with normalized values
+# | 💾 | <i>Checkpoint</i> | checkpoint_filename| Store co-occurrence data frame
+# | 🔨 | <b>ToDTM</b> | vectorize_opts| Transform data frame into DTM
+# | 💾 | <b>Checkpoint</b> | checkpoint_filename| Checkpoint (DTM) to file
+
+
+# ### How the co-occurrence counts are computed
+
+# The co-occurrences are computed using a sliding window of size (D + 1 + D) that word by word moves through each document in the corpus, and keeps count of how many windows each pair of words co-occur in. Note that all windows will (currenty) always have an odd number of words, and the reason for this is the conditioned co-occurrence described below.
+
+# The computation is done by first creating a (streamed) windowed corpus, consisting of all windows. From this corpus a DTM (document-term-matrix) is created, giving counts for each word in each window. This DTM is then used to compute a TTM (term-term-matrix) simply by multiplying the DTM with a transposed version of itself.
+
+# Please note that the process of generating windows (currently) ignores sentences, paragraphs etc.
+
+# ### Concept co-occurence
+
+# The algorithm also allows for computing a conditioned co-occurrence, where the set of windows are constrained so that the center-most word must one of a number of specified (concept) words. This results in a set of co-occurrences that occur in close proximity (i.e. the max distance of D) of the center-most word.
+
 # %%
-# %load_ext autoreload
-# %autoreload 2
-# pylint: disable=too-many-instance-attributes, unused-argument
 
-import importlib
-import warnings
-
-import penelope.notebook.co_occurrence.load_co_occurrences_gui as load_gui
-import penelope.notebook.co_occurrence.to_co_occurrence_gui as compute_gui
 from bokeh.plotting import output_notebook
-from IPython.display import display
-from penelope.notebook.co_occurrence.compute_callback_pipeline import compute_co_occurrence
+from IPython.core.display import display
 
 import __paths__  # pylint: disable=unused-import
-from notebooks.corpus_data_config import SSI
-
-from .loaded_callback import loaded_callback
-
-warnings.filterwarnings("ignore", category=FutureWarning)
+from notebooks.co_occurrence import co_occurrence_gui
 
 output_notebook()
-corpus_folder = __paths__.root_folder
+display(co_occurrence_gui.create_gui(corpus_config_name="SSI"))
 
-# %% [markdown]
-# ### Generate new concept context co-co_occurrences
-# For long running tasks, please use the CLI `concept_co_occurrence` instead.
-# This function computes new concept context co-occurrence data and stores the result in a CSV file.
-# Optionally, the co-occurrence data can be transformed to a vectorized corpus to enable word trend exploration.
 # %%
-
-# corpus_folder: str,
-# corpus_config: CorpusConfig,
-# pipeline_factory: Callable[[], CorpusPipeline],
-# done_callback: Callable[[CorpusPipeline, VectorizedCorpus, str, str, widgets.Output], None],
-# compute_callback: Callable = compute_co_occurrence,
-
-importlib.reload(compute_gui)
-gui: compute_gui.GUI = compute_gui.create_gui(
-    corpus_folder=corpus_folder,
-    corpus_config=SSI(corpus_folder=corpus_folder),
-    pipeline_factory=None,
-    done_callback=loaded_callback,
-    compute_callback=compute_co_occurrence,
-)
-display(gui.layout())
-# %% [markdown]
-# ### Load saved concept context co-occurrences
-# %%
-lgu: load_gui.GUI = load_gui.create_gui(
-    data_folder=corpus_folder, filename_pattern="*co_occurrence.csv.zip", loaded_callback=loaded_callback
-)
-display(lgu.layout())
