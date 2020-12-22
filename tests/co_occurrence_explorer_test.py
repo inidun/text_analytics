@@ -3,7 +3,7 @@ from os.path import join as jj
 import ipywidgets as widgets
 from penelope.co_occurrence.convert import load_co_occurrences
 from penelope.corpus import VectorizedCorpus
-from penelope.notebook.word_trends.displayers._displayer import YearTokenDataMixin
+from penelope.notebook.word_trends.displayers._compile_mixins import CategoryDataMixin
 from penelope.utility.file_utility import read_json
 
 import notebooks.co_occurrence.co_occurrence_gui as co_occurrence_gui
@@ -88,7 +88,7 @@ def test_word_trends_year_token_data_mixin_compile():
     corpus = VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag).group_by_year()
 
     indices = [0, 1, 2, 3]
-    data = YearTokenDataMixin().compile(corpus, indices)
+    data = CategoryDataMixin().compile(corpus, indices)
 
     assert data is not None
 
