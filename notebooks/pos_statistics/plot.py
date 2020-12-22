@@ -41,12 +41,12 @@ def pchip_interpolate_frame(df: pd.DataFrame):
 
 #     return p
 
-def plot_by_bokeh(
-    *, data_source: pd.DataFrame, smooth: bool
-):
+
+def plot_by_bokeh(*, data_source: pd.DataFrame, smooth: bool):
     xticks = get_year_category_ticks(data_source.index.tolist())
     data_source = pchip_interpolate_frame(data_source).set_index('category') if smooth else data_source
     return plot_dataframe(data_frame=data_source, x_ticks=xticks, figopts=dict(plot_width=1000, plot_height=600))
+
 
 def plot_dataframe(
     *, data_frame: pd.DataFrame, x_ticks: Sequence[int] = None, smoother: Callable = None, figopts: dict = None
@@ -76,7 +76,7 @@ def plot_dataframe(
     data_source = data_frame_to_data_source(data=data_frame, smoother=smoother)
     p = bokeh.plotting.figure(**(figopts or {}))
 
-    #p.sizing_mode = 'scale_width'
+    # p.sizing_mode = 'scale_width'
     p.y_range.start = 0
     p.yaxis.axis_label = 'Frequency'
     p.toolbar.autohide = True
@@ -97,6 +97,6 @@ def plot_dataframe(
     p.legend.click_policy = "hide"
     p.legend.background_fill_alpha = 0.0
 
-    #bokeh.plotting.show(p)
+    # bokeh.plotting.show(p)
 
     return p

@@ -2,7 +2,6 @@ import os
 from dataclasses import dataclass
 from typing import Callable, List
 
-
 import ipywidgets as widgets
 import pandas as pd
 from penelope.notebook.ipyaggrid_utility import display_grid
@@ -11,8 +10,10 @@ from penelope.pipeline import CorpusConfig
 from penelope.pipeline.interfaces import PipelineError
 from penelope.pipeline.spacy.pipelines import spaCy_to_pos_tagged_frame_pipeline
 from penelope.utility import PoS_Tag_Scheme, getLogger, path_add_suffix
-from .plot import plot_by_bokeh as plot_dataframe
+
 import __paths__
+
+from .plot import plot_by_bokeh as plot_dataframe
 
 CORPUS_FOLDER = os.path.join(__paths__.ROOT_FOLDER, "data")
 
@@ -21,6 +22,7 @@ logger = getLogger("penelope")
 TOKEN_COUNT_GROUPINGS = ['decade', 'lustrum', 'year']
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass
 class TokenCountsGUI:
     """GUI component that displays word trends"""
@@ -160,10 +162,6 @@ class TokenCountsGUI:
         self.alert(f"<span style='color=red'>{msg}</span>")
 
     @property
-    def words(self):
-        return ' '.join(self._words.value.split()).split()
-
-    @property
     def smooth(self) -> bool:
         return self._smooth.value
 
@@ -185,7 +183,7 @@ DATA = None
 
 def compute_token_count_data(args: TokenCountsGUI, document_index: pd.DataFrame) -> pd.DataFrame:
     global DATA
-    if len(args.categories):
+    if len(args.categories or []) > 0:
         count_columns = list(args.categories)
     else:
         count_columns = [x for x in document_index.columns if x not in TOKEN_COUNT_GROUPINGS]
@@ -242,8 +240,8 @@ def create_token_count_gui(
     corpus_config_name: str,
 ):
 
-    pd.set_option('plotting.backend', 'pandas_bokeh')
-    pd.plotting.output_notebook()
+    # pd.set_option('plotting.backend', 'pandas_bokeh')
+    # pd.plotting.output_notebook()
     # pandas_bokeh.output_notebook()
 
     gui = (

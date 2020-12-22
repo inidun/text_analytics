@@ -12,6 +12,7 @@ import __paths__
 
 view = widgets.Output(layout={'border': '2px solid green'})
 
+
 @view.capture(clear_output=True)
 def corpus_loaded_callback(
     corpus: VectorizedCorpus,
