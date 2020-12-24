@@ -1,10 +1,8 @@
-from os.path import join as jj
-
 import ipywidgets as widgets
-from penelope.co_occurrence.convert import load_co_occurrences
+import penelope.co_occurrence as co_occurrence
 from penelope.corpus import VectorizedCorpus
 from penelope.notebook.word_trends.displayers._compile_mixins import CategoryDataMixin
-from penelope.utility.file_utility import read_json
+from penelope.utility import read_json, replace_extension
 
 import notebooks.co_occurrence.co_occurrence_gui as co_occurrence_gui
 
@@ -13,21 +11,18 @@ view = widgets.Output(layout={'border': '2px solid green'})
 
 def test_dispatch_co_occurrence_explorer():
 
-    corpus_folder = './tests/test_data/co_occurrence_bundle/'
-    corpus_tag = 'VENUS'
-    co_occurrences_filename = jj(corpus_folder, f"{corpus_tag}_co-occurrence.csv.zip")
-    options_filename = jj(corpus_folder, f"{corpus_tag}_co-occurrence.csv.json")
-    corpus = VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag)
-    co_occurrences = load_co_occurrences(co_occurrences_filename)
-    compute_options = read_json(options_filename)
-
-    gui = co_occurrence_gui.create_co_occurrence_explorer_gui(
-        corpus=corpus,
-        corpus_tag=corpus_tag,
+    corpus_folder, corpus_tag = './tests/test_data/VENUS/', 'VENUS'
+    co_occurrences_filename = co_occurrence.folder_and_tag_to_filename(folder=corpus_folder, tag=corpus_tag)
+    options_filename = replace_extension(co_occurrences_filename, '.json')
+    bundle = co_occurrence.Bundle(
         corpus_folder=corpus_folder,
-        co_occurrences=co_occurrences,
-        compute_options=compute_options,
+        co_occurrences_filename=co_occurrences_filename,
+        corpus_tag=corpus_tag,
+        co_occurrences=co_occurrence.load_co_occurrences(co_occurrences_filename),
+        corpus=VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag),
+        compute_options=read_json(options_filename),
     )
+    gui = co_occurrence_gui._create_co_occurrence_explorer_gui(bundle=bundle)  # pylint: disable=protected-access
 
     assert gui is not None
     assert gui.trends_data is not None
