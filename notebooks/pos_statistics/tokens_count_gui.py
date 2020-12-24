@@ -1,10 +1,10 @@
 import os
 from dataclasses import dataclass
 from typing import Callable, List
-from bokeh.io import output_notebook
 
 import ipywidgets as widgets
 import pandas as pd
+from bokeh.io import output_notebook
 from penelope.notebook.ipyaggrid_utility import display_grid
 from penelope.notebook.utility import OutputsTabExt
 from penelope.pipeline import CorpusConfig
@@ -22,7 +22,7 @@ logger = getLogger("penelope")
 
 TOKEN_COUNT_GROUPINGS = ['decade', 'lustrum', 'year']
 
-debug_view=widgets.Output()
+debug_view = widgets.Output()
 # pylint: disable=too-many-instance-attributes
 @dataclass
 class TokenCountsGUI:
@@ -61,7 +61,7 @@ class TokenCountsGUI:
 
     _output = widgets.Output()
 
-    _tab: OutputsTabExt = OutputsTabExt(["Table", "Plot"], layout={'width': '100%'})
+    _tab: OutputsTabExt = OutputsTabExt(["Table", "Plot"], layout={'width': '98%'})
 
     def layout(self) -> widgets.HBox:
         return widgets.HBox(
@@ -70,7 +70,8 @@ class TokenCountsGUI:
                     [
                         widgets.HTML("<b>PoS groups</b>"),
                         self._categories,
-                    ], layout={'width': '140px'}
+                    ],
+                    layout={'width': '140px'},
                 ),
                 widgets.VBox(
                     [
@@ -86,11 +87,14 @@ class TokenCountsGUI:
                         widgets.HBox(
                             [
                                 self._tab,
-                            ], layout={'width': '98%'}
+                            ],
+                            layout={'width': '98%'},
                         ),
-                    ], layout={'width': '98%'}
+                    ],
+                    layout={'width': '98%'},
                 ),
-            ], layout={'width': '98%'}
+            ],
+            layout={'width': '98%'},
         )
 
     def _plot_counts(self, *_):
@@ -181,6 +185,7 @@ class TokenCountsGUI:
 
 
 DATA = None
+
 
 @debug_view.capture()
 def compute_token_count_data(args: TokenCountsGUI, document_index: pd.DataFrame) -> pd.DataFrame:

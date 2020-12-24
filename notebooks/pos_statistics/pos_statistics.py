@@ -32,6 +32,7 @@
 
 # %% tags=[]
 from IPython.core.display import display
+
 import __paths__  # pylint: disable=unused-import
 import notebooks.pos_statistics.tokens_count_gui as tokens_count_gui
 
