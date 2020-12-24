@@ -63,7 +63,8 @@
 # | | Extra stopwords | Additional stopwords
 # | | Filename fields | Specifies attribute values to be extracted from filenames
 #
-# N.B. Note that PoS schema (e.g. SUC, Universal, ON5 Penn Treebank tag sets) and language must be set for each corpus. This, and other options, is specified in the _corpus configuration file_. For an example, please see _SSI.yaml_ inf the `resources` folder.
+# N.B. Note that PoS schema (e.g. SUC, Universal, ON5 Penn Treebank tag sets) and language must be set for each corpus.
+#  This, and other options, is specified in the _corpus configuration file_. For an example, please see _SSI.yaml_ inf the `resources` folder.
 #
 # #### Load a DTM corpus
 #
@@ -71,7 +72,18 @@
 #
 # #### Word trends
 #
-# Add words of interest and/or regular expressions in the text box. The system will automatically plot matching word - words not plotted does not exist in the (processed) corpus. The regular expressions must be surrounded by vertical bars `|`. To find words ending with `tion` you can enter `|.*tion$|` in the textbox. I might seem cryptical, but is a very powerful notation for searching words. The vertical bars is specified only so that the system can distinguish the regexp from "normal" words. The actual expression is `^.*tion$`. The dot and star`.*` matches any character (the dot) any number of times (the `*`). The dollar sign `$` indicates the word ending. So this expression matches all words that begins with any number of characters follwoed, by the character sequence `tion` at the end of the word. To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
+# Specifiy words of interest in the text box. You can use both wildcards and regular expressions to widen your search. The
+# words in the vocabulary that matches what you have specified will be listed in the selection box. Since using wildcards and regexps can result
+# in a large number of words, only the `Word count` matching most frequent words are displayed. Refine your search if you get to many matches.
+# The words will be plotted when they are selected. You can select and plot multiple words by pressing CTRL when selected, or using arrow keys.
+#
+# The regular expressions must be surrounded by vertical bars `|`. To find words ending with `tion`
+# you can enter `|.*tion$|` in the textbox. I might seem cryptical, but is a very powerful notation for searching words. The vertical
+# bars is specified only so that the system can distinguish the regexp from "normal" words. The actual expression is `^.*tion$`.
+# The dot and star`.*` matches any character (the dot) any number of times (the `*`). The dollar sign `$` indicates the word ending.
+# So this expression matches all words that begins with any number of characters follwoed, by the character sequence `tion` at the end of the word.
+# To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
+#
 #
 
 
