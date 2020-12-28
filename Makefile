@@ -49,7 +49,8 @@ wc:
 	@poetry run time find . -name '*.py' -type f -exec cat \{} \; | tqdm | wc -l
 
 version:
-	@echo $(shell grep "^version \= " pyproject.toml | sed "s/version = //" | sed "s/\"//g")
+	@poetry version
+	@poetry env info -p
 
 tools:
 	@poetry run pip install --upgrade pip --quiet
@@ -58,7 +59,8 @@ tools:
 penelope-pypi:
 	@poetry remove humlab-penelope
 	@poetry add humlab-penelope
-
+	
+.ONESHELL: penelope-edit-mode
 penelope-edit-mode:
 	@poetry install --develop ../../penelope
 
