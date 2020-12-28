@@ -1,32 +1,26 @@
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
-from penelope.corpus import VectorizedCorpus
-from penelope.notebook.word_trends.displayers._compile_mixins import CategoryDataMixin
-from penelope.utility import read_json, replace_extension
-
-import notebooks.co_occurrence.co_occurrence_gui as co_occurrence_gui
+import penelope.notebook.co_occurrence as explore_gui
 
 view = widgets.Output(layout={'border': '2px solid green'})
 
 
-def test_dispatch_co_occurrence_explorer():
+def test_create_co_occurrence_explorer_gui():
 
-    corpus_folder, corpus_tag = './tests/test_data/VENUS/', 'VENUS'
-    co_occurrences_filename = co_occurrence.folder_and_tag_to_filename(folder=corpus_folder, tag=corpus_tag)
-    options_filename = replace_extension(co_occurrences_filename, '.json')
-    bundle = co_occurrence.Bundle(
-        corpus_folder=corpus_folder,
-        co_occurrences_filename=co_occurrences_filename,
-        corpus_tag=corpus_tag,
-        co_occurrences=co_occurrence.load_co_occurrences(co_occurrences_filename),
-        corpus=VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag),
-        compute_options=read_json(options_filename),
-    )
-    gui = co_occurrence_gui._create_co_occurrence_explorer_gui(bundle=bundle)  # pylint: disable=protected-access
+    corpus_filename: str = './tests/test_data/VENUS/VENUS_co-occurrence.csv.zip'
+    bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
 
+    # create by function
+    gui = explore_gui.ExploreGUI()
     assert gui is not None
-    assert gui.trends_data is not None
-    assert gui.layout() is not None
+
+    # create by class
+    trends_data = co_occurrence.to_trends_data(bundle).update()
+    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(
+        trends_data=trends_data,
+    )
+
+    assert gui_explore is not None
 
 
 def generic_patch(return_value):
@@ -76,15 +70,15 @@ def generic_patch(return_value):
 #         fake_gui.layout.assert_called()
 
 
-def test_word_trends_year_token_data_mixin_compile():
+# def test_word_trends_year_token_data_mixin_compile():
 
-    corpus_folder = './data/CERES/'
-    corpus_tag = 'CERES'
-    corpus = VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag).group_by_year()
+#     corpus_folder = './data/CERES/'
+#     corpus_tag = 'CERES'
+#     corpus = VectorizedCorpus.load(folder=corpus_folder, tag=corpus_tag).group_by_year()
 
-    indices = [0, 1, 2, 3]
-    data = CategoryDataMixin().compile(corpus, indices)
+#     indices = [0, 1, 2, 3]
+#     data = CategoryDataMixin().compile(corpus, indices)
 
-    assert data is not None
+#     assert data is not None
 
-    assert len(corpus.xs_years()) == corpus.data.shape[0]
+#     assert len(corpus.xs_years()) == corpus.data.shape[0]

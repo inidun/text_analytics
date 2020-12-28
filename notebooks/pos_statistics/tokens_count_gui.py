@@ -24,6 +24,8 @@ TOKEN_COUNT_GROUPINGS = ['decade', 'lustrum', 'year']
 
 debug_view = widgets.Output()
 # pylint: disable=too-many-instance-attributes
+
+
 @dataclass
 class TokenCountsGUI:
     """GUI component that displays word trends"""

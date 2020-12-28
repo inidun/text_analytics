@@ -1,9 +1,8 @@
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
-import penelope.notebook.co_occurrence.explore_co_occurrence_gui as explore_gui
+import penelope.notebook.co_occurrence as explore_gui
 
 import __paths__
-from notebooks.co_occurrence import co_occurrence_gui
 
 CORPUS_FOLDER = __paths__.data_folder
 
@@ -17,7 +16,7 @@ def test_create_co_occurrence_explorer_gui():
     bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
 
     # create by function
-    gui = co_occurrence_gui._create_co_occurrence_explorer_gui(bundle)  # pylint: disable=protected-access
+    gui = explore_gui.ExploreGUI()
     assert gui is not None
 
     # create by class

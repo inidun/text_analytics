@@ -1,12 +1,10 @@
-from typing import Any, Mapping
+from dataclasses import dataclass
+from typing import Callable, Optional
 
 import ipywidgets as widgets
-import pandas as pd
-import penelope.notebook.co_occurrence.explore_co_occurrence_gui as explore_gui
-import penelope.notebook.co_occurrence.load_co_occurrences_gui as load_gui
-import penelope.notebook.co_occurrence.to_co_occurrence_gui as compute_gui
+import penelope.co_occurrence as co_occurrence
+import penelope.notebook.co_occurrence as co_occurrence_gui
 from IPython.core.display import display
-from penelope.corpus import VectorizedCorpus
 from penelope.notebook.co_occurrence.compute_callback_pipeline import compute_co_occurrence
 from penelope.notebook.word_trends.trends_data import TrendsData
 from penelope.pipeline import CorpusConfig
@@ -18,76 +16,96 @@ CORPUS_FOLDER = __paths__.data_folder
 view = widgets.Output(layout={'border': '2px solid green'})
 
 
-@view.capture(clear_output=True)
-def create_co_occurrence_explorer_gui(
-    corpus: VectorizedCorpus,
-    corpus_tag: str,
-    corpus_folder: str,
-    co_occurrences: pd.DataFrame,
-    compute_options: Mapping[str, Any],
-    **_,
-) -> explore_gui.ExploreCoOccurrencesGUI:
+def create(
+    data_folder: str,
+    filename_pattern: str = co_occurrence.CO_OCCURRENCE_FILENAME_PATTERN,
+    loaded_callback: Callable[[co_occurrence.Bundle], None] = None,
+) -> co_occurrence_gui.LoadGUI:
 
-    trends_data = (
-        TrendsData(
-            compute_options=compute_options,
-            corpus=corpus,
+    # @debug_view.capture(clear_output=True)
+    def load_callback(filename: str):
+        co_occurrence.load_bundle(filename, loaded_callback)
+
+    gui: co_occurrence_gui.LoadGUI = co_occurrence_gui.LoadGUI(default_path=data_folder).setup(
+        filename_pattern=filename_pattern, load_callback=load_callback
+    )
+    return gui
+
+
+@view.capture(clear_output=True)
+def compute_co_occurrence_callback(
+    corpus_config: CorpusConfig,
+    args: co_occurrence_gui.ComputeGUI,
+    partition_key: str,
+    done_callback: Callable,
+    checkpoint_file: Optional[str] = None,
+):
+    compute_co_occurrence(
+        corpus_config=corpus_config,
+        args=args,
+        partition_key=partition_key,
+        done_callback=done_callback,
+        checkpoint_file=checkpoint_file,
+    )
+
+
+@dataclass
+class MainGUI:
+    def __init__(
+        self,
+        corpus_config_name: str,
+        corpus_folder: str = __paths__.data_folder,
+    ) -> widgets.VBox:
+
+        self.trends_data: TrendsData = None
+        self.config = CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(corpus_folder)
+
+        self.gui_compute: co_occurrence_gui.ComputeGUI = co_occurrence_gui.ComputeGUI.create(
             corpus_folder=corpus_folder,
-            corpus_tag=corpus_tag,
-            n_count=25000,
+            corpus_config=self.config,
+            compute_callback=compute_co_occurrence_callback,
+            done_callback=self.display_explorer,
         )
-        .update()
-        .remember(co_occurrences=co_occurrences)
-    )
 
-    gui_explore: explore_gui.ExploreCoOccurrencesGUI = explore_gui.ExploreCoOccurrencesGUI(
-        trends_data=trends_data,
-    )
+        self.gui_load: co_occurrence_gui.LoadGUI = co_occurrence_gui.create_load_gui(
+            data_folder=corpus_folder,
+            filename_pattern=co_occurrence.CO_OCCURRENCE_FILENAME_PATTERN,
+            loaded_callback=self.display_explorer,
+        )
 
-    return gui_explore
+        self.gui_explore: co_occurrence_gui.ExploreGUI = None
 
+    def layout(self):
 
-@view.capture(clear_output=True)
-def dispatch_co_occurrence_explorer(*args, **kwargs):
-    gui = create_co_occurrence_explorer_gui(*args, **kwargs)
-    display(gui.layout())
+        accordion = widgets.Accordion(
+            children=[
+                widgets.VBox(
+                    [
+                        self.gui_load.layout(),
+                    ],
+                    layout={'border': '1px solid black', 'padding': '16px', 'margin': '4px'},
+                ),
+                widgets.VBox(
+                    [
+                        self.gui_compute.layout(),
+                    ],
+                    layout={'border': '1px solid black', 'padding': '16px', 'margin': '4px'},
+                ),
+            ]
+        )
 
+        accordion.set_title(0, "LOAD AN EXISTING CO-OCCURRENCE COMPUTATION")
+        accordion.set_title(1, '...OR COMPUTE A NEW CO-OCCURRENCE')
+        # accordion.set_title(2, '...OR LOAD AND EXPLORE A CO-OCCURRENCE DTM')
+        # accordion.set_title(3, '...OR COMPUTE OR DOWNLOAD CO-OCCURRENCES AS EXCEL')
 
-def create_gui(corpus_config_name: str, corpus_folder: str = __paths__.data_folder) -> widgets.VBox:
-    config = CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(corpus_folder)
-    gui_compute = compute_gui.create_gui(
-        corpus_folder=corpus_folder,
-        corpus_config=config,
-        compute_callback=compute_co_occurrence,
-        done_callback=dispatch_co_occurrence_explorer,
-    )
+        return widgets.VBox([accordion, view])
 
-    gui_load = load_gui.create_gui(
-        data_folder=corpus_folder,
-        filename_pattern="*co_occurrence.csv.zip",
-        loaded_callback=dispatch_co_occurrence_explorer,
-    )
+    @view.capture(clear_output=True)
+    def display_explorer(self, bundle: co_occurrence.Bundle):
 
-    accordion = widgets.Accordion(
-        children=[
-            widgets.VBox(
-                [
-                    gui_load.layout(),
-                ],
-                layout={'border': '1px solid black', 'padding': '16px', 'margin': '4px'},
-            ),
-            widgets.VBox(
-                [
-                    gui_compute.layout(),
-                ],
-                layout={'border': '1px solid black', 'padding': '16px', 'margin': '4px'},
-            ),
-        ]
-    )
+        self.trends_data = co_occurrence.to_trends_data(bundle).update()
 
-    accordion.set_title(0, "LOAD AN EXISTING CO-OCCURRENCE COMPUTATION")
-    accordion.set_title(1, '...OR COMPUTE A NEW CO-OCCURRENCE')
-    accordion.set_title(2, '...OR LOAD AND EXPLORE A CO-OCCURRENCE DTM')
-    accordion.set_title(3, '...OR COMPUTE OR DOWNLOAD CO-OCCURRENCES AS EXCEL')
+        self.gui_explore = co_occurrence_gui.ExploreGUI().setup().display(trends_data=self.trends_data)
 
-    return widgets.VBox([accordion, view])
+        display(self.gui_explore.layout())
