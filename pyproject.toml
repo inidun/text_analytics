@@ -26,7 +26,6 @@ bokeh = "*"
 click = "*"
 ftfy = "*"
 gensim = "*"
-humlab-penelope = {path = "../../penelope", develop=true}
 ipyaggrid = "*"
 jupyter = "*"
 jupyterlab = "*"
@@ -47,6 +46,7 @@ tqdm = "^4.51.0"
 glove-python-binary = "^0.2.0"
 sidecar = "^0.4.0"
 pandas-bokeh = "^0.5.2"
+humlab-penelope = "^0.2.35"
 
 
 [tool.poetry.dev-dependencies]
