@@ -1,7 +1,10 @@
 import os
-from typing import Callable
+from typing import Callable, List, Sequence
 
 from penelope.corpus.readers import TextTokenizer
+from penelope.corpus.readers.interfaces import TextReaderOpts
+from penelope.corpus.readers.text_transformer import TextTransformOpts
+from penelope.utility import IndexOfSplitOrCallableOrRegExp
 
 TEST_CORPUS_FILENAME = './westac/tests/test_data/test_corpus.zip'
 
@@ -15,26 +18,36 @@ if __file__ in globals():
 
 def create_text_tokenizer(
     source_path=TEST_CORPUS_FILENAME,
-    transforms=None,
-    chunk_size: int = None,
+    # TextTransformOpts
+    fix_whitespaces: bool = False,
+    fix_hyphenation: bool = True,
+    extra_transforms: List[Callable] = None,
+    # TextReaderOpts
+    as_binary: bool = False,
     filename_pattern: str = "*.txt",
     filename_filter: str = None,
-    fix_whitespaces=False,
-    fix_hyphenation=True,
-    as_binary: bool = False,
+    filename_fields: Sequence[IndexOfSplitOrCallableOrRegExp] = None,
+    index_field: str = None,
+    # TokenizeOpts:
     tokenize: Callable = None,
-    filename_fields=None,
+    chunk_size: int = None,
 ):
-    kwargs = dict(
-        transforms=transforms,
-        chunk_size=chunk_size,
+    transform_opts = TextTransformOpts(
+        fix_whitespaces=fix_whitespaces, fix_hyphenation=fix_hyphenation, extra_transforms=extra_transforms
+    )
+    reader_opts = TextReaderOpts(
         filename_pattern=filename_pattern,
         filename_filter=filename_filter,
-        fix_whitespaces=fix_whitespaces,
-        fix_hyphenation=fix_hyphenation,
-        as_binary=as_binary,
-        tokenize=tokenize,
         filename_fields=filename_fields,
+        index_field=index_field,
+        as_binary=as_binary,
     )
-    reader = TextTokenizer(source_path, **kwargs)
+
+    reader = TextTokenizer(
+        source=source_path,
+        transform_opts=transform_opts,
+        reader_opts=reader_opts,
+        chunk_size=chunk_size,
+        tokenize=tokenize,
+    )
     return reader
