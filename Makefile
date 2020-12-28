@@ -2,6 +2,7 @@
 SHELL := /bin/bash
 SOURCE_FOLDERS=notebooks scripts tests
 PACKAGE_FOLDER=notebooks
+SPACY_MODEL=en_core_web_sm
 
 release: ready guard_clean_working_repository bump.patch tag
 
@@ -59,7 +60,7 @@ tools:
 penelope-pypi:
 	@poetry remove humlab-penelope
 	@poetry add humlab-penelope
-	
+
 .ONESHELL: penelope-edit-mode
 penelope-edit-mode:
 	@poetry install --develop ../../penelope
@@ -132,7 +133,8 @@ nltk_data:
 	@poetry run python -m nltk.downloader -d $(NLTK_DATA) stopwords punkt sentiwordnet
 
 spacy_data:
-	@poetry run python -m spacy download en
+	@poetry run python -m spacy download $(SPACY_MODEL)
+	@poetry run python -m spacy link $(SPACY_MODEL) en --force
 
 IPYNB_FILES := $(shell find ./notebooks -name "*.ipynb" -type f \( ! -name "*checkpoint*" \) -print)
 PY_FILES := $(IPYNB_FILES:.ipynb=.py)
