@@ -16,8 +16,6 @@ import __paths__
 
 from .plot import plot_by_bokeh as plot_dataframe
 
-CORPUS_FOLDER = os.path.join(__paths__.ROOT_FOLDER, "data")
-
 logger = getLogger("penelope")
 
 TOKEN_COUNT_GROUPINGS = ['decade', 'lustrum', 'year']

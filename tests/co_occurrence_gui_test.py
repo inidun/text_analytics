@@ -4,8 +4,6 @@ import penelope.notebook.co_occurrence as explore_gui
 
 import __paths__
 
-CORPUS_FOLDER = __paths__.data_folder
-
 view = widgets.Output(layout={'border': '2px solid green'})
 
 

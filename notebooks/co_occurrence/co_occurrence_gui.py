@@ -11,8 +11,6 @@ from penelope.pipeline import CorpusConfig
 
 import __paths__
 
-CORPUS_FOLDER = __paths__.data_folder
-
 view = widgets.Output(layout={'border': '2px solid green'})
 
 
