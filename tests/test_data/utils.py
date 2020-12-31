@@ -4,7 +4,7 @@ from typing import Callable, List, Sequence
 from penelope.corpus.readers import TextTokenizer
 from penelope.corpus.readers.interfaces import TextReaderOpts
 from penelope.corpus.readers.text_transformer import TextTransformOpts
-from penelope.utility import IndexOfSplitOrCallableOrRegExp
+from penelope.utility import FilenameFieldSpecs
 
 TEST_CORPUS_FILENAME = './westac/tests/test_data/test_corpus.zip'
 
@@ -26,7 +26,7 @@ def create_text_tokenizer(
     as_binary: bool = False,
     filename_pattern: str = "*.txt",
     filename_filter: str = None,
-    filename_fields: Sequence[IndexOfSplitOrCallableOrRegExp] = None,
+    filename_fields: FilenameFieldSpecs = None,
     index_field: str = None,
     # TokenizeOpts:
     tokenize: Callable = None,
