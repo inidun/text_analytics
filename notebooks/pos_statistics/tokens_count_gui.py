@@ -1,4 +1,3 @@
-import os
 from dataclasses import dataclass
 from typing import Callable, List
 
@@ -143,7 +142,7 @@ class TokenCountsGUI:
     def _display(self, _):
         self.display(corpus_config_name=self._corpus_configs.value)
 
-    def display(self, *, corpus_config_name: str):
+    def display(self, *, corpus_config_name: str) -> "TokenCountsGUI":
         global debug_view
         corpus_config: CorpusConfig = self.load_corpus_config_callback(corpus_config_name)
         pos_schema = corpus_config.pos_schema
