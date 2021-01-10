@@ -4,9 +4,9 @@ from typing import Callable, Optional, Union
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
 import penelope.notebook.co_occurrence as co_occurrence_gui
+import penelope.pipeline as pipeline
 from IPython.core.display import display
 from penelope.notebook.word_trends.trends_data import TrendsData
-import penelope.pipeline as pipeline
 
 import __paths__
 

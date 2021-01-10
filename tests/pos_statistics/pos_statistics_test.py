@@ -70,6 +70,7 @@ def test_create_token_count_gui():
 
     gui.display(corpus_config_name="SSI")
 
+
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
 @patch('notebooks.pos_statistics.plot.plot_by_bokeh', monkey_patch)
 def test_create_gui():

@@ -99,7 +99,7 @@ class TokenCountsGUI:
     def _plot_counts(self, *_):
 
         try:
-            if self.document_index is None: # pragma: no cover
+            if self.document_index is None:  # pragma: no cover
                 self.alert("Please load a corpus!")
                 return
 
@@ -123,9 +123,9 @@ class TokenCountsGUI:
 
             self.alert("✔")
 
-        except ValueError as ex: # pragma: no cover
+        except ValueError as ex:  # pragma: no cover
             self.alert(str(ex))
-        except Exception as ex: # pragma: no cover
+        except Exception as ex:  # pragma: no cover
             logger.exception(ex)
             self.warn(str(ex))
 
