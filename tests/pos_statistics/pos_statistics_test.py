@@ -23,23 +23,22 @@ def load_corpus_config(_: str) -> pd.DataFrame:
 def load_document_index_patch(*_, **__):
     return MagicMock(pd.DataFrame)
 
+
 def create_document_index():
     return pd.DataFrame(
-            data={
-                'year': [2020, 2020, 2021],
-                'Noun': [10, 30, 25],
-                'n_raw_tokens': [50, 60, 70],
-            }
-        )
+        data={
+            'year': [2020, 2020, 2021],
+            'Noun': [10, 30, 25],
+            'n_raw_tokens': [50, 60, 70],
+        }
+    )
+
 
 def patch_pipeline(*_, **__):
-    attrs = {
-        'payload.document_index': create_document_index()
-    }
+    attrs = {'payload.document_index': create_document_index()}
     mock = Mock(spec=pipeline.CorpusPipeline, **attrs)
     mock.exhaust = lambda: mock
     return mock
-
 
 
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
@@ -67,11 +66,16 @@ def test_create_token_count_gui():
 
     gui.display(corpus_config_name="SSI")
 
+    gui._smooth.value = True  # pylint: disable=protected-access
+
+    gui.display(corpus_config_name="SSI")
+
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
 @patch('notebooks.pos_statistics.plot.plot_by_bokeh', monkey_patch)
 def test_create_gui():
     gui = tokens_count_gui.create_token_count_gui("SSI")
     assert gui is not None
+
 
 @pytest.mark.parametrize(
     'normalize,smooth,expected',
@@ -105,5 +109,3 @@ def test_load_document_index():
     assert 'decade' in document_index.columns
     assert 'lustrum' in document_index.columns
     assert '#Tokens' in document_index.columns
-
-

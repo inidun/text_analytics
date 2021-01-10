@@ -1,14 +1,12 @@
-from unittest.mock import MagicMock, Mock, patch
-import numpy as np
+from unittest.mock import patch
 
+import numpy as np
 import pandas as pd
 import penelope.corpus.dtm as dtm
-import penelope.notebook.dtm.load_DTM_gui as load_DTM_gui
-import penelope.notebook.dtm.to_DTM_gui as to_DTM_gui
 import penelope.pipeline as pipeline
 
 import notebooks.word_trends.word_trends_gui as word_trends_gui
-import ipywidgets
+
 from ..utils import SSI_config
 
 
@@ -26,6 +24,7 @@ def create_vectorized_corpus() -> dtm.VectorizedCorpus:
     document_index = pd.DataFrame({'year': [2013, 2013, 2014, 2014, 2014]})
     v_corpus: dtm.VectorizedCorpus = dtm.VectorizedCorpus(bag_term_matrix, token2id, document_index)
     return v_corpus
+
 
 def monkey_patch(*_, **__):
     ...
