@@ -3,12 +3,12 @@ from typing import Callable, List
 
 import ipywidgets as widgets
 import pandas as pd
+import penelope.pipeline.spacy.pipelines as pipelines
 from bokeh.io import output_notebook
 from penelope.notebook.ipyaggrid_utility import display_grid
 from penelope.notebook.utility import OutputsTabExt
 from penelope.pipeline import CorpusConfig
 from penelope.pipeline.interfaces import PipelineError
-from penelope.pipeline.spacy.pipelines import spaCy_to_pos_tagged_frame_pipeline
 from penelope.utility import PoS_Tag_Scheme, getLogger, path_add_suffix
 
 import __paths__
@@ -219,7 +219,7 @@ def load_document_index(corpus_config: CorpusConfig) -> pd.DataFrame:
 
     checkpoint_filename: str = path_add_suffix(corpus_config.pipeline_payload.source, '_pos_csv')
 
-    pipeline = spaCy_to_pos_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
+    pipeline = pipelines.spaCy_to_pos_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
 
     document_index = pipeline.payload.document_index
 
