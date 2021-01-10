@@ -46,8 +46,8 @@ tqdm = "^4.51.0"
 glove-python-binary = "^0.2.0"
 sidecar = "^0.4.0"
 pandas-bokeh = "^0.5.2"
-humlab-penelope = "^0.2.35"
 
+humlab-penelope = { path = "../../penelope", develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
@@ -127,7 +127,10 @@ known_first_party = [ "__paths__" ]
     branch = true
     omit = [
         '**/__init__.py',
-        '**/__paths__.py'
+        '**/__paths__.py',
+        'notebooks/co_occurrence/co_occurrence_trends.py',
+        'notebooks/pos_statistics/pos_statistics.py',
+        'notebooks/word_trends/word_trends.py'
     ]
 
     [tool.coverage.report]
