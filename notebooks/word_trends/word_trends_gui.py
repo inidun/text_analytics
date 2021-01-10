@@ -5,7 +5,7 @@ import penelope.notebook.dtm.to_DTM_gui as to_DTM_gui
 import penelope.notebook.word_trends as word_trends
 from IPython.core.display import display
 from penelope.corpus import VectorizedCorpus
-from penelope.pipeline import CorpusConfig
+import penelope.pipeline as pipeline
 from penelope.pipeline.spacy.pipelines import spaCy_DTM_pipeline
 
 import __paths__
@@ -42,8 +42,8 @@ def corpus_compute_callback(*args, **kwargs):
 
 
 def create_gui(corpus_folder: str, corpus_config_name: str) -> widgets.CoreWidget:
-    config = CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(corpus_folder)
-    gui_compute = to_DTM_gui.create_gui(
+    config: pipeline.CorpusConfig = pipeline.CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(corpus_folder)
+    gui_compute: to_DTM_gui.ComputeGUI = to_DTM_gui.create_gui(
         corpus_folder=corpus_folder,
         corpus_config=config,
         pipeline_factory=spaCy_DTM_pipeline,
@@ -51,7 +51,7 @@ def create_gui(corpus_folder: str, corpus_config_name: str) -> widgets.CoreWidge
         done_callback=corpus_loaded_callback,
     )
 
-    gui_load = load_DTM_gui.create_gui(
+    gui_load: load_DTM_gui.LoadGUI = load_DTM_gui.create_gui(
         corpus_folder=corpus_folder,
         loaded_callback=corpus_loaded_callback,
     )
