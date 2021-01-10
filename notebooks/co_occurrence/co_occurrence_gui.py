@@ -1,13 +1,12 @@
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
 import penelope.notebook.co_occurrence as co_occurrence_gui
 from IPython.core.display import display
-from penelope.notebook.co_occurrence.compute_callback_pipeline import compute_co_occurrence
 from penelope.notebook.word_trends.trends_data import TrendsData
-from penelope.pipeline import CorpusConfig
+import penelope.pipeline as pipeline
 
 import __paths__
 
@@ -32,13 +31,13 @@ def create(
 
 @view.capture(clear_output=True)
 def compute_co_occurrence_callback(
-    corpus_config: CorpusConfig,
+    corpus_config: pipeline.CorpusConfig,
     args: co_occurrence_gui.ComputeGUI,
     partition_key: str,
     done_callback: Callable,
     checkpoint_file: Optional[str] = None,
 ):
-    compute_co_occurrence(
+    co_occurrence_gui.pipeline_compute_co_occurrence(
         corpus_config=corpus_config,
         args=args,
         partition_key=partition_key,
@@ -51,12 +50,16 @@ def compute_co_occurrence_callback(
 class MainGUI:
     def __init__(
         self,
-        corpus_config_name: str,
+        corpus_config: Union[pipeline.CorpusConfig, str],
         corpus_folder: str = __paths__.data_folder,
     ) -> widgets.VBox:
 
         self.trends_data: TrendsData = None
-        self.config = CorpusConfig.find(corpus_config_name, __paths__.resources_folder).folder(corpus_folder)
+        self.config = (
+            corpus_config
+            if isinstance(corpus_config, pipeline.CorpusConfig)
+            else pipeline.CorpusConfig.find(corpus_config, __paths__.resources_folder).folder(corpus_folder)
+        )
 
         self.gui_compute: co_occurrence_gui.ComputeGUI = co_occurrence_gui.ComputeGUI.create(
             corpus_folder=corpus_folder,
