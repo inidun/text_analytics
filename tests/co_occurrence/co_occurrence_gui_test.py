@@ -8,7 +8,7 @@ view = widgets.Output(layout={'border': '2px solid green'})
 @view.capture(clear_output=True)
 def test_create_co_occurrence_explorer_gui():
 
-    corpus_filename: str = co_occurrence.folder_and_tag_to_filename(folder='./tests/test_data', tag='VENUS')
+    corpus_filename: str = co_occurrence.folder_and_tag_to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
     bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
 
     # create by function
