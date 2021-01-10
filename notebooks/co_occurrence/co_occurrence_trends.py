@@ -108,5 +108,5 @@ import __paths__  # pylint: disable=unused-import
 from notebooks.co_occurrence import co_occurrence_gui
 
 output_notebook()
-gui = co_occurrence_gui.MainGUI(corpus_config_name="SSI")
+gui = co_occurrence_gui.MainGUI(corpus_config="SSI")
 display(gui.layout())
