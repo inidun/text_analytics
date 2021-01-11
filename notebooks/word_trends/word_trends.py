@@ -92,7 +92,16 @@ from bokeh.plotting import output_notebook
 from IPython.core.display import display
 
 import __paths__  # pylint: disable=unused-import
-from notebooks.word_trends import word_trends_gui
+import penelope.notebook.word_trends.main_gui as main_gui
+from penelope.pipeline.spacy.pipelines import spaCy_DTM_pipeline
 
 output_notebook()
-display(word_trends_gui.create_gui(corpus_folder=__paths__.data_folder, corpus_config_name="SSI"))
+
+gui = main_gui.create_to_dtm_gui(
+    corpus_folder=__paths__.data_folder,
+    corpus_config="SSI",
+    resources_folder=__paths__.resources_folder,
+    dtm_pipeline=spaCy_DTM_pipeline,
+)
+display(gui)
+# %%
