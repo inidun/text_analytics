@@ -100,7 +100,7 @@ def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[
     assert np.allclose(data.Noun.tolist(), expected)
 
 
-@patch('penelope.pipeline.spacy.pipelines.spaCy_to_pos_tagged_frame_pipeline', patch_pipeline)
+@patch('penelope.pipeline.spacy.pipelines.to_tagged_frame_pipeline', patch_pipeline)
 def test_load_document_index():
     corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
     document_index = tokens_count_gui.load_document_index(corpus_config)
