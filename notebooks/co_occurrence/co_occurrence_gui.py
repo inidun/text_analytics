@@ -31,17 +31,13 @@ def create(
 
 @view.capture(clear_output=True)
 def compute_co_occurrence_callback(
-    corpus_config: pipeline.CorpusConfig,
     args: co_occurrence_gui.ComputeGUI,
-    partition_key: str,
-    done_callback: Callable,
+    corpus_config: pipeline.CorpusConfig,
     checkpoint_file: Optional[str] = None,
 ):
     co_occurrence_gui.pipeline_compute_co_occurrence(
-        corpus_config=corpus_config,
         args=args,
-        partition_key=partition_key,
-        done_callback=done_callback,
+        corpus_config=corpus_config,
         checkpoint_file=checkpoint_file,
     )
 

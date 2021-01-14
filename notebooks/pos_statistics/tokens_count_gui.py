@@ -219,7 +219,7 @@ def load_document_index(corpus_config: CorpusConfig) -> pd.DataFrame:
 
     checkpoint_filename: str = path_add_suffix(corpus_config.pipeline_payload.source, '_pos_csv')
 
-    pipeline = pipelines.spaCy_to_pos_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
+    pipeline = pipelines.to_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
 
     document_index = pipeline.payload.document_index
 
