@@ -1,12 +1,14 @@
 from dataclasses import dataclass
-from typing import Callable, Optional, Union
+from typing import Callable, Union
 
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
 import penelope.notebook.co_occurrence as co_occurrence_gui
 import penelope.pipeline as pipeline
+import penelope.workflows as workflows
 from IPython.core.display import display
 from penelope.notebook.word_trends.trends_data import TrendsData
+from penelope.notebook.interface import ComputeOpts
 
 import __paths__
 
@@ -33,12 +35,10 @@ def create(
 def compute_co_occurrence_callback(
     args: co_occurrence_gui.ComputeGUI,
     corpus_config: pipeline.CorpusConfig,
-    checkpoint_file: Optional[str] = None,
-):
-    co_occurrence_gui.pipeline_compute_co_occurrence(
+) -> co_occurrence.ComputeResult:
+    workflows.co_occurrence.compute(
         args=args,
         corpus_config=corpus_config,
-        checkpoint_file=checkpoint_file,
     )
 
 
@@ -99,10 +99,9 @@ class MainGUI:
         return widgets.VBox([accordion, view])
 
     @view.capture(clear_output=True)
-    def display_explorer(self, bundle: co_occurrence.Bundle):
+    def display_explorer(self, bundle: co_occurrence.Bundle, _: ComputeOpts):
 
         self.trends_data = co_occurrence.to_trends_data(bundle).update()
-
         self.gui_explore = co_occurrence_gui.ExploreGUI().setup().display(trends_data=self.trends_data)
 
         display(self.gui_explore.layout())
