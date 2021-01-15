@@ -48,6 +48,7 @@ sidecar = "^0.4.0"
 pandas-bokeh = "^0.5.2"
 
 humlab-penelope = { path = "../../penelope", develop = true}
+debugpy = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
