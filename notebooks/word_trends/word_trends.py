@@ -85,15 +85,13 @@
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
 #
-
-
 # %%
+
 from bokeh.plotting import output_notebook
 from IPython.core.display import display
+from penelope.notebook.word_trends import main_gui
 
 import __paths__  # pylint: disable=unused-import
-import penelope.notebook.word_trends.main_gui as main_gui
-from penelope.pipeline.spacy.pipelines import spaCy_DTM_pipeline
 
 output_notebook()
 
@@ -101,7 +99,5 @@ gui = main_gui.create_to_dtm_gui(
     corpus_folder=__paths__.data_folder,
     corpus_config="SSI",
     resources_folder=__paths__.resources_folder,
-    dtm_pipeline=spaCy_DTM_pipeline,
 )
 display(gui)
-# %%
