@@ -698,18 +698,6 @@ test = ["pytest", "pytest-rerunfailures", "mock", "cython", "nmslib", "pyemd", "
 test-win = ["pytest", "pytest-rerunfailures", "mock", "cython", "nmslib", "pyemd", "testfixtures", "Morfessor (==2.0.2a4)", "python-Levenshtein (>=0.10.2)", "visdom (>=0.1.8,!=0.1.8.7)", "scikit-learn"]
 
 [[package]]
-name = "glove-python-binary"
-version = "0.2.0"
-description = "Python implementation of Global Vectors for Word Representation (GloVe)"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-numpy = "*"
-scipy = "*"
-
-[[package]]
 name = "holoviews"
 version = "1.14.1"
 description = "Stop plotting your data - annotate your data and let it visualize itself."
@@ -2546,7 +2534,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.5"
-content-hash = "4c3a152fd6e3d526a75ac0be715e2712cc4da282be681940783bd87c82c925d2"
+content-hash = "ef7a6f6b2f923addf7b04eaafcca93c425f4a8723ebfe0da5328f6cb90851d31"
 
 [metadata.files]
 aiohttp = [
@@ -3030,14 +3018,6 @@ gensim = [
     {file = "gensim-3.8.3-cp38-cp38-win32.whl", hash = "sha256:90115d12ee545c21cc75521ef1bb3dd66aae8a378e9c2eb029c9f22df173c125"},
     {file = "gensim-3.8.3-cp38-cp38-win_amd64.whl", hash = "sha256:4e34cf2e50f3eab3e303da46089ea4972567bf216e28f7535ada155770784ac8"},
     {file = "gensim-3.8.3.tar.gz", hash = "sha256:786adb0571f75114e9c5f7a31dd2e6eb39a9791f22c8757621545e2ded3ea367"},
-]
-glove-python-binary = [
-    {file = "glove_python_binary-0.2.0-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:affd292076b7a2ec5e57d08949b34f81c7f9e6d84fb9ae5823b07d591c1c0ec4"},
-    {file = "glove_python_binary-0.2.0-cp36-cp36m-win_amd64.whl", hash = "sha256:a8444f5da52f353d0fc434af9a620483643d006d59bd7d2716166913caafd41d"},
-    {file = "glove_python_binary-0.2.0-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:6af115e776d0c57911336d28cae6caae2cd1f345ecc2749b5a6a5e2d9853b749"},
-    {file = "glove_python_binary-0.2.0-cp37-cp37m-win_amd64.whl", hash = "sha256:8ec423e6ac55c8aaea5015e5723e68043382a2c6c0a9f7aa8b7c9b8199d0c84e"},
-    {file = "glove_python_binary-0.2.0-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:ce65d632a44971fc6c239dc10fac52545b56f807038bf5c99fd9f414066bb649"},
-    {file = "glove_python_binary-0.2.0-cp38-cp38-win_amd64.whl", hash = "sha256:f2d6bec7b01f9d64b96b5347b11715c8e9b26204d0c50ece10736eb54fa4a95f"},
 ]
 holoviews = [
     {file = "holoviews-1.14.1-py2.py3-none-any.whl", hash = "sha256:d170d9097a636a0030ec89ba9d0555982de1c5890d3a5602bfe5964d77df022a"},

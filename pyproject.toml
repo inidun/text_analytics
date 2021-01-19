@@ -43,10 +43,9 @@ ipyfilechooser = "^0.4.0"
 jupyter-bokeh = "^2.0.4"
 ipywidgets = "^7.5.1"
 tqdm = "^4.51.0"
-glove-python-binary = "^0.2.0"
 sidecar = "^0.4.0"
 pandas-bokeh = "^0.5.2"
-
+# glove-python-binary = { version = "*", markers = "sys_platform != 'darwin'"}
 debugpy = "^1.2.1"
 humlab-penelope = "^0.3.2"
 
