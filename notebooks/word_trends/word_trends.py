@@ -85,14 +85,21 @@
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
 #
-
-
 # %%
+
 from bokeh.plotting import output_notebook
 from IPython.core.display import display
+from penelope.notebook.word_trends import main_gui
 
 import __paths__  # pylint: disable=unused-import
-from notebooks.word_trends import word_trends_gui
 
 output_notebook()
-display(word_trends_gui.create_gui(corpus_folder=__paths__.data_folder, corpus_config_name="SSI"))
+
+gui = main_gui.create_to_dtm_gui(
+    corpus_folder=__paths__.data_folder,
+    corpus_config="SSI",
+    resources_folder=__paths__.resources_folder,
+)
+display(gui)
+
+# %%

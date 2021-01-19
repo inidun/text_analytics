@@ -1,15 +1,14 @@
-import os
 from dataclasses import dataclass
 from typing import Callable, List
 
 import ipywidgets as widgets
 import pandas as pd
+import penelope.pipeline.spacy.pipelines as pipelines
 from bokeh.io import output_notebook
 from penelope.notebook.ipyaggrid_utility import display_grid
 from penelope.notebook.utility import OutputsTabExt
 from penelope.pipeline import CorpusConfig
 from penelope.pipeline.interfaces import PipelineError
-from penelope.pipeline.spacy.pipelines import spaCy_to_pos_tagged_frame_pipeline
 from penelope.utility import PoS_Tag_Scheme, getLogger, path_add_suffix
 
 import __paths__
@@ -100,7 +99,7 @@ class TokenCountsGUI:
     def _plot_counts(self, *_):
 
         try:
-            if self.document_index is None:
+            if self.document_index is None:  # pragma: no cover
                 self.alert("Please load a corpus!")
                 return
 
@@ -124,9 +123,9 @@ class TokenCountsGUI:
 
             self.alert("✔")
 
-        except ValueError as ex:
+        except ValueError as ex:  # pragma: no cover
             self.alert(str(ex))
-        except Exception as ex:
+        except Exception as ex:  # pragma: no cover
             logger.exception(ex)
             self.warn(str(ex))
 
@@ -143,7 +142,7 @@ class TokenCountsGUI:
     def _display(self, _):
         self.display(corpus_config_name=self._corpus_configs.value)
 
-    def display(self, *, corpus_config_name: str):
+    def display(self, *, corpus_config_name: str) -> "TokenCountsGUI":
         global debug_view
         corpus_config: CorpusConfig = self.load_corpus_config_callback(corpus_config_name)
         pos_schema = corpus_config.pos_schema
@@ -220,7 +219,7 @@ def load_document_index(corpus_config: CorpusConfig) -> pd.DataFrame:
 
     checkpoint_filename: str = path_add_suffix(corpus_config.pipeline_payload.source, '_pos_csv')
 
-    pipeline = spaCy_to_pos_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
+    pipeline = pipelines.to_tagged_frame_pipeline(corpus_config, checkpoint_filename).exhaust()
 
     document_index = pipeline.payload.document_index
 

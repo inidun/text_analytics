@@ -43,11 +43,11 @@ ipyfilechooser = "^0.4.0"
 jupyter-bokeh = "^2.0.4"
 ipywidgets = "^7.5.1"
 tqdm = "^4.51.0"
-glove-python-binary = "^0.2.0"
 sidecar = "^0.4.0"
 pandas-bokeh = "^0.5.2"
-humlab-penelope = "^0.2.35"
-
+# glove-python-binary = { version = "*", markers = "sys_platform != 'darwin'"}
+debugpy = "^1.2.1"
+humlab-penelope = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
@@ -125,7 +125,13 @@ known_first_party = [ "__paths__" ]
     [tool.coverage.run]
     source = ["notebooks"]
     branch = true
-    omit = ['']
+    omit = [
+        '**/__init__.py',
+        '**/__paths__.py',
+        'notebooks/co_occurrence/co_occurrence_trends.py',
+        'notebooks/pos_statistics/pos_statistics.py',
+        'notebooks/word_trends/word_trends.py'
+    ]
 
     [tool.coverage.report]
     exclude_lines = [
