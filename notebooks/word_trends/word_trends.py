@@ -101,3 +101,5 @@ gui = main_gui.create_to_dtm_gui(
     resources_folder=__paths__.resources_folder,
 )
 display(gui)
+
+# %%
