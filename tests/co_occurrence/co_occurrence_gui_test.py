@@ -2,11 +2,9 @@ from unittest.mock import Mock, patch
 
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
-import penelope.notebook.co_occurrence as explore_gui
 import penelope.notebook.word_trends as word_trends_gui
 import penelope.pipeline as pipeline
-
-import notebooks.co_occurrence.co_occurrence_gui as co_occurrence_gui
+from penelope.notebook.co_occurrence import explore_co_occurrence_gui, main_gui, to_co_occurrence_gui
 
 from ..utils import SSI_config
 
@@ -17,37 +15,33 @@ def monkey_patch(*_, **__):
     ...
 
 
-def test_co_occurrence_gui_create():
-    gui = co_occurrence_gui.create(
-        data_folder='./tests/test_data', filename_pattern='*.*', loaded_callback=monkey_patch
-    )
+def test_main_gui_create():
+    gui = main_gui.create(data_folder='./tests/test_data', filename_pattern='*.*', loaded_callback=monkey_patch)
     assert gui is not None
 
 
-@patch('penelope.notebook.co_occurrence.pipeline_compute_co_occurrence', monkey_patch)
+@patch('penelope.workflows.co_occurrence.compute', monkey_patch)
 def test_compute_co_occurrence_callback():
     config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
-    partition_key: str = 'year'
-    args: explore_gui.ComputeGUI = Mock(spec=explore_gui.ComputeGUI)
-    done_callback = monkey_patch
-    checkpoint_file = '/tests/output/'
-    co_occurrence_gui.compute_co_occurrence_callback(
-        corpus_config=config,
+    args: to_co_occurrence_gui.ComputeGUI = Mock(spec=to_co_occurrence_gui.ComputeGUI)
+    main_gui.compute_co_occurrence_callback(
         args=args,
-        partition_key=partition_key,
-        done_callback=done_callback,
-        checkpoint_file=checkpoint_file,
+        corpus_config=config,
     )
 
 
-@patch('penelope.co_occurrence.to_trends_data', lambda x: Mock(spec=word_trends_gui.TrendsData))
-@patch('penelope.notebook.co_occurrence.ExploreGUI', lambda: Mock(spec=explore_gui.ExploreGUI, **{'setup': Mock}))
+@patch('penelope.co_occurrence.to_trends_data', lambda _: Mock(spec=word_trends_gui.TrendsData))
+@patch(
+    'penelope.notebook.co_occurrence.ExploreGUI',
+    lambda: Mock(spec=explore_co_occurrence_gui.ExploreGUI, **{'setup': Mock}),
+)
 def test_create_MainGUI():
     corpus_folder: str = './tests/test_data'
     config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
-    gui = co_occurrence_gui.MainGUI(corpus_config=config, corpus_folder=corpus_folder)
+    gui = main_gui.MainGUI(corpus_config=config, corpus_folder=corpus_folder, resources_folder=corpus_folder)
     layout = gui.layout()
     assert layout is not None
+
     gui.display_explorer(bundle=Mock(spec=co_occurrence.Bundle))
 
 
@@ -58,12 +52,12 @@ def test_create_co_occurrence_explorer_gui():
     bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
 
     # create by function
-    gui = explore_gui.ExploreGUI()
+    gui = explore_co_occurrence_gui.ExploreGUI()
     assert gui is not None
 
     # create by class
     trends_data = co_occurrence.to_trends_data(bundle).update()
-    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(
+    gui_explore: explore_co_occurrence_gui.ExploreGUI = explore_co_occurrence_gui.ExploreGUI(
         trends_data=trends_data,
     )
 

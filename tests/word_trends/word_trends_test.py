@@ -1,11 +1,11 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import numpy as np
 import pandas as pd
 import penelope.corpus.dtm as dtm
+import penelope.notebook.interface as interface
 import penelope.pipeline as pipeline
-
-import notebooks.word_trends.word_trends_gui as word_trends_gui
+from penelope.notebook.word_trends import main_gui
 
 from ..utils import SSI_config
 
@@ -36,15 +36,15 @@ def find_corpus_config(*_, **__) -> pd.DataFrame:
 
 
 def test_corpus_loaded_callback():
-    corpus_tag = "dummy"
-    corpus_folder = "dummy"
     corpus = create_vectorized_corpus()
-    word_trends_gui.corpus_loaded_callback(corpus, corpus_tag, corpus_folder)
+    corpus_folder = "dummy"
+    corpus_tag = "dummy"
+    main_gui.loaded_callback(corpus, corpus_folder, corpus_tag)
 
 
-@patch('penelope.notebook.dtm.compute_DTM_pipeline.compute_document_term_matrix', monkey_patch)
+@patch('penelope.workflows.document_term_matrix.compute', monkey_patch)
 def test_corpus_compute_callback():
-    word_trends_gui.corpus_compute_callback()
+    main_gui.compute_callback(args=Mock(spec=interface.ComputeOpts), corpus_config=Mock(spec=pipeline.CorpusConfig))
 
 
 @patch('penelope.pipeline.CorpusConfig.find', find_corpus_config)
@@ -52,5 +52,5 @@ def test_create_gui():
 
     config_name = "SSI"
     corpus_folder = "dummy"
-    gui = word_trends_gui.create_gui(corpus_folder, corpus_config_name=config_name)
+    gui = main_gui.create_to_dtm_gui(corpus_folder, corpus_config=config_name)
     assert gui is not None
