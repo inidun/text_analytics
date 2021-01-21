@@ -113,9 +113,9 @@ click==7.1.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (py
 colorama==0.4.4; python_version >= "3.7" and python_full_version < "3.0.0" and sys_platform == "win32" or sys_platform == "win32" and python_version >= "3.7" and python_full_version >= "3.5.0" \
     --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2 \
     --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b
-colorcet==2.0.5; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "2.7" \
-    --hash=sha256:9e0a53eac7fe9fdca7f079d235bf92190407860209da2377d3d0cd24e77be05d \
-    --hash=sha256:2246ad5e09f37834a3225bf20ccb2700bc565018f133a1ff3d86bb0fdb7fee5c
+colorcet==2.0.6; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "2.7" \
+    --hash=sha256:4c203d31b50a1cdd2f5dcb2f59be8b6d459de1cf74a85611215ebc25994aa261 \
+    --hash=sha256:efa44b6f4078261e62d0039c76aba17ac8d3ebaf0bc2291a111aee3905313433
 cycler==0.10.0; python_version >= "3.6" \
     --hash=sha256:1d8a5ae1ff6c5cf9b93e8811e581232ad8920aeec647c37316ceac982b08cb2d \
     --hash=sha256:cd7b2d1018258d7247a71425e9f26463dfb444d411c39569972f4ce586b0c9d8
@@ -268,9 +268,9 @@ gensim==3.8.3 \
 holoviews==1.14.1; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "2.7" \
     --hash=sha256:d170d9097a636a0030ec89ba9d0555982de1c5890d3a5602bfe5964d77df022a \
     --hash=sha256:9e5c45b87fd4dcebf29827adf8c7fedd7abcf0d30ba6324c89cda49031205d95
-humlab-penelope==0.3.2; python_full_version >= "3.8.0" and python_full_version < "4.0.0" \
-    --hash=sha256:7937057a0aef17199eb002d1ef1a99a8010ececc607434860400d20ed7ac7f2e \
-    --hash=sha256:611d470e254945fdc90faca07eabd33c903e2b52c067c884d71e0f36b82fd379
+humlab-penelope==0.3.3; python_full_version >= "3.8.0" and python_full_version < "4.0.0" \
+    --hash=sha256:47dd9c1d9004f57f9ecb538b8063c64d93b0e4958186e7e60219ece6b7124699 \
+    --hash=sha256:238a4262df03818d99deced70daa82e1fc2b2d20d3ee3472ef256f6a67f4fbd5
 idna==2.10; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" \
     --hash=sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0 \
     --hash=sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6
@@ -669,7 +669,7 @@ prometheus-client==0.8.0; python_version >= "3.5" \
 prompt-toolkit==3.0.8; python_full_version >= "3.6.1" and python_version >= "3.7" \
     --hash=sha256:7debb9a521e0b1ee7d2fe96ee4bd60ef03c6492784de0547337ca4433e46aa63 \
     --hash=sha256:25c95d2ac813909f813c93fde734b6e44406d1477a9faef7c915ff37d39c0a8c
-ptyprocess==0.6.0; os_name != "nt" and python_version >= "3.7" and sys_platform != "win32" \
+ptyprocess==0.6.0; sys_platform != "win32" and python_version >= "3.7" and os_name != "nt" \
     --hash=sha256:d7cc528d76e76342423ca640335bd3633420dc1366f258cb31d05e865ef5ca1f \
     --hash=sha256:923f299cc5ad920c68f2bc0bc98b75b9f838b93b599941a6b63ddbc2476394c0
 py==1.9.0; python_version >= "3.5" and python_full_version < "3.0.0" and implementation_name === "pypy" or implementation_name === "pypy" and python_version >= "3.5" and python_full_version >= "3.4.0" \
@@ -708,7 +708,7 @@ pytz==2020.4; python_full_version >= "3.6.1" \
 pyviz-comms==2.0.1; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "3.6" \
     --hash=sha256:cb464384d3ee130169f2eb52c262c8377615a46c92ce3f2a620394d92c2dbc9b \
     --hash=sha256:be63957a49772895ddebeac02c697e1675e0bdf1515824f60fcc261914f23624
-pywin32==300; sys_platform == "win32" and python_version >= "3.6" \
+pywin32==300; sys_platform == "win32" and python_version >= "3.5" \
     --hash=sha256:1c204a81daed2089e55d11eefa4826c05e604d27fe2be40b6bf8db7b6a39da63 \
     --hash=sha256:350c5644775736351b77ba68da09a39c760d75d2467ecec37bd3c36a94fbed64 \
     --hash=sha256:a3b4c48c852d4107e8a8ec980b76c94ce596ea66d60f7a697582ea9dce7e0db7 \
@@ -921,7 +921,7 @@ simplejson==3.17.2; python_full_version >= "3.8.0" and python_full_version < "4.
     --hash=sha256:d0b64409df09edb4c365d95004775c988259efe9be39697d7315c42b7a5e7e94 \
     --hash=sha256:55d65f9cc1b733d85ef95ab11f559cce55c7649a2160da2ac7a078534da676c8 \
     --hash=sha256:75ecc79f26d99222a084fbdd1ce5aad3ac3a8bd535cd9059528452da38b68841
-six==1.15.0; python_full_version >= "3.8.0" and python_version >= "3.6" and python_full_version < "4.0.0" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6") and (python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.5") \
+six==1.15.0; python_full_version >= "3.8.0" and python_version >= "3.6" and python_full_version < "4.0.0" and (python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.3.0" and python_version >= "3.5") and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6") \
     --hash=sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced \
     --hash=sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259
 sklearn==0.0; python_full_version >= "3.8.0" and python_full_version < "4.0.0" \
@@ -1058,7 +1058,7 @@ urllib3==1.26.2; python_version >= "3.5" and python_full_version < "3.0.0" or py
 wasabi==0.8.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6" \
     --hash=sha256:98bc9c492c6aa8628303a02961a5cfa7b0c7fa6d2b397abdeb0adc4b39397c49 \
     --hash=sha256:75fec6db6193c8615d7f398ae4aa2c4ad294e6e3e81c6a6dbbbd3864ee2223c3
-wcwidth==0.2.5; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "3.6" \
+wcwidth==0.2.5; python_full_version >= "3.8.0" and python_full_version < "4.0.0" and python_version >= "3.7" \
     --hash=sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784 \
     --hash=sha256:c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83
 webencodings==0.5.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6" \
