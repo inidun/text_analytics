@@ -47,7 +47,7 @@ spacy = "*"
 textacy = "*"
 tqdm = "^4.51.0"
 wordcloud = "*"
-humlab-penelope = "^0.3.3"
+humlab-penelope = {path = "../../penelope", develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
