@@ -32,9 +32,9 @@
 
 # %% tags=[]
 from IPython.core.display import display
+from penelope.notebook.token_counts import tokens_count_gui
 
 import __paths__
-from penelope.notebook.token_counts import tokens_count_gui
 
 gui = tokens_count_gui.create_token_count_gui(
     data_folder=__paths__.data_folder, resources_folder=__paths__.resources_folder

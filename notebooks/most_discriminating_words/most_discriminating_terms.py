@@ -23,10 +23,9 @@
 # %%
 
 from IPython.display import display
+from penelope.notebook.mdw import create_main_gui
 
 import __paths__
-
-from penelope.notebook.mdw import create_main_gui
 
 gui = create_main_gui(corpus_folder=__paths__.data_folder)
 
