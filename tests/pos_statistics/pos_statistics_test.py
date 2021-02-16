@@ -6,7 +6,7 @@ import pandas as pd
 import penelope.pipeline as pipeline
 import pytest
 
-import notebooks.pos_statistics.tokens_count_gui as tokens_count_gui
+from penelope.notebook.token_counts import tokens_count_gui
 
 from ..utils import SSI_config
 
