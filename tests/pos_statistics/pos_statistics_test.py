@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import penelope.pipeline as pipeline
 import pytest
-
 from penelope.notebook.token_counts import tokens_count_gui
 
 from ..utils import SSI_config
@@ -42,7 +41,7 @@ def patch_pipeline(*_, **__):
 
 
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
-@patch('notebooks.pos_statistics.plot.plot_by_bokeh', monkey_patch)
+@patch('penelope.notebook.token_counts.plot.plot_by_bokeh', monkey_patch)
 def test_create_token_count_gui():
 
     gui = tokens_count_gui.TokenCountsGUI(
@@ -51,7 +50,7 @@ def test_create_token_count_gui():
         load_corpus_config_callback=load_corpus_config,
     )
 
-    gui = gui.setup()
+    gui = gui.setup(['tests/test_data/SSI.yml'])
 
     assert not gui.smooth
     assert not gui.normalize
@@ -64,17 +63,17 @@ def test_create_token_count_gui():
     gui.alert("test")
     gui.warn("test")
 
-    gui.display(corpus_config_name="SSI")
+    gui.display()
 
     gui._smooth.value = True  # pylint: disable=protected-access
 
-    gui.display(corpus_config_name="SSI")
+    gui.display()
 
 
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
-@patch('notebooks.pos_statistics.plot.plot_by_bokeh', monkey_patch)
+@patch('penelope.notebook.token_counts.plot.plot_by_bokeh', monkey_patch)
 def test_create_gui():
-    gui = tokens_count_gui.create_token_count_gui("SSI")
+    gui = tokens_count_gui.create_token_count_gui('./tests/test_data/', './tests/test_data/')
     assert gui is not None
 
 
@@ -82,8 +81,8 @@ def test_create_gui():
     'normalize,smooth,expected',
     [
         (False, False, [40.0, 25.0]),
-        (True, False, [40.0 / 65.0, 25.0 / 65.0]),
-        (True, True, [40.0 / 65.0, 25.0 / 65.0]),
+        (True, False, [1.0, 1.0]),
+        (True, True, [1.0, 1.0]),
     ],
 )
 def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[float]):
@@ -93,6 +92,7 @@ def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[
         data={
             'year': [2020, 2020, 2021],
             'Noun': [10, 30, 25],
+            '#Tokens': [10, 30, 25],
         }
     )
     data = tokens_count_gui.compute_token_count_data(args, document_index)
