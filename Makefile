@@ -214,6 +214,19 @@ gh:
 check-gh: gh-exists
 gh-exists: ; @which gh > /dev/null
 
+.PHONY: issues issue pr prs
+issues:
+	gh issue list
+
+issue:
+	gh issue create
+
+prs:
+	gh pr list
+
+pr:
+	gh pr create
+
 .ONESHELL: pair_ipynb unpair_ipynb sync_ipynb update_ipynb
 
 .PHONY: help check init version
