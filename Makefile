@@ -6,9 +6,9 @@ SPACY_MODEL=en_core_web_sm
 
 release: ready guard_clean_working_repository bump.patch tag
 
-ready: tools clean tidy test lint build
+ready: tools clean tidy penelope-pypi test lint build
 
-build: penelope-pypi requirements.txt write_to_ipynb
+build: requirements.txt write_to_ipynb
 	@poetry build
 	@echo "Penelope, requirements and ipynb files is now up-to-date"
 
@@ -193,6 +193,7 @@ labextension:
 		@bokeh/jupyter_bokeh \
 		@jupyter-widgets/jupyterlab-sidecar \
 		jupyter-matplotlib \
+		jupyter-cytoscape \
 		jupyterlab-jupytext \
 		ipyaggrid \
 		qgrid2
@@ -212,6 +213,19 @@ gh:
 
 check-gh: gh-exists
 gh-exists: ; @which gh > /dev/null
+
+.PHONY: issues issue pr prs
+issues:
+	gh issue list
+
+issue:
+	gh issue create
+
+prs:
+	gh pr list
+
+pr:
+	gh pr create
 
 .ONESHELL: pair_ipynb unpair_ipynb sync_ipynb update_ipynb
 

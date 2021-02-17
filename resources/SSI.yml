@@ -26,9 +26,9 @@ tagged_tokens_filter_opts:
 text_reader_opts:
   as_binary: false
   filename_fields:
-  - unesco_id:_:2
-  - year:_:3
-  - city:\w+\_\d+\_\d+\_\d+\_(.*)\.txt
+  - "unesco_id:_:2"
+  - "year:_:3"
+  - "city:\\w+\\_\\d+\\_\\d+\\_\\d+\\_(.*)\\.txt"
   filename_filter: null
   filename_pattern: '*.txt'
   index_field: null

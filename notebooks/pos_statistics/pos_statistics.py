@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.7.1
+#       jupytext_version: 1.9.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -32,10 +32,12 @@
 
 # %% tags=[]
 from IPython.core.display import display
+from penelope.notebook.token_counts import tokens_count_gui
 
-import __paths__  # pylint: disable=unused-import
-import notebooks.pos_statistics.tokens_count_gui as tokens_count_gui
+import __paths__
 
-gui = tokens_count_gui.create_token_count_gui("SSI")
+gui = tokens_count_gui.create_token_count_gui(
+    data_folder=__paths__.data_folder, resources_folder=__paths__.resources_folder
+)
 display(gui.layout())
 # %%
