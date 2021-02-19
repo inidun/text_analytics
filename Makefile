@@ -6,7 +6,8 @@ SPACY_MODEL=en_core_web_sm
 
 release: ready guard_clean_working_repository bump.patch tag
 
-ready: tools clean tidy penelope-pypi test lint build
+# ready: tools clean tidy penelope-pypi test lint build
+ready: tools clean tidy test lint build
 
 build: requirements.txt write_to_ipynb
 	@poetry build
