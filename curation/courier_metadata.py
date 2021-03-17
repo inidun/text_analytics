@@ -10,7 +10,7 @@ import pandas as pd
 
 pd.set_option('display.max_columns', None)
 pd.set_option('max_colwidth', None)
-pd.set_option("max_rows", 5)
+pd.set_option("max_rows", 10)
 # %%
 
 
@@ -115,11 +115,17 @@ article_index = create_article_index('UNESCO_Courier_metadata.csv')
 # article_index.to_csv('UNESCO_Courier_articles_metadata.csv', sep='\t')
 
 # %%
-def extract_article_pages():
-    pass
 
 
+def extract_article_pages(filename: str, pages: List[int], title: str) -> None:
+    print(filename, pages, title)
+    return (filename, pages, title)
+
+
+# %%
 def extract_articles(folder: str, article_index: pd.DataFrame) -> None:
+
+    missing = set()
 
     for _, x in article_index.iterrows():
 
@@ -127,25 +133,48 @@ def extract_articles(folder: str, article_index: pd.DataFrame) -> None:
         filenames = glob.glob(filename_pattern)
 
         if len(filenames) == 0:
-            print(x['courier_id'], 'no match')
+            missing.add(x['courier_id'])
+            # print(x['courier_id'], 'no match')
             continue
 
         if len(filenames) > 1:
-            print(x['courier_id'], "AmbiguousTimeError")
+            print(x['courier_id'], "ambiguous")
             continue
-
-        # print(filenames[0])
 
         # TODO: Check pages for possible mismatch
         # TODO: Check overlapping pages
-        # extract_article_pages(filenames[0], x['pages'], x['title'])
+        # extract_article_pages(filenames[0], x['pages'], x['catalogue_title'])
+
+    print("Missing courier_ids: ", *missing)
 
 
 extract_articles("./data/xml", article_index)
 
 
 # %%
-# import ast
-# ast.literal_eval('[0,1,2,3,4 5]'
+teststring = extract_article_pages(next(article_index.iterrows())[1].courier_id, [2, 1], "hello")
+# %%
+
+# from jinja2 import Environment, PackageLoader, select_autoescape
+# env = Environment(
+#     loader=PackageLoader('curation', 'templates'),
+#     autoescape=select_autoescape(['html', 'xml'])
+# )
+
+# %%
+
+from jinja2 import Template
+
+t = """<?xml version="1.0" encoding="UTF-8"?>
+<article>
+<filename>{{ filename }}</filename>
+<title>{{ title }}</title>
+{% for page in pages %}
+<page number="{{ page }}">{{ page }}</page>
+{%- endfor %}
+</article>"""
+
+template = Template(t)
+template.render(filename="ha", pages=[1, 2, 3], title="title")
 
 # %%
