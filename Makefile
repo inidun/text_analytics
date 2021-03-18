@@ -4,6 +4,10 @@ SOURCE_FOLDERS=notebooks scripts tests
 PACKAGE_FOLDER=notebooks
 SPACY_MODEL=en_core_web_sm
 
+GIT_BRANCH  = $(shell git rev-parse --abbrev-ref HEAD)
+GIT_SHA     = $(shell git rev-parse HEAD)
+BUILD_DATE  = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+
 release: ready guard_clean_working_repository bump.patch tag
 
 # ready: tools clean tidy penelope-pypi test lint build
