@@ -141,7 +141,7 @@ spacy_data:
 	@poetry run python -m spacy download $(SPACY_MODEL)
 	@poetry run python -m spacy link $(SPACY_MODEL) en --force
 
-IPYNB_FILES := $(shell find ./notebooks -name "*.ipynb" -type f \( ! -name "*checkpoint*" \) -print)
+IPYNB_FILES := $(shell find ./notebooks -name "*.ipynb" -type f ! -path "./notebooks/legacy/*" \( ! -name "*checkpoint*" \) -print)
 PY_FILES := $(IPYNB_FILES:.ipynb=.py)
 
 # Create a paired `py` file for all `ipynb` that doesn't have a corresponding `py` file
@@ -179,12 +179,9 @@ sync_ipynb:
     #     poetry run jupytext --sync $$ipynb_path ;\
 	# done
 
-# Forces overwrite of ìpynb` using `--to notebook`
 write_to_ipynb:
-	for ipynb_path in $(IPYNB_FILES) ; do \
-		py_filepath=$${ipynb_path%.*}.py ;\
-		poetry run jupytext --to notebook $$py_filepath
-	done
+ 	poetry run jupytext --to notebook $(PY_FILES)
+
 
 write_to_ipynb2:
 	for ipynb_path in $(IPYNB_FILES) ; do \
@@ -201,7 +198,8 @@ labextension:
 		jupyter-cytoscape \
 		jupyterlab-jupytext \
 		ipyaggrid \
-		qgrid2
+		qgrid2 \
+        @finos/perspective-jupyterlab
 
 
 pre_commit_ipynb:
