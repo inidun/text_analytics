@@ -198,7 +198,6 @@ labextension:
 		jupyter-cytoscape \
 		jupyterlab-jupytext \
 		ipyaggrid \
-		qgrid2 \
         @finos/perspective-jupyterlab
 
 
