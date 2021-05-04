@@ -52,5 +52,6 @@ def test_create_gui():
 
     config_name = "SSI"
     corpus_folder = "dummy"
-    gui = main_gui.create_to_dtm_gui(corpus_folder, corpus_config=config_name)
+    data_folder = "dummy"
+    gui = main_gui.create_to_dtm_gui(corpus_folder=corpus_folder, data_folder=data_folder, corpus_config=config_name)
     assert gui is not None
