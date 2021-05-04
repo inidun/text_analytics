@@ -4,12 +4,13 @@
         "tests"
     ],
     "exclude": [
+        "**/deprecated",
+        "**/.ipynb_checkpoints",
         "**/node_modules",
         "**/__pycache__",
         "**/.pytest_cache",
-        "**/.ipynb_checkpoints",
         "**/__init__.py",
-        "deprecated",
+        "**/__paths__.py",
         "data"
     ]
 }
