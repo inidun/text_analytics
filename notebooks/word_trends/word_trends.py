@@ -96,7 +96,8 @@ import __paths__  # pylint: disable=unused-import
 output_notebook()
 
 gui = main_gui.create_to_dtm_gui(
-    corpus_folder=__paths__.data_folder,
+    corpus_folder=__paths__.corpus_folder,
+    data_folder=__paths__.data_folder,
     corpus_config="SSI",
     resources_folder=__paths__.resources_folder,
 )

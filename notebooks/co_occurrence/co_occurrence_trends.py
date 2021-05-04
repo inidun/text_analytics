@@ -108,7 +108,12 @@ from penelope.notebook.co_occurrence import MainGUI
 import __paths__
 
 output_notebook()
-gui = MainGUI(corpus_config="SSI", corpus_folder=__paths__.data_folder, resources_folder=__paths__.resources_folder)
+gui = MainGUI(
+    corpus_config="SSI",
+    corpus_folder=__paths__.corpus_folder,
+    data_folder=__paths__.data_folder,
+    resources_folder=__paths__.resources_folder,
+)
 display(gui.layout())
 
 # %%
