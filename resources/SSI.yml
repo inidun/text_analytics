@@ -4,6 +4,21 @@ corpus_type: 1
 language: english
 pipelines:
   tagged_frame_pipeline: penelope.pipeline.spacy.pipelines.to_tagged_frame_pipeline
+checkpoint_opts:
+    content_type_code: 1
+    sep: "\t"
+    quoting: 3
+    document_index_name: null
+    document_index_sep: null
+    text_column: text
+    lemma_column: lemma_
+    pos_column: pos_
+    extra_columns: []
+    custom_serializer_classname: null
+    deserialize_in_parallel: true
+    deserialize_processes: 1
+    deserialize_chunksize: 4
+    index_column: null
 pipeline_payload:
   source: legal_instrument_corpus.zip
   document_index_source: legal_instrument_index.csv
@@ -32,3 +47,5 @@ text_reader_opts:
   filename_filter: null
   filename_pattern: '*.txt'
   index_field: null
+  sep: "\t"
+  quoting: 3
