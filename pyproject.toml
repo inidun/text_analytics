@@ -24,7 +24,6 @@ repository = "https://github.com/inidun/text_analytics"
 [tool.poetry.dependencies]
 bokeh = "*"
 click = "*"
-ftfy = "*"
 jupyterlab = "^3.0.14"
 matplotlib = "*"
 pandas = "*"
@@ -53,7 +52,6 @@ pylint = "*"
 pytest = "*"
 pytest-cov = "==2.*,>=2.10.1"
 rope = "*"
-yapf = "==0.*,>=0.30.0"
 humlab-penelope = {path = "../../penelope", develop=true}
 
 [tool.pytest.ini_options]
