@@ -21,7 +21,7 @@ speedups = ["aiodns", "brotlipy", "cchardet"]
 name = "alive-progress"
 version = "1.6.2"
 description = "A new kind of Progress Bar, with real-time throughput, eta and very cool animations!"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, <4"
 
@@ -114,17 +114,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "attrs"
-version = "20.3.0"
+version = "21.1.0"
 description = "Classes Without Boilerplate"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "furo", "sphinx", "pre-commit"]
-docs = ["furo", "sphinx", "zope.interface"]
-tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
-tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six"]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit"]
+docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins"]
 
 [[package]]
 name = "babel"
@@ -184,7 +184,7 @@ webencodings = "*"
 name = "blis"
 version = "0.7.4"
 description = "The Blis BLAS-like linear algebra library, as a self-contained C-extension."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -211,22 +211,22 @@ typing_extensions = ">=3.7.4"
 
 [[package]]
 name = "boto3"
-version = "1.17.66"
+version = "1.17.67"
 description = "The AWS SDK for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">= 2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [package.dependencies]
-botocore = ">=1.20.66,<1.21.0"
+botocore = ">=1.20.67,<1.21.0"
 jmespath = ">=0.7.1,<1.0.0"
 s3transfer = ">=0.4.0,<0.5.0"
 
 [[package]]
 name = "botocore"
-version = "1.20.66"
+version = "1.20.67"
 description = "Low-level, data-driven core of boto 3."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">= 2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
@@ -242,7 +242,7 @@ crt = ["awscrt (==0.11.11)"]
 name = "cachetools"
 version = "4.2.2"
 description = "Extensible memoizing collections and decorators"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "~=3.5"
 
@@ -250,13 +250,13 @@ python-versions = "~=3.5"
 name = "catalogue"
 version = "1.0.0"
 description = "Super lightweight function registries for your library"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [[package]]
 name = "cerberus"
-version = "1.3.3"
+version = "1.3.4"
 description = "Lightweight, extensible schema and data validation tool for Python dictionaries."
 category = "dev"
 optional = false
@@ -317,7 +317,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "colorcet"
 version = "2.0.6"
 description = "Collection of perceptually uniform colormaps"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7"
 
@@ -348,7 +348,7 @@ toml = ["toml"]
 name = "cryptography"
 version = "3.4.7"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -378,7 +378,7 @@ six = "*"
 name = "cymem"
 version = "2.0.5"
 description = "Manage calls to calloc/free through Cython"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -386,7 +386,7 @@ python-versions = "*"
 name = "cython"
 version = "0.29.14"
 description = "The Cython compiler for writing C extensions for the Python language."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -394,7 +394,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "cytoolz"
 version = "0.11.0"
 description = "Cython implementation of Toolz: High performance functional utilities"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -635,7 +635,7 @@ python-versions = "*"
 name = "docker"
 version = "5.0.0"
 description = "A Python library for the Docker Engine API."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -660,7 +660,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "english"
 version = "2020.7.0"
 description = "English language utility library for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -679,7 +679,7 @@ python-versions = ">=2.7"
 name = "et-xmlfile"
 version = "1.1.0"
 description = "An implementation of lxml.xmlfile for the standard library"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -750,7 +750,7 @@ flake8-plugin-utils = ">=1.3.1,<2.0.0"
 name = "ftfy"
 version = "5.9"
 description = "Fixes some problems with Unicode text after the fact"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -761,7 +761,7 @@ wcwidth = "*"
 name = "future"
 version = "0.18.2"
 description = "Clean single-source support for Python 3 and 2"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -769,7 +769,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "gensim"
 version = "3.8.3"
 description = "Python framework for fast Vector Space Modelling"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -790,7 +790,7 @@ test-win = ["pytest", "pytest-rerunfailures", "mock", "cython", "nmslib", "pyemd
 name = "holoviews"
 version = "1.14.3"
 description = "Stop plotting your data - annotate your data and let it visualize itself."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7"
 
@@ -817,51 +817,46 @@ unit_tests = ["ipython (>=5.4.0)", "notebook", "matplotlib (>=2.2)", "bokeh (>=1
 
 [[package]]
 name = "humlab-penelope"
-version = "0.4.2"
+version = "0.4.4"
 description = "Utilities that simplify enelpeing in Jupyter Lab"
-category = "dev"
+category = "main"
 optional = false
-python-versions = "==3.8.*"
-develop = true
+python-versions = ">=3.8.0,<3.9.0"
 
 [package.dependencies]
-alive-progress = "^1.6.1"
+alive-progress = ">=1.6.1,<2.0.0"
 bokeh = "*"
-click = "^7.1.2"
-ftfy = "^5.8"
-gensim = "^3.8.3"
-holoviews = "^1.13.5"
+click = ">=7.1.2,<8.0.0"
+ftfy = ">=5.8,<6.0"
+gensim = ">=3.8.3,<4.0.0"
+holoviews = ">=1.13.5,<2.0.0"
 ipyaggrid = "*"
 ipycytoscape = "*"
 ipyfilechooser = "*"
 ipywidgets = "*"
 jupyter_bokeh = "*"
-loguru = "^0.5.3"
-lxml = "^4.5.2"
-memoization = "^0.3.1"
-more_itertools = "^8.5.0"
-nltk = "^3.5"
-numpy = "==1.19.3"
-openpyxl = "^3.0.5"
-pandas = "^1.1.2"
+loguru = ">=0.5.3,<0.6.0"
+lxml = ">=4.5.2,<5.0.0"
+memoization = ">=0.3.1,<0.4.0"
+more_itertools = ">=8.5.0,<9.0.0"
+nltk = ">=3.5,<4.0"
+numpy = "1.19.3"
+openpyxl = ">=3.0.5,<4.0.0"
+pandas = ">=1.1.2,<2.0.0"
 perspective-python = "*"
-pyarrow = "^3.0.0"
-pydotplus = "^2.0.2"
-python-louvain = "^0.14"
-PyYAML = "^5.3.1"
-requests = "^2.24.0"
-scipy = "^1.5.2"
+pyarrow = ">=3.0.0,<4.0.0"
+pydotplus = ">=2.0.2,<3.0.0"
+python-louvain = ">=0.14,<0.15"
+PyYAML = ">=5.3.1,<6.0.0"
+requests = ">=2.24.0,<3.0.0"
+scipy = ">=1.5.2,<2.0.0"
 sklearn = "*"
-smart_open = "^2.2.1"
-spacy = "^2.3.2"
-statsmodels = "^0.12.0"
-textacy = "^0.10.1"
-toml = "^0.10.2"
-wordcloud = "^1.8.0"
-
-[package.source]
-type = "directory"
-url = "../../penelope"
+smart_open = ">=2.2.1,<3.0.0"
+spacy = ">=2.3.2,<3.0.0"
+statsmodels = ">=0.12.0,<0.13.0"
+textacy = ">=0.10.1,<0.11.0"
+toml = ">=0.10.2,<0.11.0"
+wordcloud = ">=1.8.0,<2.0.0"
 
 [[package]]
 name = "identify"
@@ -902,7 +897,7 @@ python-versions = "*"
 name = "ipyaggrid"
 version = "0.2.1"
 description = "Jupyter widget - ag-grid in the notebook"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -915,7 +910,7 @@ simplejson = ">=3.13.2"
 name = "ipycytoscape"
 version = "1.2.1"
 description = "Python implementation of the graph visualization tool Cytoscape."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -935,7 +930,7 @@ test = ["pytest (>4.6)", "pytest-cov", "nbval", "pandas"]
 name = "ipyfilechooser"
 version = "0.4.3"
 description = "Python file chooser widget for use in Jupyter/IPython in conjunction with ipywidgets"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1004,7 +999,7 @@ python-versions = "*"
 name = "ipywidgets"
 version = "7.6.3"
 description = "IPython HTML widgets for Jupyter"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1051,7 +1046,7 @@ testing = ["Django (<3.1)", "colorama", "docopt", "pytest (<6.0.0)"]
 name = "jellyfish"
 version = "0.8.2"
 description = "a library for doing approximate and phonetic matching of strings."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">3.4"
 
@@ -1073,7 +1068,7 @@ i18n = ["Babel (>=0.8)"]
 name = "jmespath"
 version = "0.10.0"
 description = "JSON Matching Expressions"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -1081,7 +1076,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "joblib"
 version = "1.0.1"
 description = "Lightweight pipelining with Python functions"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1117,7 +1112,7 @@ format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator 
 name = "jupyter-bokeh"
 version = "3.0.0"
 description = "A Jupyter extension for rendering Bokeh content."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1159,7 +1154,7 @@ traitlets = "*"
 
 [[package]]
 name = "jupyter-packaging"
-version = "0.9.2"
+version = "0.10.1"
 description = "Jupyter Packaging Utilities."
 category = "main"
 optional = false
@@ -1261,26 +1256,25 @@ test = ["codecov", "ipykernel", "pytest (>=5.3.2)", "pytest-cov", "jupyter-serve
 name = "jupyterlab-widgets"
 version = "1.0.0"
 description = "A JupyterLab extension."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [[package]]
 name = "jupytext"
-version = "1.11.2"
+version = "1.5.2"
 description = "Jupyter notebooks as Markdown documents, Julia, Python or R scripts"
 category = "dev"
 optional = false
-python-versions = "~=3.6"
+python-versions = "*"
 
 [package.dependencies]
-markdown-it-py = {version = ">=1.0.0b3,<2.0.0", extras = ["plugins"]}
-nbformat = "*"
+nbformat = ">=4.0.0"
 pyyaml = "*"
 toml = "*"
 
 [package.extras]
-rst2md = ["sphinx-gallery (>=0.7.0,<0.8.0)"]
+myst = ["myst-parser (>=0.8,<1.0)"]
 toml = ["toml"]
 
 [[package]]
@@ -1303,7 +1297,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 name = "loguru"
 version = "0.5.3"
 description = "Python logging made (stupidly) simple"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -1318,7 +1312,7 @@ dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3
 name = "lxml"
 version = "4.6.3"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
 
@@ -1344,32 +1338,12 @@ mistune = "*"
 name = "markdown"
 version = "3.3.4"
 description = "Python implementation of Markdown."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.extras]
 testing = ["coverage", "pyyaml"]
-
-[[package]]
-name = "markdown-it-py"
-version = "1.0.0"
-description = "Python port of markdown-it. Markdown parsing, done right!"
-category = "dev"
-optional = false
-python-versions = "~=3.6"
-
-[package.dependencies]
-attrs = ">=19,<21"
-mdit-py-plugins = {version = "*", optional = true, markers = "extra == \"plugins\""}
-
-[package.extras]
-code_style = ["pre-commit (==2.6)"]
-compare = ["commonmark (>=0.9.1,<0.10.0)", "markdown (>=3.2.2,<3.3.0)", "mistletoe-ebp (>=0.10.0,<0.11.0)", "mistune (>=0.8.4,<0.9.0)", "panflute (>=1.12,<2.0)"]
-linkify = ["linkify-it-py (>=1.0,<2.0)"]
-plugins = ["mdit-py-plugins"]
-rtd = ["myst-nb (==0.13.0a1)", "pyyaml", "sphinx (>=2,<4)", "sphinx-copybutton", "sphinx-panels (>=0.4.0,<0.5.0)", "sphinx-book-theme"]
-testing = ["coverage", "psutil", "pytest (>=3.6,<4)", "pytest-benchmark (>=3.2,<4.0)", "pytest-cov", "pytest-regressions"]
 
 [[package]]
 name = "markupsafe"
@@ -1415,26 +1389,10 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "mdit-py-plugins"
-version = "0.2.8"
-description = "Collection of plugins for markdown-it-py"
-category = "dev"
-optional = false
-python-versions = "~=3.6"
-
-[package.dependencies]
-markdown-it-py = ">=1.0,<2.0"
-
-[package.extras]
-code_style = ["pre-commit (==2.6)"]
-rtd = ["myst-parser (==0.14.0a3)", "sphinx-book-theme (>=0.1.0,<0.2.0)"]
-testing = ["coverage", "pytest (>=3.6,<4)", "pytest-cov", "pytest-regressions"]
-
-[[package]]
 name = "memoization"
 version = "0.3.2"
 description = "A powerful caching library for Python, with TTL support and multiple algorithm options. (https://github.com/lonelyenvoy/python-memoization)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
 
@@ -1450,7 +1408,7 @@ python-versions = "*"
 name = "monotonic"
 version = "1.6"
 description = "An implementation of time.monotonic() for Python 2 & < 3.3"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1458,7 +1416,7 @@ python-versions = "*"
 name = "more-itertools"
 version = "8.7.0"
 description = "More routines for operating on iterables, beyond itertools"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -1474,7 +1432,7 @@ python-versions = ">=3.6"
 name = "murmurhash"
 version = "1.0.5"
 description = "Cython bindings for MurmurHash"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1600,7 +1558,7 @@ nbformat = "*"
 name = "neotime"
 version = "1.7.4"
 description = "Nanosecond resolution temporal types"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1620,7 +1578,7 @@ python-versions = ">=3.5"
 name = "networkx"
 version = "2.5.1"
 description = "Python package for creating and manipulating graphs and networks"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1644,7 +1602,7 @@ scipy = ["scipy"]
 name = "nltk"
 version = "3.6.2"
 description = "Natural Language Toolkit"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5.*"
 
@@ -1711,7 +1669,7 @@ python-versions = ">=3.6"
 name = "openpyxl"
 version = "3.0.7"
 description = "A Python library to read/write Excel 2010 xlsx/xlsm files"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6,"
 
@@ -1769,7 +1727,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "panel"
 version = "0.11.3"
 description = "A high level app and dashboarding solution for Python."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1794,7 +1752,7 @@ tests = ["flake8", "parameterized", "pytest", "scipy", "nbsmoke (>=0.2.0)", "pyt
 name = "pansi"
 version = "2020.7.3"
 description = "ANSI escape code library for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1805,7 +1763,7 @@ six = "*"
 name = "param"
 version = "1.10.1"
 description = "Make your Python code clearer and more reliable by declaring Parameters."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7"
 
@@ -1837,7 +1795,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "patsy"
 version = "0.5.1"
 description = "A Python package for describing statistical models and for building design matrices."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1860,7 +1818,7 @@ flake8-polyfill = ">=1.0.2,<2"
 name = "perspective-python"
 version = "0.8.0"
 description = "Python bindings and JupyterLab integration for Perspective"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1909,7 +1867,7 @@ python-versions = ">=3.6"
 name = "plac"
 version = "1.1.3"
 description = "The smartest command line arguments parser in the world"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1944,7 +1902,7 @@ virtualenv = ">=20.0.8"
 name = "preshed"
 version = "3.0.5"
 description = "Cython hash table that trusts the keys are pre-hashed"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1994,7 +1952,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "py2neo"
 version = "2021.1.1"
 description = "Python client library and toolkit for Neo4j"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2017,7 +1975,7 @@ urllib3 = "*"
 name = "pyarrow"
 version = "3.0.0"
 description = "Python library for Apache Arrow"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -2044,7 +2002,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "pyct"
 version = "0.4.8"
 description = "Python package common tasks for users (e.g. copy examples, fetch data, ...)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7"
 
@@ -2061,7 +2019,7 @@ tests = ["flake8", "pytest"]
 name = "pydotplus"
 version = "2.0.2"
 description = "Python interface to Graphviz's Dot language"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2072,7 +2030,7 @@ pyparsing = ">=2.0.1"
 name = "pyemd"
 version = "0.5.1"
 description = "A Python wrapper for Ofir Pele and Michael Werman's implementation of the Earth Mover's Distance."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2122,7 +2080,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "pyphen"
 version = "0.10.0"
 description = "Pure Python module to hyphenate text"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2185,7 +2143,7 @@ six = ">=1.5"
 name = "python-louvain"
 version = "0.14"
 description = "Louvain algorithm for community detection"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2205,7 +2163,7 @@ python-versions = "*"
 name = "pyviz-comms"
 version = "2.0.1"
 description = "Bidirectional communication for the HoloViz ecosystem."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2257,7 +2215,7 @@ py = {version = "*", markers = "implementation_name == \"pypy\""}
 name = "regex"
 version = "2021.4.4"
 description = "Alternative regular expression module, to replace re."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2317,7 +2275,7 @@ python-versions = "*"
 name = "s3transfer"
 version = "0.4.2"
 description = "An Amazon S3 Transfer Manager"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2331,7 +2289,7 @@ crt = ["botocore[crt] (>=1.20.29,<2.0a.0)"]
 name = "scikit-learn"
 version = "0.23.2"
 description = "A set of python modules for machine learning and data mining"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -2348,7 +2306,7 @@ alldeps = ["numpy (>=1.13.3)", "scipy (>=0.19.1)"]
 name = "scipy"
 version = "1.6.3"
 description = "SciPy: Scientific Library for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7,<3.10"
 
@@ -2375,7 +2333,7 @@ python-versions = "!=3.0,!=3.1,!=3.2,!=3.3,>=2.6"
 name = "simplejson"
 version = "3.17.2"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -2391,7 +2349,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "sklearn"
 version = "0.0"
 description = "A set of python modules for machine learning and data mining"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2402,7 +2360,7 @@ scikit-learn = "*"
 name = "smart-open"
 version = "2.2.1"
 description = "Utils for streaming large files (S3, HDFS, GCS, Azure Blob Storage, gzip, bz2...)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5.*"
 
@@ -2429,7 +2387,7 @@ python-versions = ">=3.5"
 name = "spacy"
 version = "2.3.5"
 description = "Industrial-strength Natural Language Processing (NLP) in Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
@@ -2467,7 +2425,7 @@ th = ["pythainlp (>=2.0)"]
 name = "spectate"
 version = "1.0.1"
 description = "Track changes to mutable data types."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -2475,7 +2433,7 @@ python-versions = ">=3.6"
 name = "srsly"
 version = "1.0.5"
 description = "Modern high-performance serialization utilities for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2483,7 +2441,7 @@ python-versions = "*"
 name = "statsmodels"
 version = "0.12.2"
 description = "Statistical computations and models for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -2529,7 +2487,7 @@ test = ["pathlib2"]
 name = "textacy"
 version = "0.10.1"
 description = "NLP, before and after spaCy"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -2557,7 +2515,7 @@ viz = ["matplotlib (>=1.5.0)"]
 name = "thinc"
 version = "7.4.5"
 description = "Practical Machine Learning for NLP"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2589,7 +2547,7 @@ cuda92 = ["cupy-cuda92 (>=5.0.0b4)"]
 name = "threadpoolctl"
 version = "2.1.0"
 description = "threadpoolctl"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -2597,7 +2555,7 @@ python-versions = ">=3.5"
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -2613,7 +2571,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "toolz"
 version = "0.11.1"
 description = "List processing tools and functional utilities"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -2683,7 +2641,7 @@ brotli = ["brotlipy (>=0.6.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.4.5"
+version = "20.4.6"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -2703,7 +2661,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 name = "wasabi"
 version = "0.8.2"
 description = "A lightweight console printing and formatting toolkit"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2727,7 +2685,7 @@ python-versions = "*"
 name = "websocket-client"
 version = "0.59.0"
 description = "WebSocket client for Python with low level API options"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -2738,7 +2696,7 @@ six = "*"
 name = "widgetsnbextension"
 version = "3.5.1"
 description = "IPython HTML widgets for Jupyter"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2749,7 +2707,7 @@ notebook = ">=4.4.1"
 name = "win32-setctime"
 version = "1.0.3"
 description = "A small Python utility to set file creation time on Windows"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -2760,7 +2718,7 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 name = "wordcloud"
 version = "1.8.1"
 description = "A little word cloud generator"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -2800,7 +2758,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.*"
-content-hash = "3a664f12bc2eb1f304bd7249ded2f207cce3d59ebf0b14b2e7e38f913e5117fc"
+content-hash = "5336d08aed28c8a9f7934a8cc1f8df7d77dd1a9733c0745cda0ee5a243eb89be"
 
 [metadata.files]
 aiohttp = [
@@ -2895,8 +2853,8 @@ atomicwrites = [
     {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
 ]
 attrs = [
-    {file = "attrs-20.3.0-py2.py3-none-any.whl", hash = "sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6"},
-    {file = "attrs-20.3.0.tar.gz", hash = "sha256:832aa3cde19744e49938b91fea06d69ecb9e649c93ba974535d08ad92164f700"},
+    {file = "attrs-21.1.0-py2.py3-none-any.whl", hash = "sha256:8ee1e5f5a1afc5b19bdfae4fdf0c35ed324074bdce3500c939842c8f818645d9"},
+    {file = "attrs-21.1.0.tar.gz", hash = "sha256:3901be1cb7c2a780f14668691474d9252c070a756be0a9ead98cfeabfa11aeb8"},
 ]
 babel = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
@@ -2932,12 +2890,12 @@ bokeh = [
     {file = "bokeh-2.3.1.tar.gz", hash = "sha256:2f2fb8bab8ca8fa039f48b1f0bed56d3a847c75694ece1d206ffab645ff5beec"},
 ]
 boto3 = [
-    {file = "boto3-1.17.66-py2.py3-none-any.whl", hash = "sha256:fd00ea7a5a177d90fd9de63f56563cd1682da363fbb3e1c3be3127dfd06dd5f3"},
-    {file = "boto3-1.17.66.tar.gz", hash = "sha256:d21af50e35ef2e941df03b4363bbec88909996144f530ba1611ab15156da7c40"},
+    {file = "boto3-1.17.67-py2.py3-none-any.whl", hash = "sha256:1db618cfe0e9d8c6ff4fc31ef4f9620bd72f472da0f3095f0be9372d77b671e9"},
+    {file = "boto3-1.17.67.tar.gz", hash = "sha256:61fe8cbb2d4bf1c9a69a73b3f2c68464e0ab587c9367b35f0ef691f372d5ce67"},
 ]
 botocore = [
-    {file = "botocore-1.20.66-py2.py3-none-any.whl", hash = "sha256:455b2eff5c443393bc3bf898ea4fc0dc50151eba50f2bad6b48bedb1defe0310"},
-    {file = "botocore-1.20.66.tar.gz", hash = "sha256:01c24793df0f814e0b00f109972d4a3fbc54aa5f7edf2fc16c065c24f27e8974"},
+    {file = "botocore-1.20.67-py2.py3-none-any.whl", hash = "sha256:adb26d8bc65761b5a46744f67b7e7096dedb2071aff876e0962cd648f28e9a8f"},
+    {file = "botocore-1.20.67.tar.gz", hash = "sha256:4666fb5bdf7d78c51d465bac7d9eb1d31c34be46990cd1ad2d1b338bbec8c049"},
 ]
 cachetools = [
     {file = "cachetools-4.2.2-py3-none-any.whl", hash = "sha256:2cc0b89715337ab6dbba85b5b50effe2b0c74e035d83ee8ed637cf52f12ae001"},
@@ -2948,8 +2906,7 @@ catalogue = [
     {file = "catalogue-1.0.0.tar.gz", hash = "sha256:d74d1d856c6b36a37bf14aa6dbbc27d0582667b7ab979a6108e61a575e8723f5"},
 ]
 cerberus = [
-    {file = "Cerberus-1.3.3-py3-none-any.whl", hash = "sha256:7aff49bc793e58a88ac14bffc3eca0f67e077881d3c62c621679a621294dd174"},
-    {file = "Cerberus-1.3.3.tar.gz", hash = "sha256:eec10585c33044fb7c69650bc5b68018dac0443753337e2b07684ee0f3c83329"},
+    {file = "Cerberus-1.3.4.tar.gz", hash = "sha256:d1b21b3954b2498d9a79edf16b3170a3ac1021df88d197dc2ce5928ba519237c"},
 ]
 certifi = [
     {file = "certifi-2020.12.5-py2.py3-none-any.whl", hash = "sha256:719a74fb9e33b9bd44cc7f3a8d94bc35e4049deebe19ba7d8e108280cfd59830"},
@@ -3240,7 +3197,6 @@ flake8 = [
 ]
 flake8-black = [
     {file = "flake8-black-0.2.1.tar.gz", hash = "sha256:f26651bc10db786c03f4093414f7c9ea982ed8a244cec323c984feeffdf4c118"},
-    {file = "flake8_black-0.2.1-py3-none-any.whl", hash = "sha256:941514149cb8b489cb17a4bb1cf18d84375db3b34381bb018de83509437931a0"},
 ]
 flake8-plugin-utils = [
     {file = "flake8-plugin-utils-1.3.2.tar.gz", hash = "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"},
@@ -3294,7 +3250,10 @@ holoviews = [
     {file = "holoviews-1.14.3-py2.py3-none-any.whl", hash = "sha256:994424c7c6d407d66347ccbe59943268b679f01c086c590039aa0823835c6ab3"},
     {file = "holoviews-1.14.3.tar.gz", hash = "sha256:c3de3c9af9a123ac3591aca781d2ccba3fb3688462e0a50ab74a11aecc05b45e"},
 ]
-humlab-penelope = []
+humlab-penelope = [
+    {file = "humlab-penelope-0.4.4.tar.gz", hash = "sha256:617d2adf173eac19cbe43c36afdec061a335a8b823475a6c31022edd9011ed61"},
+    {file = "humlab_penelope-0.4.4-py3-none-any.whl", hash = "sha256:c547dbbb4a06d56f2642c4d4ea3045cecbd0996330abb228981d0dddbb0c8c52"},
+]
 identify = [
     {file = "identify-2.2.4-py2.py3-none-any.whl", hash = "sha256:ad9f3fa0c2316618dc4d840f627d474ab6de106392a4f00221820200f490f5a8"},
     {file = "identify-2.2.4.tar.gz", hash = "sha256:9bcc312d4e2fa96c7abebcdfb1119563b511b5e3985ac52f60d9116277865b2e"},
@@ -3388,8 +3347,8 @@ jupyter-core = [
     {file = "jupyter_core-4.7.1.tar.gz", hash = "sha256:79025cb3225efcd36847d0840f3fc672c0abd7afd0de83ba8a1d3837619122b4"},
 ]
 jupyter-packaging = [
-    {file = "jupyter_packaging-0.9.2-py2.py3-none-any.whl", hash = "sha256:7d2cff62d0b0cf5267f5cd9edb4bd04591f68aa919bf026e7787f0424c0e7c55"},
-    {file = "jupyter_packaging-0.9.2.tar.gz", hash = "sha256:780082b43506eccb3fb39ed9306300b637245e622a9644701c60d89992468822"},
+    {file = "jupyter_packaging-0.10.1-py2.py3-none-any.whl", hash = "sha256:ddaf8ae4e415dedd183d335650d30eb4419c58720f216ce9bafa68c6ea8b5dd1"},
+    {file = "jupyter_packaging-0.10.1.tar.gz", hash = "sha256:b3fb2cb0049fa3b974e08b67b0f65504d31dc4a7f131275e52e9f91c19125777"},
 ]
 jupyter-server = [
     {file = "jupyter_server-1.6.4-py3-none-any.whl", hash = "sha256:942b9a092f79b3663f78c8003a411e6672f0ca8cfc64a59657060a0e5a02a0cb"},
@@ -3412,8 +3371,7 @@ jupyterlab-widgets = [
     {file = "jupyterlab_widgets-1.0.0.tar.gz", hash = "sha256:5c1a29a84d3069208cb506b10609175b249b6486d6b1cbae8fcde2a11584fb78"},
 ]
 jupytext = [
-    {file = "jupytext-1.11.2-py3-none-any.whl", hash = "sha256:184e44c2ea91a85f323d8190bd13d9dfb3b73e8d2a92d239cf5e489c98ca3605"},
-    {file = "jupytext-1.11.2.tar.gz", hash = "sha256:7a32aa9edbc430653de3149de79c4ff4ee33ded2119b41ed476b5c93c9f6aff1"},
+    {file = "jupytext-1.5.2.tar.gz", hash = "sha256:1cebc9f5975b4c08db3de6d7d61b35f8c33a24cf2c8c04eee7b8a7aab8ddc39b"},
 ]
 kiwisolver = [
     {file = "kiwisolver-1.3.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:fd34fbbfbc40628200730bc1febe30631347103fc8d3d4fa012c21ab9c11eca9"},
@@ -3522,10 +3480,6 @@ markdown = [
     {file = "Markdown-3.3.4-py3-none-any.whl", hash = "sha256:96c3ba1261de2f7547b46a00ea8463832c921d3f9d6aba3f255a6f71386db20c"},
     {file = "Markdown-3.3.4.tar.gz", hash = "sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49"},
 ]
-markdown-it-py = [
-    {file = "markdown-it-py-1.0.0.tar.gz", hash = "sha256:d40d537a9bc4cb5fba6d3fa8d769ffac394f1a54d373efdf6675469b6d38f8ec"},
-    {file = "markdown_it_py-1.0.0-py3-none-any.whl", hash = "sha256:ac9e0f051ffd2aabecdd83b41b8fb71d7ab24005a3e0e63f192138dd699a6932"},
-]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
     {file = "MarkupSafe-1.1.1-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:e249096428b3ae81b08327a63a485ad0878de3fb939049038579ac0ef61e17e7"},
@@ -3608,10 +3562,6 @@ matplotlib-inline = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
-]
-mdit-py-plugins = [
-    {file = "mdit-py-plugins-0.2.8.tar.gz", hash = "sha256:5991cef645502e80a5388ec4fc20885d2313d4871e8b8e320ca2de14ac0c015f"},
-    {file = "mdit_py_plugins-0.2.8-py3-none-any.whl", hash = "sha256:1833bf738e038e35d89cb3a07eb0d227ed647ce7dd357579b65343740c6d249c"},
 ]
 memoization = [
     {file = "memoization-0.3.2-py3-none-any.whl", hash = "sha256:6109bcfdbd6fc6c33004fcdc5d8e291c1223a7416c5dad61ec777d260f6038d2"},
@@ -4529,8 +4479,8 @@ urllib3 = [
     {file = "urllib3-1.26.4.tar.gz", hash = "sha256:e7b021f7241115872f92f43c6508082facffbd1c048e3c6e2bb9c2a157e28937"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.4.5-py2.py3-none-any.whl", hash = "sha256:73b4186ee7e08ffd1a96cd5d60e5a946132f8ce4736e8f209eda3a6c35b2ceb8"},
-    {file = "virtualenv-20.4.5.tar.gz", hash = "sha256:e82dbb66e0d6ecf626f037df256f185571da552007bfa9f3f317216f5f3aac1c"},
+    {file = "virtualenv-20.4.6-py2.py3-none-any.whl", hash = "sha256:307a555cf21e1550885c82120eccaf5acedf42978fd362d32ba8410f9593f543"},
+    {file = "virtualenv-20.4.6.tar.gz", hash = "sha256:72cf267afc04bf9c86ec932329b7e94db6a0331ae9847576daaa7ca3c86b29a4"},
 ]
 wasabi = [
     {file = "wasabi-0.8.2-py3-none-any.whl", hash = "sha256:a493e09d86109ec6d9e70d040472f9facc44634d4ae6327182f94091ca73a490"},
