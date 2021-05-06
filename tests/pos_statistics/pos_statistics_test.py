@@ -7,15 +7,13 @@ import penelope.pipeline as pipeline
 import pytest
 from penelope.notebook.token_counts import tokens_count_gui
 
-from ..utils import SSI_config
-
 
 def monkey_patch(*_, **__):
     ...
 
 
 def load_corpus_config(_: str) -> pd.DataFrame:
-    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
+    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     return corpus_config
 
 
@@ -102,7 +100,7 @@ def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[
 
 @patch('penelope.pipeline.spacy.pipelines.to_tagged_frame_pipeline', patch_pipeline)
 def test_load_document_index():
-    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
+    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     document_index = tokens_count_gui.load_document_index(corpus_config)
 
     assert document_index is not None

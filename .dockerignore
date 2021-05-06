@@ -13,3 +13,5 @@
 **/archive
 **/data
 **/output
+*.feather
+*.feathering

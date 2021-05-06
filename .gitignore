@@ -142,3 +142,4 @@ output
 deprecated
 /stopwords
 .vscode
+.coverage

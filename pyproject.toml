@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "humlab-inidun"
-version = "0.2.4"
+version = "0.3.0"
 description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
 packages = [
@@ -22,32 +22,15 @@ repository = "https://github.com/inidun/text_analytics"
 
 
 [tool.poetry.dependencies]
-# glove-python-binary = { version = "*", markers = "sys_platform != 'darwin'"}
-bokeh = "==2.2.3"
+bokeh = "*"
 click = "*"
-debugpy = "^1.2.1"
-ftfy = "*"
-gensim = "*"
-ipyaggrid = "==0.2.1"
-ipyfilechooser = "^0.4.0"
-ipywidgets = "==7.5.1"
-jupyter = "*"
-jupyter-bokeh = "==2.0.4"
-jupyterlab = "==2.2.9"
+jupyterlab = "^3.0.14"
 matplotlib = "*"
-memoization = "*"
-nltk = "*"
 pandas = "*"
-pandas-bokeh = "^0.5.2"
-pandocfilters = "==1.4.2"
-python = "==3.8"
-sidecar = "^0.4.0"
-spacy = "*"
-textacy = "*"
-tqdm = "^4.51.0"
-wordcloud = "*"
-nbformat = "5.0.8"
-humlab-penelope = "^0.3.9"
+pandas-bokeh = "*"
+python = "==3.8.*"
+tqdm = "*"
+
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
@@ -69,12 +52,7 @@ pylint = "*"
 pytest = "*"
 pytest-cov = "==2.*,>=2.10.1"
 rope = "*"
-yapf = "==0.*,>=0.30.0"
-
-
-
-
-
+humlab-penelope = {path = "../../penelope", develop=true}
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -91,8 +69,8 @@ norecursedirs = ['notebooks', '.git', 'data', 'output', 'deprecated', '__pycache
 python_files = "*_test.py"
 python_functions = "test_*"
 filterwarnings = [
-#   "ignore",
-  "ignore::_pytest.warning_types.PytestCollectionWarning"
+  "ignore::_pytest.warning_types.PytestCollectionWarning",
+  "ignore::DeprecationWarning",
 ]
 
 [tool.dephell.main]
