@@ -98,13 +98,13 @@ def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[
     assert np.allclose(data.Noun.tolist(), expected)
 
 
-@patch('penelope.pipeline.spacy.pipelines.to_tagged_frame_pipeline', patch_pipeline)
 def test_load_document_index():
     corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
+    corpus_config.pipeline_payload.folders('./tests/test_data')
     document_index = tokens_count_gui.load_document_index(corpus_config)
 
     assert document_index is not None
-    assert len(document_index) == 3
+    assert len(document_index) == 5
     assert 'decade' in document_index.columns
     assert 'lustrum' in document_index.columns
     assert '#Tokens' in document_index.columns
