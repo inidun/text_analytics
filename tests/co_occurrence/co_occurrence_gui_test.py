@@ -7,8 +7,6 @@ import penelope.pipeline as pipeline
 from penelope.notebook import interface
 from penelope.notebook.co_occurrence import explore_co_occurrence_gui, main_gui
 
-from ..utils import SSI_config
-
 view = widgets.Output(layout={'border': '2px solid green'})
 
 
@@ -23,7 +21,7 @@ def test_main_gui_create():
 
 @patch('penelope.workflows.co_occurrence.compute', monkey_patch)
 def test_compute_co_occurrence_callback():
-    config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
+    config: pipeline.CorpusConfig = pipeline.CorpusConfig.load("./tests/test_data/SSI.yml")
     args: interface.ComputeOpts = Mock(spec=interface.ComputeOpts)
     main_gui.compute_co_occurrence_callback(
         args=args,
@@ -38,7 +36,7 @@ def test_compute_co_occurrence_callback():
 )
 def test_create_MainGUI():
     corpus_folder: str = './tests/test_data'
-    config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
+    config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     gui = main_gui.MainGUI(
         corpus_config=config, data_folder=corpus_folder, corpus_folder=corpus_folder, resources_folder=corpus_folder
     )

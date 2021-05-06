@@ -7,8 +7,6 @@ import penelope.notebook.interface as interface
 import penelope.pipeline as pipeline
 from penelope.notebook.word_trends import main_gui
 
-from ..utils import SSI_config
-
 
 def create_vectorized_corpus() -> dtm.VectorizedCorpus:
     bag_term_matrix = np.array(
@@ -31,7 +29,7 @@ def monkey_patch(*_, **__):
 
 
 def find_corpus_config(*_, **__) -> pd.DataFrame:
-    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.loads(SSI_config)
+    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     return corpus_config
 
 
