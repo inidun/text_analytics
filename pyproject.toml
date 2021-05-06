@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "humlab-inidun"
-version = "0.3.0"
+version = "0.3.1"
 description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
 packages = [
@@ -53,6 +53,7 @@ pylint = "*"
 pytest = "*"
 pytest-cov = "==2.*,>=2.10.1"
 rope = "*"
+
 
 [tool.pytest.ini_options]
 minversion = "6.0"
