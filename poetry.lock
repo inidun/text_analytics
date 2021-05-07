@@ -114,17 +114,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "attrs"
-version = "21.1.0"
+version = "20.3.0"
 description = "Classes Without Boilerplate"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit"]
-docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
-tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface"]
-tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins"]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "furo", "sphinx", "pre-commit"]
+docs = ["furo", "sphinx", "zope.interface"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six"]
 
 [[package]]
 name = "babel"
@@ -211,20 +211,20 @@ typing_extensions = ">=3.7.4"
 
 [[package]]
 name = "boto3"
-version = "1.17.67"
+version = "1.17.68"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [package.dependencies]
-botocore = ">=1.20.67,<1.21.0"
+botocore = ">=1.20.68,<1.21.0"
 jmespath = ">=0.7.1,<1.0.0"
 s3transfer = ">=0.4.0,<0.5.0"
 
 [[package]]
 name = "botocore"
-version = "1.20.67"
+version = "1.20.68"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -817,7 +817,7 @@ unit_tests = ["ipython (>=5.4.0)", "notebook", "matplotlib (>=2.2)", "bokeh (>=1
 
 [[package]]
 name = "humlab-penelope"
-version = "0.4.4"
+version = "0.4.5"
 description = "Utilities that simplify enelpeing in Jupyter Lab"
 category = "main"
 optional = false
@@ -1262,19 +1262,20 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "jupytext"
-version = "1.5.2"
+version = "1.11.2"
 description = "Jupyter notebooks as Markdown documents, Julia, Python or R scripts"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = "~=3.6"
 
 [package.dependencies]
-nbformat = ">=4.0.0"
+markdown-it-py = {version = ">=1.0.0b3,<2.0.0", extras = ["plugins"]}
+nbformat = "*"
 pyyaml = "*"
 toml = "*"
 
 [package.extras]
-myst = ["myst-parser (>=0.8,<1.0)"]
+rst2md = ["sphinx-gallery (>=0.7.0,<0.8.0)"]
 toml = ["toml"]
 
 [[package]]
@@ -1346,6 +1347,26 @@ python-versions = ">=3.6"
 testing = ["coverage", "pyyaml"]
 
 [[package]]
+name = "markdown-it-py"
+version = "1.0.0"
+description = "Python port of markdown-it. Markdown parsing, done right!"
+category = "dev"
+optional = false
+python-versions = "~=3.6"
+
+[package.dependencies]
+attrs = ">=19,<21"
+mdit-py-plugins = {version = "*", optional = true, markers = "extra == \"plugins\""}
+
+[package.extras]
+code_style = ["pre-commit (==2.6)"]
+compare = ["commonmark (>=0.9.1,<0.10.0)", "markdown (>=3.2.2,<3.3.0)", "mistletoe-ebp (>=0.10.0,<0.11.0)", "mistune (>=0.8.4,<0.9.0)", "panflute (>=1.12,<2.0)"]
+linkify = ["linkify-it-py (>=1.0,<2.0)"]
+plugins = ["mdit-py-plugins"]
+rtd = ["myst-nb (==0.13.0a1)", "pyyaml", "sphinx (>=2,<4)", "sphinx-copybutton", "sphinx-panels (>=0.4.0,<0.5.0)", "sphinx-book-theme"]
+testing = ["coverage", "psutil", "pytest (>=3.6,<4)", "pytest-benchmark (>=3.2,<4.0)", "pytest-cov", "pytest-regressions"]
+
+[[package]]
 name = "markupsafe"
 version = "1.1.1"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -1387,6 +1408,22 @@ description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "mdit-py-plugins"
+version = "0.2.8"
+description = "Collection of plugins for markdown-it-py"
+category = "dev"
+optional = false
+python-versions = "~=3.6"
+
+[package.dependencies]
+markdown-it-py = ">=1.0,<2.0"
+
+[package.extras]
+code_style = ["pre-commit (==2.6)"]
+rtd = ["myst-parser (==0.14.0a3)", "sphinx-book-theme (>=0.1.0,<0.2.0)"]
+testing = ["coverage", "pytest (>=3.6,<4)", "pytest-cov", "pytest-regressions"]
 
 [[package]]
 name = "memoization"
@@ -2758,7 +2795,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.*"
-content-hash = "5336d08aed28c8a9f7934a8cc1f8df7d77dd1a9733c0745cda0ee5a243eb89be"
+content-hash = "d22886f0c97ab74fe2f1871c2fd6d301840a6ee7fbff1de21d5affe8cfc7a01d"
 
 [metadata.files]
 aiohttp = [
@@ -2853,8 +2890,8 @@ atomicwrites = [
     {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
 ]
 attrs = [
-    {file = "attrs-21.1.0-py2.py3-none-any.whl", hash = "sha256:8ee1e5f5a1afc5b19bdfae4fdf0c35ed324074bdce3500c939842c8f818645d9"},
-    {file = "attrs-21.1.0.tar.gz", hash = "sha256:3901be1cb7c2a780f14668691474d9252c070a756be0a9ead98cfeabfa11aeb8"},
+    {file = "attrs-20.3.0-py2.py3-none-any.whl", hash = "sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6"},
+    {file = "attrs-20.3.0.tar.gz", hash = "sha256:832aa3cde19744e49938b91fea06d69ecb9e649c93ba974535d08ad92164f700"},
 ]
 babel = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
@@ -2890,12 +2927,12 @@ bokeh = [
     {file = "bokeh-2.3.1.tar.gz", hash = "sha256:2f2fb8bab8ca8fa039f48b1f0bed56d3a847c75694ece1d206ffab645ff5beec"},
 ]
 boto3 = [
-    {file = "boto3-1.17.67-py2.py3-none-any.whl", hash = "sha256:1db618cfe0e9d8c6ff4fc31ef4f9620bd72f472da0f3095f0be9372d77b671e9"},
-    {file = "boto3-1.17.67.tar.gz", hash = "sha256:61fe8cbb2d4bf1c9a69a73b3f2c68464e0ab587c9367b35f0ef691f372d5ce67"},
+    {file = "boto3-1.17.68-py2.py3-none-any.whl", hash = "sha256:56f1766f1271b6b4e979c7b56225377f8912050e5935adc5c1c9e3a0338b949e"},
+    {file = "boto3-1.17.68.tar.gz", hash = "sha256:c61c809d288e88b9a0d926f56f803d0128b498aa9b45a42a6e03cd9a83e5c124"},
 ]
 botocore = [
-    {file = "botocore-1.20.67-py2.py3-none-any.whl", hash = "sha256:adb26d8bc65761b5a46744f67b7e7096dedb2071aff876e0962cd648f28e9a8f"},
-    {file = "botocore-1.20.67.tar.gz", hash = "sha256:4666fb5bdf7d78c51d465bac7d9eb1d31c34be46990cd1ad2d1b338bbec8c049"},
+    {file = "botocore-1.20.68-py2.py3-none-any.whl", hash = "sha256:eb3544911cb0316a33b328a27d137130af278a9c0006be0c95e5e402b01d9865"},
+    {file = "botocore-1.20.68.tar.gz", hash = "sha256:0f693f5ad6348ec1a62b3a66fee2840d3b722d66b44896022d644275ff8b143d"},
 ]
 cachetools = [
     {file = "cachetools-4.2.2-py3-none-any.whl", hash = "sha256:2cc0b89715337ab6dbba85b5b50effe2b0c74e035d83ee8ed637cf52f12ae001"},
@@ -3251,8 +3288,8 @@ holoviews = [
     {file = "holoviews-1.14.3.tar.gz", hash = "sha256:c3de3c9af9a123ac3591aca781d2ccba3fb3688462e0a50ab74a11aecc05b45e"},
 ]
 humlab-penelope = [
-    {file = "humlab-penelope-0.4.4.tar.gz", hash = "sha256:617d2adf173eac19cbe43c36afdec061a335a8b823475a6c31022edd9011ed61"},
-    {file = "humlab_penelope-0.4.4-py3-none-any.whl", hash = "sha256:c547dbbb4a06d56f2642c4d4ea3045cecbd0996330abb228981d0dddbb0c8c52"},
+    {file = "humlab-penelope-0.4.5.tar.gz", hash = "sha256:7fb8fc7461b9e3e21d27bcc07f65246bc32dfe9542cef68f40cdf54d22aa06ae"},
+    {file = "humlab_penelope-0.4.5-py3-none-any.whl", hash = "sha256:095a6523892da5c4cbe814c2d08c533283a0a8644626fce139913fd87ca9b0c5"},
 ]
 identify = [
     {file = "identify-2.2.4-py2.py3-none-any.whl", hash = "sha256:ad9f3fa0c2316618dc4d840f627d474ab6de106392a4f00221820200f490f5a8"},
@@ -3371,7 +3408,8 @@ jupyterlab-widgets = [
     {file = "jupyterlab_widgets-1.0.0.tar.gz", hash = "sha256:5c1a29a84d3069208cb506b10609175b249b6486d6b1cbae8fcde2a11584fb78"},
 ]
 jupytext = [
-    {file = "jupytext-1.5.2.tar.gz", hash = "sha256:1cebc9f5975b4c08db3de6d7d61b35f8c33a24cf2c8c04eee7b8a7aab8ddc39b"},
+    {file = "jupytext-1.11.2-py3-none-any.whl", hash = "sha256:184e44c2ea91a85f323d8190bd13d9dfb3b73e8d2a92d239cf5e489c98ca3605"},
+    {file = "jupytext-1.11.2.tar.gz", hash = "sha256:7a32aa9edbc430653de3149de79c4ff4ee33ded2119b41ed476b5c93c9f6aff1"},
 ]
 kiwisolver = [
     {file = "kiwisolver-1.3.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:fd34fbbfbc40628200730bc1febe30631347103fc8d3d4fa012c21ab9c11eca9"},
@@ -3480,6 +3518,10 @@ markdown = [
     {file = "Markdown-3.3.4-py3-none-any.whl", hash = "sha256:96c3ba1261de2f7547b46a00ea8463832c921d3f9d6aba3f255a6f71386db20c"},
     {file = "Markdown-3.3.4.tar.gz", hash = "sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49"},
 ]
+markdown-it-py = [
+    {file = "markdown-it-py-1.0.0.tar.gz", hash = "sha256:d40d537a9bc4cb5fba6d3fa8d769ffac394f1a54d373efdf6675469b6d38f8ec"},
+    {file = "markdown_it_py-1.0.0-py3-none-any.whl", hash = "sha256:ac9e0f051ffd2aabecdd83b41b8fb71d7ab24005a3e0e63f192138dd699a6932"},
+]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
     {file = "MarkupSafe-1.1.1-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:e249096428b3ae81b08327a63a485ad0878de3fb939049038579ac0ef61e17e7"},
@@ -3562,6 +3604,10 @@ matplotlib-inline = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
+]
+mdit-py-plugins = [
+    {file = "mdit-py-plugins-0.2.8.tar.gz", hash = "sha256:5991cef645502e80a5388ec4fc20885d2313d4871e8b8e320ca2de14ac0c015f"},
+    {file = "mdit_py_plugins-0.2.8-py3-none-any.whl", hash = "sha256:1833bf738e038e35d89cb3a07eb0d227ed647ce7dd357579b65343740c6d249c"},
 ]
 memoization = [
     {file = "memoization-0.3.2-py3-none-any.whl", hash = "sha256:6109bcfdbd6fc6c33004fcdc5d8e291c1223a7416c5dad61ec777d260f6038d2"},

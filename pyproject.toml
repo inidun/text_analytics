@@ -30,7 +30,7 @@ pandas = "*"
 pandas-bokeh = "*"
 python = "==3.8.*"
 tqdm = "*"
-humlab-penelope = "0.4.4"
+humlab-penelope = "0.4.5"
 
 
 [tool.poetry.dev-dependencies]
