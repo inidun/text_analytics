@@ -35,7 +35,7 @@ ftfy==5.9; python_full_version >= "3.8.0" and python_full_version < "3.9.0" and 
 future==0.18.2; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
 gensim==3.8.3; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
 holoviews==1.14.3; python_full_version >= "3.8.0" and python_full_version < "3.9.0" and python_version >= "2.7"
-humlab-penelope==0.4.5; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
+humlab-penelope==0.4.6; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
 idna==2.10; python_full_version >= "3.8.0" and python_full_version < "3.9.0" and python_version >= "3.6"
 ipyaggrid==0.2.1; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
 ipycytoscape==1.2.1; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
