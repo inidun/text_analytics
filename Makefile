@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 SOURCE_FOLDERS=notebooks scripts tests
 PACKAGE_FOLDER=notebooks
-SPACY_MODEL=en_core_web_sm
+SPACY_MODEL=en_core_web_md
 
 faster-release: bump.patch tag
 
