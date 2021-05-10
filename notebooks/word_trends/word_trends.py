@@ -88,8 +88,6 @@
 # %%
 
 # %%
-import pandas as pd
-import panel as pn
 from bokeh.plotting import output_notebook
 from IPython.core.display import display
 from penelope.notebook.word_trends import main_gui
@@ -105,23 +103,3 @@ gui = main_gui.create_to_dtm_gui(
     resources_folder=__paths__.resources_folder,
 )
 display(gui)
-
-# %%
-
-
-custom_df = pd.util.testing.makeMixedDataFrame()
-
-w = pn.widgets.Tabulator(
-    custom_df,
-    widths={'index': 70, 'A': 50, 'B': 50, 'C': 70, 'D': 130},
-    hidden_columns=['index'],
-    row_height=26,
-    show_index=False,
-)
-w.auto_edit = False
-w
-
-# %%
-pn.widgets.Tabulator.theme = 'bulma'
-
-# %%
