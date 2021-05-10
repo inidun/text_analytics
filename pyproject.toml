@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "humlab-inidun"
-version = "0.3.3"
+version = "0.3.4"
 description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
 packages = [
@@ -30,7 +30,7 @@ pandas = "*"
 pandas-bokeh = "*"
 python = "==3.8.*"
 tqdm = "*"
-humlab-penelope = "^0.4.7"
+humlab-penelope = "==0.*,>=0.4.7"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
@@ -52,7 +52,7 @@ pylint = "*"
 pytest = "*"
 pytest-cov = "==2.*,>=2.10.1"
 rope = "*"
-humlab-penelope = { path='../../penelope', develop=true}
+
 
 
 
