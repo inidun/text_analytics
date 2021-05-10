@@ -28,7 +28,7 @@ pipeline_payload:
     lang: en
     lemma_column: lemma_
     pos_column: pos_
-    spacy_model: en_core_web_md
+    spacy_model: en_core_web_sm
     tagger: spaCy
     text_column: text
   pos_schema_name: Universal
