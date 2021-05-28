@@ -20,8 +20,8 @@ checkpoint_opts:
     deserialize_chunksize: 4
     index_column: null
 pipeline_payload:
-  source: legal_instrument_corpus.zip
-  document_index_source: legal_instrument_index.csv
+  source: legal_instrument_corpus_nonregional.zip
+  document_index_source: legal_instrument_corpus_nonregional.csv
   document_index_sep: ;
   filenames: null
   memory_store:
