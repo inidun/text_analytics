@@ -1,6 +1,7 @@
 import ipywidgets as widgets
 import penelope.co_occurrence as co_occurrence
 import penelope.notebook.co_occurrence as explore_gui
+from penelope.notebook.co_occurrence import main_gui
 
 view = widgets.Output(layout={'border': '2px solid green'})
 
@@ -8,10 +9,10 @@ view = widgets.Output(layout={'border': '2px solid green'})
 def test_create_co_occurrence_explorer_gui():
 
     corpus_filename: str = './tests/test_data/VENUS/VENUS_co-occurrence.csv.zip'
-    bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
+    bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_filename, compute_frame=False)
 
-    trends_data = co_occurrence.to_trends_data(bundle).update()
-    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI().setup().display(trends_data=trends_data)
+    trends_data = main_gui.to_trends_data(bundle).update()
+    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(bundle).setup().display(trends_data=trends_data)
 
     assert gui_explore is not None
 

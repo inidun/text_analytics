@@ -1,5 +1,5 @@
 import os
-from typing import Callable, List, Sequence
+from typing import Callable, List
 
 from penelope.corpus.readers import TextTokenizer
 from penelope.corpus.readers.interfaces import TextReaderOpts
@@ -21,7 +21,7 @@ def create_text_tokenizer(
     # TextTransformOpts
     fix_whitespaces: bool = False,
     fix_hyphenation: bool = True,
-    extra_transforms: List[Callable] = None,
+    extra_transforms: List[Callable[[str], str]] = None,
     # TextReaderOpts
     as_binary: bool = False,
     filename_pattern: str = "*.txt",

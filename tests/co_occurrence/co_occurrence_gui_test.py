@@ -1,9 +1,8 @@
 from unittest.mock import Mock, patch
 
 import ipywidgets as widgets
-import penelope.co_occurrence as co_occurrence
 import penelope.notebook.word_trends as word_trends_gui
-import penelope.pipeline as pipeline
+from penelope import co_occurrence, pipeline
 from penelope.notebook import interface
 from penelope.notebook.co_occurrence import explore_co_occurrence_gui, main_gui
 
@@ -19,7 +18,7 @@ def test_main_gui_create():
     assert gui is not None
 
 
-@patch('penelope.workflows.co_occurrence.compute', monkey_patch)
+@patch('penelope.workflows.co_occurrence.compute_partitioned_by_key', monkey_patch)
 def test_compute_co_occurrence_callback():
     config: pipeline.CorpusConfig = pipeline.CorpusConfig.load("./tests/test_data/SSI.yml")
     args: interface.ComputeOpts = Mock(spec=interface.ComputeOpts)
@@ -49,12 +48,12 @@ def test_create_MainGUI():
 @view.capture(clear_output=True)
 def test_create_co_occurrence_explorer_gui():
 
-    corpus_filename: str = co_occurrence.folder_and_tag_to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
-    bundle = co_occurrence.load_bundle(corpus_filename, compute_corpus=False)
+    corpus_filename: str = co_occurrence.to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
+    bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_filename, compute_frame=False)
 
-    trends_data = co_occurrence.to_trends_data(bundle).update()
+    trends_data = main_gui.to_trends_data(bundle).update()
     gui_explore: explore_co_occurrence_gui.ExploreGUI = (
-        explore_co_occurrence_gui.ExploreGUI().setup().display(trends_data=trends_data)
+        explore_co_occurrence_gui.ExploreGUI(bundle).setup().display(trends_data=trends_data)
     )
 
     assert gui_explore is not None

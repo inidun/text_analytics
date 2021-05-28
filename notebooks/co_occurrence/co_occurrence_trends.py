@@ -32,8 +32,8 @@
 # | ⌛ | <b>Passthrough</b> | ⚪ | Passthrough  | ⚪
 # | 🔨 | Spacy<b>ToTaggedFrame</b> | tagger service | PoS tagging |
 # | 💾 | <b>Checkpoint</b> | checkpoint_filename | Checkpoint (tagged frames) to file |
-# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_tagged_tokens_opts, filter_opts | Tokens extractor | User
-# | 🔨 | <b>TokensTransform</b> | tokens_transform_opts | Tokens transformer | User
+# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts, filter_opts | Tokens extractor | User
+# | 🔨 | <b>TokensTransform</b> | transform_opts | Tokens transformer | User
 # | 🔨 | <b>Vocabulary</b> | ⚪ | Generate a token to integer ID mapping | ⚪
 # | 🔨 | <b>ToDocumentContentTuple</b> | ⚪ | API adapter| ⚪
 # | 🔨 | <i>Partition</i> | ⚪ | Partition corpus into subsets based on predicate | 'year'

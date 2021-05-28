@@ -12,7 +12,7 @@ def monkey_patch(*_, **__):
     ...
 
 
-def load_corpus_config(_: str) -> pd.DataFrame:
+def load_corpus_config(_: str) -> pipeline.CorpusConfig:
     corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     return corpus_config
 
@@ -42,8 +42,11 @@ def patch_pipeline(*_, **__):
 @patch('penelope.notebook.token_counts.plot.plot_by_bokeh', monkey_patch)
 def test_create_token_count_gui():
 
+    def compute_callback(_: tokens_count_gui.TokenCountsGUI, __: pd.DataFrame) -> pd.DataFrame:
+        ...
+
     gui = tokens_count_gui.TokenCountsGUI(
-        compute_callback=monkey_patch,
+        compute_callback=compute_callback,
         load_document_index_callback=load_document_index_patch,
         load_corpus_config_callback=load_corpus_config,
     )

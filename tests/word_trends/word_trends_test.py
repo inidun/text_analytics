@@ -28,7 +28,7 @@ def monkey_patch(*_, **__):
     ...
 
 
-def find_corpus_config(*_, **__) -> pd.DataFrame:
+def find_corpus_config(*_, **__) -> pipeline.CorpusConfig:
     corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
     return corpus_config
 
