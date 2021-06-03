@@ -2,13 +2,13 @@ from unittest.mock import Mock, patch
 
 import numpy as np
 import pandas as pd
-import penelope.corpus.dtm as dtm
+from penelope.corpus import VectorizedCorpus
 import penelope.notebook.interface as interface
 import penelope.pipeline as pipeline
 from penelope.notebook.word_trends import main_gui
 
 
-def create_vectorized_corpus() -> dtm.VectorizedCorpus:
+def create_vectorized_corpus() -> VectorizedCorpus:
     bag_term_matrix = np.array(
         [
             [2, 1, 4, 1],
@@ -20,7 +20,7 @@ def create_vectorized_corpus() -> dtm.VectorizedCorpus:
     )
     token2id = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     document_index = pd.DataFrame({'year': [2013, 2013, 2014, 2014, 2014]})
-    v_corpus: dtm.VectorizedCorpus = dtm.VectorizedCorpus(bag_term_matrix, token2id, document_index)
+    v_corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id, document_index)
     return v_corpus
 
 
