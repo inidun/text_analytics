@@ -28,7 +28,7 @@ def test_compute_co_occurrence_callback():
     )
 
 
-@patch('penelope.co_occurrence.to_trends_data', lambda _: Mock(spec=word_trends_gui.TrendsData))
+@patch('penelope.co_occurrence.to_trends_data', lambda _: Mock(spec=word_trends_gui.BundleTrendsData))
 @patch(
     'penelope.notebook.co_occurrence.ExploreGUI',
     lambda: Mock(spec=explore_co_occurrence_gui.ExploreGUI, **{'setup': Mock}),
