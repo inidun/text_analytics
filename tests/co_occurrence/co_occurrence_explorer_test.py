@@ -12,7 +12,7 @@ def test_create_co_occurrence_explorer_gui():
     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_filename, compute_frame=False)
 
     trends_data = main_gui.to_trends_data(bundle).update()
-    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(bundle).setup().display(trends_data=trends_data)
+    gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(bundle=bundle).setup().display(trends_data=trends_data)
 
     assert gui_explore is not None
 
