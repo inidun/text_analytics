@@ -15,9 +15,9 @@ checkpoint_opts:
     pos_column: pos_
     extra_columns: []
     custom_serializer_classname: null
-    deserialize_in_parallel: true
     deserialize_processes: 1
     deserialize_chunksize: 4
+    feather_folder: null
     index_column: null
 pipeline_payload:
   source: ./tests/test_data/legal_instrument_five_docs_test.zip
