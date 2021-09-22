@@ -1,27 +1,10 @@
 from unittest.mock import Mock, patch
 
-import numpy as np
-import pandas as pd
-from penelope.corpus import VectorizedCorpus
 import penelope.notebook.interface as interface
 import penelope.pipeline as pipeline
 from penelope.notebook.word_trends import main_gui
 
-
-def create_vectorized_corpus() -> VectorizedCorpus:
-    bag_term_matrix = np.array(
-        [
-            [2, 1, 4, 1],
-            [2, 2, 3, 0],
-            [2, 3, 2, 0],
-            [2, 4, 1, 1],
-            [2, 0, 1, 1],
-        ]
-    )
-    token2id = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
-    document_index = pd.DataFrame({'year': [2013, 2013, 2014, 2014, 2014]})
-    v_corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id, document_index)
-    return v_corpus
+from ..utils import create_abc_corpus
 
 
 def monkey_patch(*_, **__):
@@ -34,7 +17,16 @@ def find_corpus_config(*_, **__) -> pipeline.CorpusConfig:
 
 
 def test_corpus_loaded_callback():
-    corpus = create_vectorized_corpus()
+    corpus = create_abc_corpus(
+        dtm=[
+            [2, 1, 4, 1],
+            [2, 2, 3, 0],
+            [2, 3, 2, 0],
+            [2, 4, 1, 1],
+            [2, 0, 1, 1],
+        ],
+        document_years=[2013, 2013, 2014, 2014, 2014],
+    )
     corpus_folder = "dummy"
     corpus_tag = "dummy"
     main_gui.loaded_callback(corpus, corpus_folder, corpus_tag)
