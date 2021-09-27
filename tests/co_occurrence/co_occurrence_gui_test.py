@@ -18,7 +18,6 @@ def test_main_gui_create():
     assert gui is not None
 
 
-@patch('penelope.workflows.co_occurrence.compute_partitioned_by_key', monkey_patch)
 def test_compute_co_occurrence_callback():
     config: pipeline.CorpusConfig = pipeline.CorpusConfig.load("./tests/test_data/SSI.yml")
     args: interface.ComputeOpts = Mock(spec=interface.ComputeOpts)
