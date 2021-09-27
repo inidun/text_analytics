@@ -26,7 +26,7 @@
 # | 🔎 | <b>Tqdm</b> | ⚪ | Progress indicator | ⚪
 # | ⌛ | <b>Passthrough</b> | ⚪ | Passthrough | ⚪
 # | 🔨 | <b>ToTaggedFrame</b> | ⚪ Spacy | PoS tagging | config.yml
-# | 💾 | <b>Checkpoint</b> | checkpoint_filename | Checkpoint (tagged frames) to file | ⚪
+# | 💾 | <b>Checkpoint</b> | tagged_frames_filename | Checkpoint (tagged frames) to file | ⚪
 # | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts, filter_opts | Tokens extractor | User specified
 # | 🔨 | <b>TokensTransform</b> | transform_opts | Tokens transformer | User specified
 # | 🔨 | <b>ToDocumentContentTuple</b> | ⚪ | API adapter | ⚪
