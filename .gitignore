@@ -144,3 +144,4 @@ deprecated
 .vscode
 .coverage
 *.out
+typings

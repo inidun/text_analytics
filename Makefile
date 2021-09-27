@@ -43,6 +43,18 @@ test: clean
 init: tools
 	@poetry install
 
+info:
+	@poetry run python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'
+
+TYPINGS_PACKAGES=scipy numpy statsmodels pandas bokeh sklearn gensim ipywidgets
+
+.PHONY: typings
+.ONESHELL: typings
+typings:
+	@for package in $(TYPINGS_PACKAGES); do \
+		poetry run pyright --createstub $$package ; \
+	done
+
 .ONESHELL: paths
 paths:
 	@for folder in `find . -type f -name "*.ipynb" | xargs dirname | grep -v ".ipynb_checkpoints" | sort | uniq | xargs` ; do \
@@ -76,9 +88,18 @@ tools:
 penelope-production-mode: penelope-uninstall
 	@poetry add humlab-penelope
 
+# .ONESHELL: penelope-edit-mode
+# penelope-edit-mode: penelope-uninstall
+# 	@poetry@3940 add --editable ../../penelope
+
 .ONESHELL: penelope-edit-mode
-penelope-edit-mode: penelope-uninstall
-	@poetry@3940 add --editable ../../penelope
+penelope-edit-mode:
+	@cp -f pyproject.toml pyproject.tmp
+	@sed -i '/humlab-penelope/c\humlab-penelope = {path = "../../penelope", develop = true}' pyproject.tmp
+	@-poetry remove humlab-penelope >& /dev/null
+	@-poetry run pip uninstall humlab-penelope --yes >& /dev/null
+	@mv -f pyproject.tmp pyproject.toml
+	@poetry update humlab-penelope
 
 penelope-uninstall:
 	@poetry remove humlab-penelope
