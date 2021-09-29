@@ -17,7 +17,7 @@ checkpoint_opts:
     custom_serializer_classname: null
     deserialize_processes: 2
     deserialize_chunksize: 4
-    feather_folder: /data/inidun/courier_page_20210921/courier_page_20210921.feather
+    feather_folder: /data/inidun/courier_page_20210921.feather
     index_column: null
 pipeline_payload:
   source: /data/inidun/courier_page_20210921.zip
