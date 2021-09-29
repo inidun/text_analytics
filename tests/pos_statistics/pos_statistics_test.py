@@ -41,7 +41,6 @@ def patch_pipeline(*_, **__):
 @patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
 @patch('penelope.notebook.token_counts.plot.plot_by_bokeh', monkey_patch)
 def test_create_token_count_gui():
-
     def compute_callback(_: tokens_count_gui.TokenCountsGUI, __: pd.DataFrame) -> pd.DataFrame:
         ...
 
