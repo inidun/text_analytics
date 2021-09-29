@@ -21,8 +21,10 @@ disable=invalid-name,
         # misplaced-comparison-constant,
         broad-except,
         wrong-import-order,
-        duplicate-code
-
+        duplicate-code,
+        consider-using-f-string,
+        unspecified-encoding,
+        use-dict-literal,
 
 [REPORTS]
 score=no
