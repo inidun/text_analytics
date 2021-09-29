@@ -145,3 +145,4 @@ deprecated
 .coverage
 *.out
 typings
+tmp
