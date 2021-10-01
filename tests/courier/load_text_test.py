@@ -1,6 +1,8 @@
-from penelope.pipeline import tasks
-from penelope import pipeline, corpus as corpora, utility
 import re
+
+from penelope import corpus as corpora
+from penelope import pipeline, utility
+from penelope.pipeline import tasks
 
 HYPHEN_REGEXP = re.compile(r'\b(\w+)[-¬]\s*\r?\n\s*(\w+)\s*\b', re.UNICODE)
 

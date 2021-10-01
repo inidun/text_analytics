@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, Mock, patch
 
 import numpy as np
 import pandas as pd
-import penelope.pipeline as pipeline
 import pytest
+from penelope import pipeline
 from penelope.notebook.token_counts import tokens_count_gui
 
 
