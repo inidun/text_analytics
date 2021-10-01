@@ -4,11 +4,11 @@ SOURCE_FOLDERS=notebooks scripts tests
 PACKAGE_FOLDER=notebooks
 SPACY_MODEL=en_core_web_md
 
-faster-release: bump.patch tag
+faster-release: bump.patch tag publish
 
 fast-release: clean git-ipynb requirements.txt-to-git guard-clean-working-repository bump.patch tag publish
 
-release: ready guard-clean-working-repository bump.patch tag
+release: ready guard-clean-working-repository bump.patch tag publish
 
 ready: tools paths clean tidy test lint requirements.txt build
 
