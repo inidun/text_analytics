@@ -1,7 +1,9 @@
+import os
+import uuid
 from unittest.mock import Mock, patch
 
-import penelope.notebook.interface as interface
-import penelope.pipeline as pipeline
+from penelope import pipeline
+from penelope.notebook import interface
 from penelope.notebook.word_trends import main_gui
 
 from ..utils import create_abc_corpus
@@ -41,7 +43,9 @@ def test_corpus_compute_callback():
 def test_create_gui():
 
     config_name = "SSI"
-    corpus_folder = "dummy"
-    data_folder = "dummy"
+    corpus_folder = f'./tests/output/{uuid.uuid1()}'
+    data_folder = f'./tests/output/{uuid.uuid1()}'
+    os.makedirs(corpus_folder)
+    os.makedirs(data_folder)
     gui = main_gui.create_to_dtm_gui(corpus_folder=corpus_folder, data_folder=data_folder, corpus_config=config_name)
     assert gui is not None
