@@ -186,14 +186,14 @@ typing-extensions = ">=3.10.0"
 
 [[package]]
 name = "boto3"
-version = "1.18.50"
+version = "1.18.53"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.6"
 
 [package.dependencies]
-botocore = ">=1.21.50,<1.22.0"
+botocore = ">=1.21.53,<1.22.0"
 jmespath = ">=0.7.1,<1.0.0"
 s3transfer = ">=0.5.0,<0.6.0"
 
@@ -202,7 +202,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.21.50"
+version = "1.21.53"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -218,7 +218,7 @@ crt = ["awscrt (==0.11.24)"]
 
 [[package]]
 name = "cachetools"
-version = "4.2.2"
+version = "4.2.4"
 description = "Extensible memoizing collections and decorators"
 category = "main"
 optional = false
@@ -566,54 +566,49 @@ unit_tests = ["ipython (>=5.4.0)", "notebook", "matplotlib (>=3)", "bokeh (>=1.1
 
 [[package]]
 name = "humlab-penelope"
-version = "0.5.20"
+version = "0.5.23"
 description = "Utilities that simplify enelpeing in Jupyter Lab"
 category = "main"
 optional = false
-python-versions = "==3.8.*"
-develop = true
+python-versions = ">=3.8.0,<3.9.0"
 
 [package.dependencies]
-alive-progress = "^1.6.1"
+alive-progress = ">=1.6.1,<2.0.0"
 bokeh = "*"
-click = "^7.1.2"
-ftfy = "^5.8"
-gensim = "^3.8.3"
-holoviews = "^1.13.5"
+click = ">=7.1.2,<8.0.0"
+ftfy = ">=5.8,<6.0"
+gensim = ">=3.8.3,<4.0.0"
+holoviews = ">=1.13.5,<2.0.0"
 ipyaggrid = "*"
 ipycytoscape = "*"
 ipyfilechooser = "*"
 ipywidgets = "*"
 jupyter_bokeh = "*"
-loguru = "^0.5.3"
-lxml = "^4.5.2"
-memoization = "^0.3.1"
-more_itertools = "^8.5.0"
-msgpack = "^1.0.2"
-nltk = "^3.5"
-numba = "^0.53.1"
-numpy = "==1.19.3"
-openpyxl = "^3.0.5"
-pandas = "^1.1.2"
+loguru = ">=0.5.3,<0.6.0"
+lxml = ">=4.5.2,<5.0.0"
+memoization = ">=0.3.1,<0.4.0"
+more_itertools = ">=8.5.0,<9.0.0"
+msgpack = ">=1.0.2,<2.0.0"
+nltk = ">=3.5,<4.0"
+numba = ">=0.53.1,<0.54.0"
+numpy = "1.19.3"
+openpyxl = ">=3.0.5,<4.0.0"
+pandas = ">=1.1.2,<2.0.0"
 perspective-python = "*"
-pyarrow = "^3.0.0"
-pydotplus = "^2.0.2"
-python-louvain = "^0.14"
-PyYAML = "^5.3.1"
-requests = "^2.24.0"
-scipy = "^1.5.2"
+pyarrow = ">=3.0.0,<4.0.0"
+pydotplus = ">=2.0.2,<3.0.0"
+python-louvain = ">=0.14,<0.15"
+PyYAML = ">=5.3.1,<6.0.0"
+requests = ">=2.24.0,<3.0.0"
+scipy = ">=1.5.2,<2.0.0"
 sklearn = "*"
-smart_open = "^2.2.1"
-spacy = "^2.3.2"
-statsmodels = "^0.12.0"
-textacy = "^0.10.1"
-toml = "^0.10.2"
-tqdm = "^4.62.3"
-wordcloud = "^1.8.0"
-
-[package.source]
-type = "directory"
-url = "../../penelope"
+smart_open = ">=2.2.1,<3.0.0"
+spacy = ">=2.3.2,<3.0.0"
+statsmodels = ">=0.12.0,<0.13.0"
+textacy = ">=0.10.1,<0.11.0"
+toml = ">=0.10.2,<0.11.0"
+tqdm = ">=4.62.3,<5.0.0"
+wordcloud = ">=1.8.0,<2.0.0"
 
 [[package]]
 name = "identify"
@@ -863,14 +858,14 @@ format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator 
 
 [[package]]
 name = "jupyter-bokeh"
-version = "3.0.3"
+version = "3.0.4"
 description = "A Jupyter extension for rendering Bokeh content."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-bokeh = ">=2.0.0"
+bokeh = ">=2.4.0"
 ipywidgets = ">=7.6.0"
 
 [[package]]
@@ -1359,7 +1354,7 @@ test = ["pytest (>=6.2)", "pytest-cov (>=2.12)", "codecov (>=2.1)"]
 
 [[package]]
 name = "nltk"
-version = "3.6.3"
+version = "3.6.4"
 description = "Natural Language Toolkit"
 category = "main"
 optional = false
@@ -1372,7 +1367,7 @@ regex = "*"
 tqdm = "*"
 
 [package.extras]
-all = ["gensim (<4.0.0)", "numpy", "pyparsing", "scikit-learn", "scipy", "twython", "python-crfsuite", "requests", "matplotlib"]
+all = ["scipy", "gensim (<4.0.0)", "pyparsing", "python-crfsuite", "matplotlib", "requests", "numpy", "twython", "scikit-learn"]
 corenlp = ["requests"]
 machine_learning = ["gensim (<4.0.0)", "numpy", "python-crfsuite", "scikit-learn", "scipy"]
 plot = ["matplotlib"]
@@ -2305,7 +2300,7 @@ cuda92 = ["cupy-cuda92 (>=5.0.0b4)"]
 
 [[package]]
 name = "threadpoolctl"
-version = "2.2.0"
+version = "3.0.0"
 description = "threadpoolctl"
 category = "main"
 optional = false
@@ -2492,7 +2487,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.*"
-content-hash = "f838079d790bfecdd40e49046666fd4bcc8c4c82532c4b2a0bf808175fa50248"
+content-hash = "0a6b2e0174750f40d5f258dac422395110567390eddcd4dede6ebe55ac1e8ea4"
 
 [metadata.files]
 alive-progress = [
@@ -2575,16 +2570,16 @@ bokeh = [
     {file = "bokeh-2.4.0.tar.gz", hash = "sha256:6fa00ed8baab5cca33f4175792c309fa2536eaae7e90abee884501ba8c90fddb"},
 ]
 boto3 = [
-    {file = "boto3-1.18.50-py3-none-any.whl", hash = "sha256:6c9f2b50827ba9233a143b71746b7f1caee0467cf5004d7b43d5a7d5f468827b"},
-    {file = "boto3-1.18.50.tar.gz", hash = "sha256:f7ab057556461678dda5597ceb08b233a82b7bbfb29b47d18b2fa102bd5ad680"},
+    {file = "boto3-1.18.53-py3-none-any.whl", hash = "sha256:9dea5a820282bcd752bba118e38e44d683024e7cd8792ea89e72e3df7c61978e"},
+    {file = "boto3-1.18.53.tar.gz", hash = "sha256:4c20f183b680f6b02f70fb32b03df8b52ab9e0fc7a48dc309c159babaf5c9497"},
 ]
 botocore = [
-    {file = "botocore-1.21.50-py3-none-any.whl", hash = "sha256:3c24e20ad2b155c5a031db2ed060191df282369c5e59225ef20126cdfa6f082f"},
-    {file = "botocore-1.21.50.tar.gz", hash = "sha256:06e4d529071accac2ef93de1f9827dce0b41b0b6d9f81bd81d31aa2342d72631"},
+    {file = "botocore-1.21.53-py3-none-any.whl", hash = "sha256:09f82a17a352f8b694ac6542eae34fe39169b049c4ca55e17040a0796b8f399b"},
+    {file = "botocore-1.21.53.tar.gz", hash = "sha256:650604ca5231b819d64430c6b2d1748646bab1095a02fb81bad99cd59f6f6cf5"},
 ]
 cachetools = [
-    {file = "cachetools-4.2.2-py3-none-any.whl", hash = "sha256:2cc0b89715337ab6dbba85b5b50effe2b0c74e035d83ee8ed637cf52f12ae001"},
-    {file = "cachetools-4.2.2.tar.gz", hash = "sha256:61b5ed1e22a0924aed1d23b478f37e8d52549ff8a961de2909c69bf950020cff"},
+    {file = "cachetools-4.2.4-py3-none-any.whl", hash = "sha256:92971d3cb7d2a97efff7c7bb1657f21a8f5fb309a37530537c71b1774189f2d1"},
+    {file = "cachetools-4.2.4.tar.gz", hash = "sha256:89ea6f1b638d5a73a4f9226be57ac5e4f399d22770b92355f92dcb0f7f001693"},
 ]
 catalogue = [
     {file = "catalogue-1.0.0-py2.py3-none-any.whl", hash = "sha256:584d78e7f4c3c6e2fd498eb56dfc8ef1f4ff738480237de2ccd26cbe2cf47172"},
@@ -2883,7 +2878,10 @@ holoviews = [
     {file = "holoviews-1.14.6-py3-none-any.whl", hash = "sha256:983c8f873d213e274eb7ab8568267982ca73ce4dfe3c7f334514a908da7ccfe3"},
     {file = "holoviews-1.14.6.tar.gz", hash = "sha256:3a25c4fe3195fdc4639461abbfa5a8bebce8ab737674b6673da2236a901cfefd"},
 ]
-humlab-penelope = []
+humlab-penelope = [
+    {file = "humlab-penelope-0.5.23.tar.gz", hash = "sha256:8511d0109756dbebcbca11019c24ad474b421667981b1ea62a93d8df37073320"},
+    {file = "humlab_penelope-0.5.23-py3-none-any.whl", hash = "sha256:0de6290c47043ef8bdfd3fa6414663e91e33fd6102780e8b32d6cfb0a550b1dc"},
+]
 identify = [
     {file = "identify-2.2.15-py2.py3-none-any.whl", hash = "sha256:de83a84d774921669774a2000bf87ebba46b4d1c04775f4a5d37deff0cf39f73"},
     {file = "identify-2.2.15.tar.gz", hash = "sha256:528a88021749035d5a39fe2ba67c0642b8341aaf71889da0e1ed669a429b87f0"},
@@ -2968,7 +2966,7 @@ jsonschema = [
     {file = "jsonschema-3.2.0.tar.gz", hash = "sha256:c8a85b28d377cc7737e46e2d9f2b4f44ee3c0e1deac6bf46ddefc7187d30797a"},
 ]
 jupyter-bokeh = [
-    {file = "jupyter_bokeh-3.0.3.tar.gz", hash = "sha256:4c4a06c3f6c5d920c8357681beea57297b3d6d1d46b82c29045088b96f9d4b01"},
+    {file = "jupyter_bokeh-3.0.4.tar.gz", hash = "sha256:ba3b032f52a039d9e5ed8f6c50f3f9a00dcb97005871c24673a3b3a05465aef5"},
 ]
 jupyter-client = [
     {file = "jupyter_client-7.0.4-py3-none-any.whl", hash = "sha256:0b18f85dfc4b2c48ee65ccd7d57382d151ecb8469cedde0138b7294c1a747d46"},
@@ -3338,8 +3336,8 @@ networkx = [
     {file = "networkx-2.6.3.tar.gz", hash = "sha256:c0946ed31d71f1b732b5aaa6da5a0388a345019af232ce2f49c766e2d6795c51"},
 ]
 nltk = [
-    {file = "nltk-3.6.3-py3-none-any.whl", hash = "sha256:665225d585367f64a73ff1cb436964b425304dc772406653412e19dfe0157688"},
-    {file = "nltk-3.6.3.zip", hash = "sha256:5db64a976e88cef0db9200c7f25aeceba8a86efbe09cc824f01a6d3163f7e937"},
+    {file = "nltk-3.6.4-py3-none-any.whl", hash = "sha256:2b9a54bbd2142282cb41aa4b25b8a356bb96f032f509302b4cca9992eda6e793"},
+    {file = "nltk-3.6.4.zip", hash = "sha256:dd7e8012af25737e6aa7bc26568a319508dca789f13e62afa09798dccc7798b5"},
 ]
 nodeenv = [
     {file = "nodeenv-1.6.0-py2.py3-none-any.whl", hash = "sha256:621e6b7076565ddcacd2db0294c0381e01fd28945ab36bcf00f41c5daf63bef7"},
@@ -4052,8 +4050,8 @@ thinc = [
     {file = "thinc-7.4.5.tar.gz", hash = "sha256:5743fde41706252ec6ce4737c68d3505f7e1cc3d4431174a17149838d594f8cb"},
 ]
 threadpoolctl = [
-    {file = "threadpoolctl-2.2.0-py3-none-any.whl", hash = "sha256:e5a995e3ffae202758fa8a90082e35783b9370699627ae2733cd1c3a73553616"},
-    {file = "threadpoolctl-2.2.0.tar.gz", hash = "sha256:86d4b6801456d780e94681d155779058759eaef3c3564758b17b6c99db5f81cb"},
+    {file = "threadpoolctl-3.0.0-py3-none-any.whl", hash = "sha256:4fade5b3b48ae4b1c30f200b28f39180371104fccc642e039e0f2435ec8cc211"},
+    {file = "threadpoolctl-3.0.0.tar.gz", hash = "sha256:d03115321233d0be715f0d3a5ad1d6c065fe425ddc2d671ca8e45e9fd5d7a52a"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
