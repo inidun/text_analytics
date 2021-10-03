@@ -1,9 +1,61 @@
+default_language_version:
+  python: python3.8
+
 repos:
-  - repo: local
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.9.3
     hooks:
-      - id: jupyter-nb-clear-output
-        name: jupyter-nb-clear-output
-        files: \.ipynb$
-        stages: [commit]
-        language: system
-        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+      - id: isort
+        name: isort
+        args: ["--profile=black"]
+
+  - repo: https://github.com/psf/black
+    rev: 21.7b0
+    hooks:
+      - id: black
+        args:
+            - "--target-version=py38"
+            - "--target-version=py39"
+        types: [python]
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      # - id: check-added-large-files
+      # - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+      # - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-toml
+      # - id: check-xml
+      - id: check-yaml
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      # - id: end-of-file-fixer
+      #   exclude: ^LICENSE|\.(html|csv|txt|svg|py)$
+      # - id: pretty-format-json
+      #   args: ["--autofix", "--no-ensure-ascii", "--no-sort-keys"]
+      - id: requirements-txt-fixer
+      # - id: trailing-whitespace
+      #   args: [--markdown-linebreak-ext=md]
+      #   exclude: \.(html|svg)$
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-2020
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-docstrings
+          - flake8-implicit-str-concat
