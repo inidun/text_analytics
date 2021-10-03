@@ -331,21 +331,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "en-core-web-sm"
-version = "2.3.1"
-description = "English multi-task CNN trained on OntoNotes. Assigns context-specific token vectors, POS tags, dependency parse and named entities."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-spacy = ">=2.3.0,<2.4.0"
-
-[package.source]
-type = "url"
-url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz"
-
-[[package]]
 name = "entrypoints"
 version = "0.3"
 description = "Discover and load entry points from installed packages."
@@ -2176,7 +2161,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.*"
-content-hash = "8e2622c68151bbe5a999e89bbfeacd213db5c627a4d2ed8e394ce181fba90791"
+content-hash = "b311da334a6acaf2a41fc5eaf9fcaefdcd91b68126819351260ba3c860147ee7"
 
 [metadata.files]
 anyio = [
@@ -2454,7 +2439,6 @@ distlib = [
     {file = "distlib-0.3.3-py2.py3-none-any.whl", hash = "sha256:c8b54e8454e5bf6237cc84c20e8264c3e991e824ef27e8f1e81049867d861e31"},
     {file = "distlib-0.3.3.zip", hash = "sha256:d982d0751ff6eaaab5e2ec8e691d949ee80eddf01a62eaa96ddb11531fe16b05"},
 ]
-en-core-web-sm = []
 entrypoints = [
     {file = "entrypoints-0.3-py2.py3-none-any.whl", hash = "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19"},
     {file = "entrypoints-0.3.tar.gz", hash = "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"},
