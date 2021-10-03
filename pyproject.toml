@@ -30,8 +30,9 @@ pandas = "*"
 pandas-bokeh = "*"
 python = "==3.8.*"
 tqdm = "*"
-humlab-penelope = "^0.5.23"
 en-core-web-sm = {url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz"}
+msgpack = "^1.0.2"
+humlab-penelope = "^0.5.24"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
