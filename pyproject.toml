@@ -24,7 +24,6 @@ repository = "https://github.com/inidun/text_analytics"
 [tool.poetry.dependencies]
 bokeh = "*"
 click = "*"
-humlab-penelope = "^0.5.24"
 ipywidgets = "==7.6.3"
 jupyterlab = "==3.0.16"
 matplotlib = "*"
@@ -33,6 +32,7 @@ pandas = "*"
 pandas-bokeh = "*"
 python = "==3.8.*"
 tqdm = "*"
+humlab-penelope = "^0.5.27"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
