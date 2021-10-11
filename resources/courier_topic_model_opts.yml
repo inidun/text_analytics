@@ -13,7 +13,7 @@ min_word_length: 2
 # keep_numerals: false
 only_any_alphanumeric: true
 # only_alphabetic: false
-n_topics: 200
+n_topics: 50
 # engine: gensim_lda-multicore
 engine: gensim_mallet-lda
 # passes: null
