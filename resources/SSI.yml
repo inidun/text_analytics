@@ -49,4 +49,4 @@ text_reader_opts:
   index_field: null
   sep: "\t"
   quoting: 3
-  dehypen_expr: "\\b(\\w+)[-¬]\\s*\\r?\\n\\s*(\\w+)\\s*\\b"
+  dehyphen_expr: "\\b(\\w+)[-¬]\\s*\\r?\\n\\s*(\\w+)\\s*\\b"
