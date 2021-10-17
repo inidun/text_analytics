@@ -1,3 +1,4 @@
+# target_name: courier_page_20210921_200_LEMMA_LOWER
 # corpus_filename: null
 # corpus_folder: null
 target_folder: ./data
@@ -12,15 +13,10 @@ min_word_length: 2
 # keep_numerals: false
 only_any_alphanumeric: true
 # only_alphabetic: false
-# n_topics: 50
-# engine: gensim_lda-multicore
-engine: gensim_mallet-lda
-# passes: null
-random_seed: 42
-alpha: asymmetric
-# workers: null
-max_iter: 3000
-# prefix:
-store_corpus: true
-store_compressed: false
 force_checkpoint: false
+
+# config_filename:
+# model_folder:
+# target_name:
+# options_filename:
+# enable_checkpoint:

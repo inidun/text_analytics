@@ -15,7 +15,7 @@ checkpoint_opts:
     pos_column: pos_
     extra_columns: []
     custom_serializer_classname: null
-    deserialize_processes: 2
+    deserialize_processes: 1
     deserialize_chunksize: 4
     feather_folder: /data/inidun/courier_page_20210921.feather
     index_column: null
@@ -49,3 +49,4 @@ text_reader_opts:
   index_field: null
   sep: "\t"
   quoting: 3
+  dehyphen_expr: "\\b(\\w+)[-¬]\\s*\\r?\\n\\s*(\\w+)\\s*\\b"
