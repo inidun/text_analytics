@@ -46,7 +46,8 @@ init: tools
 info:
 	@poetry run python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'
 
-TYPINGS_PACKAGES=scipy numpy statsmodels pandas bokeh sklearn gensim ipywidgets
+TYPINGS_PACKAGES=IPython ftfy holoviews ipyfilechooser itertoolz nltk pydotplus sklearn spacy statsmodels tqdm \
+	bokeh gensim ipycytoscape ipywidgets networkx numpy scipy smart_open spacy.tar textacy
 
 .PHONY: typings
 .ONESHELL: typings
