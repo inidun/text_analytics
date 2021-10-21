@@ -9,7 +9,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.13.0
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -40,4 +40,3 @@ gui = tokens_count_gui.create_token_count_gui(
     corpus_folder=__paths__.corpus_folder, resources_folder=__paths__.resources_folder
 )
 display(gui.layout())
-# %%
