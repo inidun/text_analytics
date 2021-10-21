@@ -15,7 +15,7 @@
 # ---
 
 # %% [markdown]
-# ## Text Analysis - Topic Modelling
+# ## Text Analysis - Topic Modeling
 # ### <span style='color: green'>SETUP </span> Prepare and Setup Notebook <span style='float: right; color: red'>MANDATORY</span>
 
 # %%
@@ -120,5 +120,3 @@ gui.display_topic_document_network_gui(plot_mode=gui.PlotMode.FocusTopics, state
 custom_styles = {'edges': {'curve-style': 'haystack'}}
 w = gui.create_topics_token_network_gui(data_folder=corpus_folder, custom_styles=custom_styles)
 display(w.layout())
-
-# %%
