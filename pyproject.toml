@@ -33,6 +33,7 @@ pandas-bokeh = "*"
 python = "==3.8.*"
 tqdm = "*"
 humlab-penelope = "^0.5.32"
+ipysheet = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "==20.*,>=20.8.0.b1"
