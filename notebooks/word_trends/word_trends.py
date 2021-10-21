@@ -84,9 +84,6 @@
 # So this expression matches all words that begins with any number of characters follwoed, by the character sequence `tion` at the end of the word.
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
-#
-# %%
-
 # %%
 from bokeh.plotting import output_notebook
 from IPython.core.display import display
