@@ -1,4 +1,4 @@
-# corpus_filename: null
+# corpus_source: null
 # corpus_folder: null
 target_folder: ./data
 lemmatize: true

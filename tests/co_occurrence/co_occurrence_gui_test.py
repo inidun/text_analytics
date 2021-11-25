@@ -46,8 +46,8 @@ def test_compute_co_occurrence_callback():
 # @view.capture(clear_output=True)
 # def test_create_co_occurrence_explorer_gui():
 
-#     corpus_filename: str = co_occurrence.to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
-#     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_filename, compute_frame=False)
+#     corpus_source: str = co_occurrence.to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
+#     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_source, compute_frame=False)
 
 #     trends_data = main_gui.to_trends_data(bundle).update()
 #     gui_explore: explore_co_occurrence_gui.ExploreGUI = (

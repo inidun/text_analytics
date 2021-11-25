@@ -9,8 +9,8 @@
 # # FIXME Penelope only test, remove or move
 # # def test_create_co_occurrence_explorer_gui():
 
-# #     corpus_filename: str = './tests/test_data/VENUS/VENUS_co-occurrence.csv.zip'
-# #     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_filename, compute_frame=False)
+# #     corpus_source: str = './tests/test_data/VENUS/VENUS_co-occurrence.csv.zip'
+# #     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_source, compute_frame=False)
 
 # #     trends_data = main_gui.to_trends_data(bundle).update()
 # #     gui_explore: explore_gui.ExploreGUI = explore_gui.ExploreGUI(bundle=bundle).setup().display(trends_data=trends_data)
