@@ -456,44 +456,50 @@ test-win = ["pytest", "pytest-rerunfailures", "mock", "cython", "nmslib", "pyemd
 
 [[package]]
 name = "humlab-penelope"
-version = "0.5.32"
+version = "0.5.33"
 description = "Utilities that simplify enelpeing in Jupyter Lab"
 category = "main"
 optional = false
-python-versions = ">=3.8.0,<3.9.0"
+python-versions = "==3.8.*"
+develop = true
 
 [package.dependencies]
 bokeh = "*"
-click = ">=7.1.2,<8.0.0"
-ftfy = ">=5.8,<6.0"
-gensim = ">=3.8.3,<4.0.0"
+click = "^7.1.2"
+ftfy = "^5.8"
+gensim = "^3.8.3"
 ipyaggrid = "*"
 ipycytoscape = "*"
 ipyfilechooser = "*"
+ipysheet = "^0.5.0"
 ipywidgets = "*"
-itertoolz = ">=0.5,<0.6"
+itertoolz = "^0.5"
 jupyter_bokeh = "*"
-loguru = ">=0.5.3,<0.6.0"
-lxml = ">=4.5.2,<5.0.0"
-memoization = ">=0.3.1,<0.4.0"
-more_itertools = ">=8.5.0,<9.0.0"
-msgpack = ">=1.0.2,<2.0.0"
-nltk = ">=3.5,<4.0"
+loguru = "^0.5.3"
+lxml = "^4.5.2"
+memoization = "^0.3.1"
+more_itertools = "^8.5.0"
+msgpack = "^1.0.2"
+nltk = "^3.5"
 numpy = "*"
-openpyxl = ">=3.0.5,<4.0.0"
-pandas = ">=1.1.2,<2.0.0"
+openpyxl = "^3.0.5"
+pandas = "^1.1.2"
 perspective-python = "*"
-pyarrow = ">=3.0.0,<4.0.0"
-python-louvain = ">=0.14,<0.15"
-PyYAML = ">=5.3.1,<6.0.0"
-requests = ">=2.24.0,<3.0.0"
-scipy = ">=1.5.2,<2.0.0"
+pyarrow = "^3.0.0"
+python-louvain = "^0.14"
+PyYAML = "^5.3.1"
+requests = "^2.24.0"
+scipy = "^1.5.2"
 sklearn = "*"
 spacy = "*"
 textacy = "*"
-toml = ">=0.10.2,<0.11.0"
-tqdm = ">=4.62.3,<5.0.0"
-wordcloud = ">=1.8.0,<2.0.0"
+toml = "^0.10.2"
+tqdm = "^4.62.3"
+wordcloud = "^1.8.0"
+
+[package.source]
+type = "directory"
+url = "../../penelope"
 
 [[package]]
 name = "identify"
@@ -2238,7 +2244,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "==3.8.*"
-content-hash = "30390b932a4d1c5f50cb5803b82800566024c54d0032489d0749ea56d28ff035"
+content-hash = "ccff9c5af52a8a173dbbd03bc4f5d305bb949f7317ee6d8423c6312ff12c23c5"
 
 [metadata.files]
 anyio = [
@@ -2590,10 +2596,7 @@ gensim = [
     {file = "gensim-3.8.3-cp38-cp38-win_amd64.whl", hash = "sha256:4e34cf2e50f3eab3e303da46089ea4972567bf216e28f7535ada155770784ac8"},
     {file = "gensim-3.8.3.tar.gz", hash = "sha256:786adb0571f75114e9c5f7a31dd2e6eb39a9791f22c8757621545e2ded3ea367"},
 ]
-humlab-penelope = [
-    {file = "humlab-penelope-0.5.32.tar.gz", hash = "sha256:13eaccb1ccf190b82b206e28d00b225297ad2858dfaf2357b26b3c9a00e5019e"},
-    {file = "humlab_penelope-0.5.32-py3-none-any.whl", hash = "sha256:27a2d249c7e79e66c6d71c4ebe40ad5ab853f8183440e2f9975cb65cebb7100d"},
-]
+humlab-penelope = []
 identify = [
     {file = "identify-2.3.0-py2.py3-none-any.whl", hash = "sha256:d1e82c83d063571bb88087676f81261a4eae913c492dafde184067c584bc7c05"},
     {file = "identify-2.3.0.tar.gz", hash = "sha256:fd08c97f23ceee72784081f1ce5125c8f53a02d3f2716dde79a6ab8f1039fea5"},
