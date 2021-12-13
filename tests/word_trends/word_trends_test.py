@@ -34,7 +34,7 @@ def test_corpus_loaded_callback():
     main_gui.loaded_callback(corpus, corpus_folder, corpus_tag)
 
 
-@patch('penelope.workflows.document_term_matrix.compute', monkey_patch)
+@patch('penelope.workflows.vectorize.dtm.compute', monkey_patch)
 def test_corpus_compute_callback():
     main_gui.compute_callback(args=Mock(spec=interface.ComputeOpts), corpus_config=Mock(spec=pipeline.CorpusConfig))
 
