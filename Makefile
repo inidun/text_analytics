@@ -226,7 +226,6 @@ git-ipynb: guard-clean-working-repository
 
 labextension:
 	@poetry run jupyter labextension install \
-		ipyaggrid \
 		@finos/perspective-jupyterlab \
 		@jupyter-widgets/jupyterlab-manager
 
