@@ -42,13 +42,12 @@ def test_load():
     text_transform_opts = corpora.TextTransformOpts(
         fix_whitespaces=True, fix_hyphenation=True, extra_transforms=[remove_hyphens]
     )
-    config: pipeline.CorpusConfig = pipeline.CorpusConfig(
+    config: pipeline.CorpusConfig = pipeline.CorpusConfig.create(
         corpus_name='courier',
         corpus_type=pipeline.CorpusType.Text,
         corpus_pattern='*.zip',
         checkpoint_opts=pipeline.CheckpointOpts(),
         text_reader_opts=corpora.TextReaderOpts(),
-        filter_opts=None,
         pipelines={},
         pipeline_payload=pipeline.PipelinePayload(),
         language='english',

@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import ipywidgets as widgets
 from penelope import pipeline
-from penelope.notebook import interface
 from penelope.notebook.co_occurrence import main_gui
+from penelope.workflows import interface
 
 view = widgets.Output(layout={'border': '2px solid green'})
 

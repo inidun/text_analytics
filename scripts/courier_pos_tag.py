@@ -35,7 +35,7 @@ def main(config_filename: str = None):
 
     attributes = ['text', 'lemma_', 'pos_']
     config: CorpusConfig = CorpusConfig.load(path=config_filename)
-    tagged_frames_filename: str = os.path.abspath(
+    tagged_corpus_source: str = os.path.abspath(
         path_add_suffix(config.pipeline_payload.source, DEFAULT_TAGGED_FRAMES_FILENAME_SUFFIX)
     )
 
@@ -45,7 +45,7 @@ def main(config_filename: str = None):
         .set_spacy_model(en_nlp)
         .text_to_spacy()
         .spacy_to_tagged_frame(attributes=attributes)
-        .checkpoint(filename=tagged_frames_filename)
+        .checkpoint(filename=tagged_corpus_source)
     )
 
     _ = pipeline.exhaust()

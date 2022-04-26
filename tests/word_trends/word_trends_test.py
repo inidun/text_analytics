@@ -3,8 +3,8 @@ import uuid
 from unittest.mock import Mock, patch
 
 from penelope import pipeline
-from penelope.notebook import interface
 from penelope.notebook.word_trends import main_gui
+from penelope.workflows import interface
 
 from ..utils import create_abc_corpus
 
