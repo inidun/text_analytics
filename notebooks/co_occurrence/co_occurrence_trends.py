@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.0
+#       jupytext_version: 1.13.8
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -31,11 +31,10 @@
 # | 🔎 | <b>Tqdm</b> | ⚪ | Progress indicator | ⚪
 # | ⌛ | <b>Passthrough</b> | ⚪ | Passthrough  | ⚪
 # | 🔨 | Spacy<b>ToTaggedFrame</b> | tagger service | PoS tagging |
-# | 💾 | <b>Checkpoint</b> | tagged_frames_filename | Checkpoint (tagged frames) to file |
-# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts, filter_opts | Tokens extractor | User
+# | 💾 | <b>Checkpoint</b> | tagged_corpus_source | Checkpoint (tagged frames) to file |
+# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts | Tokens extractor | User
 # | 🔨 | <b>TokensTransform</b> | transform_opts | Tokens transformer | User
 # | 🔨 | <b>Vocabulary</b> | ⚪ | Generate a token to integer ID mapping | ⚪
-# | 🔨 | <b>ToDocumentContentTuple</b> | ⚪ | API adapter| ⚪
 # | 🔨 | <i>Partition</i> | ⚪ | Partition corpus into subsets based on predicate | 'year'
 # | 🔎 | <i>ToTTM</i> | ⚪ | Transform each partition to TTM matrices | User
 # | 🔨 | <b>ToCoOccurrence</b> | ⚪| Transform TTM into data frame with normalized values | ⚪
@@ -101,11 +100,11 @@
 # The "words" in this case are co-occurrence pairs and to find instances matching "information" you could enter ```information*```, ```*information``` or ```*information*``` to match pairs starting with information, ending with information or containing information respectively.
 
 # %%
-from bokeh.plotting import output_notebook
-from IPython.core.display import display
-from penelope.notebook.co_occurrence import MainGUI
 
 import __paths__
+from bokeh.plotting import output_notebook
+from IPython.display import display
+from penelope.notebook.co_occurrence import MainGUI
 
 output_notebook()
 gui = MainGUI(

@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.0
+#       jupytext_version: 1.13.8
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -31,12 +31,12 @@
 # If no pre-existing file exists, then the necessary attributes (e.g. document's year) are extracted from the filename of each  document.
 
 # %% tags=[]
-from IPython.core.display import display
-from penelope.notebook.token_counts import tokens_count_gui
 
 import __paths__
+from IPython.display import display
+from penelope.notebook.token_counts import pipeline_gui
 
-gui = tokens_count_gui.create_token_count_gui(
+gui = pipeline_gui.create_token_count_gui(
     corpus_folder=__paths__.corpus_folder, resources_folder=__paths__.resources_folder
 )
 display(gui.layout())
