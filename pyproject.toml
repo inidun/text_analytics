@@ -13,7 +13,7 @@ classifiers = [
     'Topic :: Software Development',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
 ]
 license = "Apache-2.0"
 readme = "README.md"
@@ -25,33 +25,33 @@ repository = "https://github.com/inidun/text_analytics"
 bokeh = "*"
 click = "*"
 humlab-penelope = {path = "../../penelope", develop = true}
-ipysheet = "^0.5.0"
-ipywidgets = "==7.6.3"
-jupyterlab = "==3.0.16"
+ipysheet = "*"
+ipywidgets = "*"
+jupyterlab = "*"
 matplotlib = "*"
-msgpack = "^1.0.2"
+msgpack = "*"
 pandas = "*"
 pandas-bokeh = "*"
-python = "==3.8.*"
+python = "==3.9.*"
 tqdm = "*"
 
 [tool.poetry.dev-dependencies]
-black = "==20.*,>=20.8.0.b1"
+black = "*"
 coverage = "*"
-flake8 = "==3.*,>=3.8.4"
-flake8-black = "==0.*,>=0.2.1"
-flake8-pytest-style = "==1.*,>=1.3.0"
-isort = "==5.*,>=5.5.4"
+flake8 = "*"
+flake8-black = "*"
+flake8-pytest-style = "*"
+isort = "*"
 jupytext = "*"
-mypy = "==0.*,>=0.782.0"
-pep8-naming = "==0.*,>=0.11.1"
+mypy = "*"
+pep8-naming = "*"
 pre-commit = "*"
-pycodestyle = "==2.*,>=2.6.0"
-pyflakes = "==2.*,>=2.2.0"
+pycodestyle = "*"
+pyflakes = "*"
 pylint = "*"
 pytest = "*"
-pytest-cov = "==2.*,>=2.10.1"
-pyright = "^0.0.9"
+pytest-cov = "*"
+pyright = "*"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -97,8 +97,8 @@ profile = "black"
 line_length = 120
 py_version = "auto"
 float_to_top = true
-src_paths = [ "notebooks", "tests" ]
-known_first_party = [ "__paths__" ]
+src_paths = [ "notebooks", "tests", "scripts" ]
+extra_standard_library = ["__paths__"]
 
 [tool.coverage]
 # https://github.com/nedbat/coveragepy
