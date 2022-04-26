@@ -41,9 +41,7 @@ corpus_config: CorpusConfig = CorpusConfig.load(os.path.join(__paths__.resources
 # ### <span style='color: green'>PREPARE</span> Load Topic Model <span style='float: right; color: red'>MANDATORY</span>
 
 # %%
-load_gui: ntm.LoadGUI = ntm.LoadGUI(
-    corpus_folder=corpus_folder, state=current_state()
-)
+load_gui: ntm.LoadGUI = ntm.LoadGUI(corpus_folder=corpus_folder, state=current_state())
 display(load_gui.layout())
 
 # %% [markdown]
