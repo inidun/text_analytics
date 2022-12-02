@@ -38,7 +38,7 @@ def patch_pipeline(*_, **__):
     return mock
 
 
-@patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
+@patch('penelope.notebook.grid_utility.display_grid', monkey_patch)
 @patch('penelope.notebook.token_counts.plot.plot_multiline', monkey_patch)
 @patch('penelope.notebook.token_counts.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_token_count_gui():
@@ -71,7 +71,7 @@ def test_create_token_count_gui():
     gui.display()
 
 
-@patch('penelope.notebook.ipyaggrid_utility.display_grid', monkey_patch)
+@patch('penelope.notebook.grid_utility.display_grid', monkey_patch)
 @patch('penelope.notebook.token_counts.plot.plot_multiline', monkey_patch)
 @patch('penelope.notebook.token_counts.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_gui():
