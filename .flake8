@@ -1,8 +1,7 @@
 [flake8]
 max-line-length = 120
-ignore = E203, W503, W504, E501, F401, F403, E731, E722
+ignore = E203, W503, W504, F401, F403, E731, E722
 select = C,E,F,W,B,B950
-extend-ignore = E501
 exclude =
     .git
     .github
