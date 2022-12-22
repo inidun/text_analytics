@@ -88,16 +88,18 @@ tools:
 
 .ONESHELL: penelope-production-mode
 penelope-production-mode: penelope-uninstall
-	@poetry add humlab-penelope[full]
+	@poetry add humlab-penelope
 
 .ONESHELL: penelope-edit-mode
-penelope-edit-mode:
-	@cp -f pyproject.toml pyproject.tmp
-	@sed -i '/humlab-penelope/c\humlab-penelope = {extras = ["full"], path = "../../penelope", develop = true}' pyproject.tmp
-	@poetry remove humlab-penelope
-	@poetry run pip uninstall humlab-penelope --yes
-	@mv -f pyproject.tmp pyproject.toml
-	@poetry update humlab-penelope
+penelope-edit-mode: penelope-uninstall
+	@poetry add --editable ../../penelope
+
+# @cp -f pyproject.toml pyproject.tmp
+# @sed -i '/humlab-penelope/c\humlab-penelope = {path = "../../penelope", develop = true}' pyproject.tmp
+# @-poetry remove humlab-penelope >& /dev/null
+# @-poetry run pip uninstall humlab-penelope --yes >& /dev/null
+# @mv -f pyproject.tmp pyproject.toml
+# @poetry update humlab-penelope
 
 # .ONESHELL: penelope-edit-mode
 # penelope-edit-mode: penelope-uninstall

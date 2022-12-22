@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.8
+#       jupytext_version: 1.14.4
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -100,7 +100,6 @@
 # The "words" in this case are co-occurrence pairs and to find instances matching "information" you could enter ```information*```, ```*information``` or ```*information*``` to match pairs starting with information, ending with information or containing information respectively.
 
 # %%
-
 import __paths__
 from bokeh.plotting import output_notebook
 from IPython.display import display
@@ -114,5 +113,3 @@ gui = MainGUI(
     resources_folder=__paths__.resources_folder,
 )
 display(gui.layout())
-
-# %%
