@@ -13,7 +13,7 @@ classifiers = [
     'Topic :: Software Development',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
 ]
 license = "Apache-2.0"
 readme = "README.md"
@@ -32,7 +32,7 @@ matplotlib = "*"
 msgpack = "^1.0.2"
 pandas = "*"
 pandas-bokeh = "*"
-python = "==3.8.*"
+python = "==3.9.*"
 tqdm = "*"
 
 [tool.poetry.dev-dependencies]
@@ -78,7 +78,7 @@ to = {format = "poetry", path = "pyproject.toml"}
 
 [tool.black]
 line-length = 120
-target-version = ["py38"]
+target-version = ["py39"]
 skip-string-normalization = true
 # include = '\.pyi?$'
 exclude = '''
@@ -121,5 +121,5 @@ known_first_party = [ "__paths__" ]
     ]
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
