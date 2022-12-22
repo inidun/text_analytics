@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.0
+#       jupytext_version: 1.14.4
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -102,7 +102,7 @@
 
 # %%
 from bokeh.plotting import output_notebook
-from IPython.core.display import display
+from IPython.display import display
 from penelope.notebook.co_occurrence import MainGUI
 
 import __paths__
@@ -115,5 +115,3 @@ gui = MainGUI(
     resources_folder=__paths__.resources_folder,
 )
 display(gui.layout())
-
-# %%
