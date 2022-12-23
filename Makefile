@@ -88,11 +88,11 @@ tools:
 
 .ONESHELL: penelope-production-mode
 penelope-production-mode: penelope-uninstall
-	@poetry add humlab-penelope
+	@poetry add humlab-penelope[full]
 
 .ONESHELL: penelope-edit-mode
 penelope-edit-mode: penelope-uninstall
-	@poetry add --editable ../../penelope
+	@poetry add --editable ../../penelope -E full
 
 # @cp -f pyproject.toml pyproject.tmp
 # @sed -i '/humlab-penelope/c\humlab-penelope = {path = "../../penelope", develop = true}' pyproject.tmp
