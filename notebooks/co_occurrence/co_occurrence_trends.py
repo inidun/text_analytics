@@ -14,7 +14,7 @@
 #     name: python3
 # ---
 
-# %% [markdown]
+# %% [markdown] tags=[] jupyter={"source_hidden": true}
 # ### Overview
 #
 # This notebook implements a processing pipeline from computes word co-occurrences from plain text. The term-term co-occurrence matrix is transformed into a DTM corpus that has a vocabulary consisting of token-pairs. The co-occurring word trends can hence be xxplored using the ordinary word trends analysis tools.
@@ -80,15 +80,28 @@
 #
 # ### Concept co-occurrence
 #
-# The algorithm allows for computing a conditioned co-occurrence, where the set of windows are constrained so that the center-most word must one of a number of specified (concept) words. This results in a set of co-occurrences that occur in close proximity (i.e. the max distance of D) of the center-most word.
+# Concept co-occurrence is a __conditioned__ co-occurrence where the set of windows are constrained so that the center-most word must one of a number of specified (concept) words. This results is a set of co-occurrences that occur in close proximity of the center-most word (i.e. having max distance of D to center-most word).
 #
-# ### Word trends
+# ### Co-occurrence trends
 #
-# Specifiy words of interest in the textbox in the text box. You can use both __wildcards__ ```*``` and __regular expressions__ to widen your search. The
-# words in the vocabulary that matches what you have specified will be listed in the selection box. Since using wildcards and regexps can result
-# in a large number of words, only the `Word count` most frequent words are displayed. Refine your search if you get to many matches.
+# Displays word co-occurrence trends using a set different keyness metrics. Specifiy words of interest in the `Words to find` text box. You can use both __wildcards__ ```*``` and __regular expressions__ to widen your search. The "words" in this case are co-occurrence pairs represented as a token "word1/word2". To find instances matching "information" you could enter ```information*```, ```*information``` or ```*information*``` to match pairs starting with information, ending with information or containing information respectively. The words in the vocabulary that matches what you have specified will be listed under `Matched words` when you press __TAB__. Since using wildcards and regexps can result
+# in a large number of words, only the `Word count` most frequent words are displayed. Refine your search if you get to many matches. The words are plotted when you selected them in the `Matched words` list. Select and plot __multiple words__ by pressing CTRL, or using CTRL + arrow keys. The word-pairs are listed in descending order by their global corpus frequency.
 #
-# The words are plotted when selected in the selection box. You can select and plot __multiple words__ by pressing CTRL, or using CTRL + arrow keys. The words are listed  in descending order by global corpus frequency.
+#
+# #### GUI elements
+#
+# | | Config element |  Description |
+# | -- | :------------- | :------------- |
+# | | Keyness | Specifies how metric/keyness to use when weighing the co-occurrence values.
+# | | Keyness source | Which corpus to use when computing keyness.
+# | | Top count | Max number of matching co-occurring word pairs to display
+# | | Grouping | Target folder for result files.
+# | | Normalize | Normalize entire corpus for selected period (after keyness has been computed)
+# | | Auto | Automatic update (compute) whenever a value is changed (currently disabled)
+# | | Smooth | Smooth trend values (lines) using interpolation.
+# | | Compute | Compute new data based on current selections.
+# | | Words to find | Specifies word-pairs(s) to find.
+# | | Matched words | Words (i.e. word-pairs) in vocabulary that matches `Words to find`.
 #
 # The regular expressions must be surrounded by vertical bars ```|```. To find words ending with ```tion```
 # you can enter ```|.*tion$|```  The vertical
@@ -97,17 +110,20 @@
 # So this expression matches all words that begins with any number of characters follwoed, by the character sequence ```tion``` at the end of the word.
 # To match all words starting with `info`you can enter ```|^info.*|``` where ```^``` specifies the start of the word.
 #
-# The "words" in this case are co-occurrence pairs and to find instances matching "information" you could enter ```information*```, ```*information``` or ```*information*``` to match pairs starting with information, ending with information or containing information respectively.
+#
 
-# %%
+# %% tags=[]
 import __paths__
 from bokeh.plotting import output_notebook
 from IPython.display import display
 from penelope.notebook.co_occurrence import MainGUI
 
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
+
 output_notebook()
 gui = MainGUI(
-    corpus_config="SSI",
+    corpus_config="courier_article_pages",
     corpus_folder=__paths__.corpus_folder,
     data_folder=__paths__.data_folder,
     resources_folder=__paths__.resources_folder,

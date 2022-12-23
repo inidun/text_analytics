@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.8
+#       jupytext_version: 1.14.4
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -90,12 +90,17 @@ from bokeh.plotting import output_notebook
 from IPython.display import display
 from penelope.notebook.word_trends import main_gui
 
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
+
 output_notebook()
 
 gui = main_gui.create_to_dtm_gui(
     corpus_folder=__paths__.corpus_folder,
     data_folder=__paths__.data_folder,
-    corpus_config="SSI",
+    corpus_config="courier_article_pages",
     resources_folder=__paths__.resources_folder,
 )
 display(gui)
+
+# %%
