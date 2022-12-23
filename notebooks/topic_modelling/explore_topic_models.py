@@ -33,6 +33,9 @@ from penelope.utility import pandas_utils
 bokeh.plotting.output_notebook()
 pandas_utils.set_default_options()
 
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
+
 current_state: Callable[[], ntm.TopicModelContainer] = ntm.TopicModelContainer.singleton
 corpus_folder: str = "/data/inidun"
 corpus_config: CorpusConfig = CorpusConfig.load(os.path.join(__paths__.resources_folder, 'courier_page.yml'))

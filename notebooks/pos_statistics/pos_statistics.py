@@ -36,6 +36,9 @@ import __paths__
 from IPython.display import display
 from penelope.notebook.token_counts import pipeline_gui
 
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
+
 gui = pipeline_gui.create_token_count_gui(
     corpus_folder=__paths__.corpus_folder, resources_folder=__paths__.resources_folder
 )
