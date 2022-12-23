@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.0
+#       jupytext_version: 1.14.4
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -22,10 +22,12 @@
 
 # %%
 
+import __paths__
 from IPython.display import display
 from penelope.notebook.mdw import create_main_gui
 
-import __paths__
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
 
 gui = create_main_gui(corpus_folder=__paths__.data_folder)
 

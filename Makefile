@@ -86,12 +86,13 @@ tools:
 	@poetry run pip install --upgrade pip --quiet
 	@poetry run pip install poetry --upgrade --quiet
 
+.ONESHELL: penelope-production-mode
 penelope-production-mode: penelope-uninstall
-	@poetry add humlab-penelope
+	@poetry add humlab-penelope[full]
 
 .ONESHELL: penelope-edit-mode
 penelope-edit-mode: penelope-uninstall
-	@poetry add --editable ../../penelope
+	@poetry add --editable ../../penelope -E full
 
 # @cp -f pyproject.toml pyproject.tmp
 # @sed -i '/humlab-penelope/c\humlab-penelope = {path = "../../penelope", develop = true}' pyproject.tmp
@@ -99,6 +100,10 @@ penelope-edit-mode: penelope-uninstall
 # @-poetry run pip uninstall humlab-penelope --yes >& /dev/null
 # @mv -f pyproject.tmp pyproject.toml
 # @poetry update humlab-penelope
+
+# .ONESHELL: penelope-edit-mode
+# penelope-edit-mode: penelope-uninstall
+# 	@poetry@3940 add --editable ../../penelope
 
 penelope-uninstall:
 	@poetry remove humlab-penelope
@@ -224,7 +229,6 @@ git-ipynb: guard-clean-working-repository
 
 labextension:
 	@poetry run jupyter labextension install \
-		ipyaggrid \
 		@finos/perspective-jupyterlab \
 		@jupyter-widgets/jupyterlab-manager
 

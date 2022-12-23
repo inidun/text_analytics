@@ -48,7 +48,7 @@ def create_abc_corpus(dtm: List[List[int]], document_years: List[int] = None) ->
             'document_id': [i for i in range(0, bag_term_matrix.shape[0])],
         }
     )
-    corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id, document_index)
+    corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id=token2id, document_index=document_index)
     return corpus
 
 
@@ -64,5 +64,5 @@ def create_vectorized_corpus() -> VectorizedCorpus:
     )
     token2id = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     document_index = pd.DataFrame({'year': [2013, 2013, 2014, 2014, 2014]})
-    v_corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id, document_index)
+    v_corpus: VectorizedCorpus = VectorizedCorpus(bag_term_matrix, token2id=token2id, document_index=document_index)
     return v_corpus

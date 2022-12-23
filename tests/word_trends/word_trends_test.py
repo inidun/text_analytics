@@ -3,8 +3,8 @@ import uuid
 from unittest.mock import Mock, patch
 
 from penelope import pipeline
-from penelope.notebook import interface
 from penelope.notebook.word_trends import main_gui
+from penelope.workflows import interface
 
 from ..utils import create_abc_corpus
 
@@ -29,9 +29,7 @@ def test_corpus_loaded_callback():
         ],
         document_years=[2013, 2013, 2014, 2014, 2014],
     )
-    corpus_folder = "dummy"
-    corpus_tag = "dummy"
-    main_gui.loaded_callback(corpus, corpus_folder, corpus_tag)
+    main_gui.loaded_callback(corpus)
 
 
 @patch('penelope.workflows.vectorize.dtm.compute', monkey_patch)

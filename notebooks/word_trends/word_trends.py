@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.13.0
+#       jupytext_version: 1.14.4
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -26,10 +26,9 @@
 # | 🔎 | <b>Tqdm</b> | ⚪ | Progress indicator | ⚪
 # | ⌛ | <b>Passthrough</b> | ⚪ | Passthrough | ⚪
 # | 🔨 | <b>ToTaggedFrame</b> | ⚪ Spacy | PoS tagging | config.yml
-# | 💾 | <b>Checkpoint</b> | tagged_frames_filename | Checkpoint (tagged frames) to file | ⚪
-# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts, filter_opts | Tokens extractor | User specified
+# | 💾 | <b>Checkpoint</b> | tagged_corpus_source | Checkpoint (tagged frames) to file | ⚪
+# | 🔨 | TaggedFrame<b>ToTokens</b> | extract_opts | Tokens extractor | User specified
 # | 🔨 | <b>TokensTransform</b> | transform_opts | Tokens transformer | User specified
-# | 🔨 | <b>ToDocumentContentTuple</b> | ⚪ | API adapter | ⚪
 # | 🔎 | <b>Tqdm</b> | ⚪ | Progress indicator | ⚪
 # | 🔨 | <b>ToDTM</b> | vectorize_opts| DTM vectorizer | User specified
 # | 💾 | <b>Checkpoint</b> | checkpoint_filename| Checkpoint (DTM) to file | User specified
@@ -85,18 +84,23 @@
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
 # %%
-from bokeh.plotting import output_notebook
-from IPython.core.display import display
-from penelope.notebook.word_trends import main_gui
 
 import __paths__  # pylint: disable=unused-import
+from bokeh.plotting import output_notebook
+from IPython.display import display
+from penelope.notebook.word_trends import main_gui
+
+__paths__.data_folder = "/data/inidun"
+__paths__.resources_folder = "/data/inidun/resources"
 
 output_notebook()
 
 gui = main_gui.create_to_dtm_gui(
     corpus_folder=__paths__.corpus_folder,
     data_folder=__paths__.data_folder,
-    corpus_config="SSI",
+    corpus_config="courier_article_pages",
     resources_folder=__paths__.resources_folder,
 )
 display(gui)
+
+# %%

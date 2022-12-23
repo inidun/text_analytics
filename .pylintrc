@@ -1,5 +1,5 @@
 [MASTER]
-init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
+# init-hook="import sys, os; sys.path.append((lambda d: os.path.join(os.getcwd().split(d)[0], d))('text_analytics'))"
 jobs=0
 
 [MESSAGES CONTROL]
@@ -9,7 +9,6 @@ disable=invalid-name,
         missing-class-docstring,
         missing-function-docstring,
         line-too-long,
-        no-self-use,
         pointless-string-statement,
         global-statement,
         c-extension-no-member,
@@ -18,7 +17,6 @@ disable=invalid-name,
         logging-fstring-interpolation,
         consider-using-enumerate,
         unnecessary-comprehension,
-        # misplaced-comparison-constant,
         broad-except,
         wrong-import-order,
         duplicate-code,
