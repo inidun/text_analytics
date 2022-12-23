@@ -102,13 +102,13 @@ def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[
     assert np.allclose(data.Noun.tolist(), expected)
 
 
-def test_load_document_index():
-    corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
-    corpus_config.pipeline_payload.folders('./tests/test_data')
+# def test_load_document_index():
+#     corpus_config: pipeline.CorpusConfig = pipeline.CorpusConfig.load('./tests/test_data/SSI.yml')
+#     corpus_config.pipeline_payload.folders('./tests/test_data')
 
-    with pytest.raises(pipeline.PipelineError):
-        _: pd.DataFrame = pipeline_gui.load_document_index(corpus_config)
-        # FIXME: Test document index has no n_raw_tokens which raises an error
+#     with pytest.raises(pipeline.PipelineError):
+#         _: pd.DataFrame = pipeline_gui.load_document_index(corpus_config)
+#         # FIXME: Test document index has no n_raw_tokens which raises an error
 
     # assert document_index is not None
     # assert len(document_index) == 5
