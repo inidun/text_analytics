@@ -48,24 +48,6 @@ load_gui: ntm.LoadGUI = ntm.LoadGUI(data_folder=corpus_folder, state=current_sta
 display(load_gui.layout())
 
 # %% [markdown]
-# ### <span style='color: green;'>BROWSE</span> Find topics by token<span style='color: red; float: right'>TRY IT</span>
-#
-# Displays topics in which given token is among toplist of dominant words.
-
-# %%
-ntm.find_topic_documents_gui(
-    current_state().inferred_topics.document_topic_weights, current_state().inferred_topics.topic_token_overview
-)
-
-# %% [markdown]
-# ### <span style='color: green;'>BROWSE</span> Browse Topic Documents<span style='color: red; float: right'>TRY IT</span>
-#
-# Displays documents in which a topic occurs above a given threshold.
-
-# %%
-ntm.display_topic_documents_gui(current_state())
-
-# %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Display Topic's Word Distribution as a Wordcloud<span style='color: red; float: right'> TRY IT</span>
 
 # %%
