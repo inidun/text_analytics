@@ -1,4 +1,3 @@
-from typing import List
 from unittest.mock import MagicMock, Mock, patch
 
 import numpy as np
@@ -39,8 +38,8 @@ def patch_pipeline(*_, **__):
 
 
 @patch('penelope.notebook.grid_utility.display_grid', monkey_patch)
-@patch('penelope.notebook.token_counts.plot.plot_multiline', monkey_patch)
-@patch('penelope.notebook.token_counts.plot.plot_stacked_bar', lambda *_, **__: None)
+@patch('penelope.plot.plot_multiline', monkey_patch)
+@patch('penelope.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_token_count_gui():
     def compute_callback(_: pipeline_gui.TokenCountsGUI, __: pd.DataFrame) -> pd.DataFrame:
         ...
@@ -72,8 +71,8 @@ def test_create_token_count_gui():
 
 
 @patch('penelope.notebook.grid_utility.display_grid', monkey_patch)
-@patch('penelope.notebook.token_counts.plot.plot_multiline', monkey_patch)
-@patch('penelope.notebook.token_counts.plot.plot_stacked_bar', lambda *_, **__: None)
+@patch('penelope.plot.plot_multiline', monkey_patch)
+@patch('penelope.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_gui():
     gui = pipeline_gui.create_token_count_gui('./tests/test_data/', './tests/test_data/')
     assert gui is not None
@@ -87,7 +86,7 @@ def test_create_gui():
         (True, True, [1.0, 1.0]),
     ],
 )
-def test_compute_token_count_data(normalize: bool, smooth: bool, expected: List[float]):
+def test_compute_token_count_data(normalize: bool, smooth: bool, expected: list[float]):
     attrs = {'categories': [], 'grouping': 'year', 'normalize': normalize, 'smooth': smooth}
     args = Mock(spec=pipeline_gui.TokenCountsGUI, **attrs)
     document_index = pd.DataFrame(
