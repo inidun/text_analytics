@@ -14,7 +14,7 @@
 #     name: python3
 # ---
 
-# %% [markdown] tags=[] jupyter={"source_hidden": true}
+# %% [markdown] jupyter={"source_hidden": true} tags=[]
 # ### Overview
 #
 # This notebook implements a processing pipeline from computes word co-occurrences from plain text. The term-term co-occurrence matrix is transformed into a DTM corpus that has a vocabulary consisting of token-pairs. The co-occurring word trends can hence be xxplored using the ordinary word trends analysis tools.
