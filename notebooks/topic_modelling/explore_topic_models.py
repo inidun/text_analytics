@@ -106,14 +106,14 @@ ntm.display_topic_topic_network_gui(current_state())
 #
 
 # %%
-dtdn_ui: ntm.TopicDocumentNetworkGui = ntm.DefaultTopicDocumentNetworkGui(state=current_state()).setup()
+dtdn_ui: ntm.TopicDocumentNetworkGui = ntm.DefaultTopicDocumentNetworkGui(state=current_state(), pivot_key_specs={}).setup()
 display(dtdn_ui.layout())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Focus-Topic Document Network<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
-ftdn_ui: ntm.TopicDocumentNetworkGui = ntm.FocusTopicDocumentNetworkGui(state=current_state()).setup()
+ftdn_ui: ntm.TopicDocumentNetworkGui = ntm.FocusTopicDocumentNetworkGui(state=current_state(), pivot_key_specs={}).setup()
 display(ftdn_ui.layout())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic-Token  Network<span style='color: red; float: right'>TRY IT</span>
