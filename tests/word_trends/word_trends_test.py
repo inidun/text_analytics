@@ -39,7 +39,6 @@ def test_corpus_compute_callback():
 
 @patch('penelope.pipeline.CorpusConfig.find', find_corpus_config)
 def test_create_gui():
-
     config_name = "SSI"
     corpus_folder = f'./tests/output/{uuid.uuid1()}'
     data_folder = f'./tests/output/{uuid.uuid1()}'
