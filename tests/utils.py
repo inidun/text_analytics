@@ -20,7 +20,6 @@ def create_text_files_reader(
     filename_pattern: str = "*.txt",
     filename_filter: Union[Callable, Sequence[str]] = None,
 ) -> ZipTextIterator:
-
     reader = ZipTextIterator(
         filename,
         reader_opts=TextReaderOpts(
@@ -33,7 +32,6 @@ def create_text_files_reader(
 
 
 def create_abc_corpus(dtm: List[List[int]], document_years: List[int] = None) -> VectorizedCorpus:
-
     bag_term_matrix = np.array(dtm)
     token2id = {chr(ord('a') + i): i for i in range(0, bag_term_matrix.shape[1])}
 
