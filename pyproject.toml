@@ -4,16 +4,14 @@ name = "humlab-inidun"
 version = "0.3.14"
 description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
-packages = [
-    { include = "notebooks" }
-]
+packages = [{ include = "notebooks" }]
 classifiers = [
     'License :: OSI Approved :: Apache Software License',
     'Operating System :: OS Independent',
     'Topic :: Software Development',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.11',
 ]
 license = "Apache-2.0"
 readme = "README.md"
@@ -31,9 +29,9 @@ matplotlib = "*"
 msgpack = "*"
 pandas = "*"
 pandas-bokeh = "*"
-python = "==3.9.*"
+python = "==3.11.*"
 tqdm = "*"
-humlab-penelope = {extras = ["full"], version = "^0.7.21"}
+humlab-penelope = {path = "../../penelope", extras = ["full"], develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "*"
@@ -55,25 +53,31 @@ pyright = "*"
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = [
-    "-ra",
+    "-rafE",
     "-q",
     # "-s",
 ]
 log_cli = "False"
-testpaths = [
-    "tests",
+testpaths = ["tests"]
+norecursedirs = [
+    'notebooks',
+    '.git',
+    'data',
+    'output',
+    'deprecated',
+    '__pycache__',
+    'tmp',
 ]
-norecursedirs = ['notebooks', '.git', 'data', 'output', 'deprecated', '__pycache__', 'tmp']
 python_files = "*_test.py"
 python_functions = "test_*"
 filterwarnings = [
-  "ignore::_pytest.warning_types.PytestCollectionWarning",
-  "ignore::DeprecationWarning",
+    "ignore::_pytest.warning_types.PytestCollectionWarning",
+    "ignore::DeprecationWarning",
 ]
 
 [tool.dephell.main]
-from = {format = "poetry", path = "pyproject.toml"}
-to = {format = "poetry", path = "pyproject.toml"}
+from = { format = "poetry", path = "pyproject.toml" }
+to = { format = "poetry", path = "pyproject.toml" }
 
 [tool.black]
 line-length = 120
@@ -96,28 +100,25 @@ profile = "black"
 line_length = 120
 py_version = "auto"
 float_to_top = true
-src_paths = [ "notebooks", "tests", "scripts" ]
+src_paths = ["notebooks", "tests", "scripts"]
 extra_standard_library = ["__paths__"]
 
 [tool.coverage]
 # https://github.com/nedbat/coveragepy
 
-    [tool.coverage.run]
-    source = ["notebooks"]
-    branch = true
-    omit = [
-        '**/__init__.py',
-        '**/__paths__.py',
-        'notebooks/co_occurrence/co_occurrence_trends.py',
-        'notebooks/pos_statistics/pos_statistics.py',
-        'notebooks/word_trends/word_trends.py'
-    ]
+[tool.coverage.run]
+source = ["notebooks"]
+branch = true
+omit = [
+    '**/__init__.py',
+    '**/__paths__.py',
+    'notebooks/co_occurrence/co_occurrence_trends.py',
+    'notebooks/pos_statistics/pos_statistics.py',
+    'notebooks/word_trends/word_trends.py',
+]
 
-    [tool.coverage.report]
-    exclude_lines = [
-        "pragma: no cover",
-        "raise NotImplementedError"
-    ]
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
