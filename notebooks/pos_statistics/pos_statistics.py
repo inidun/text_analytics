@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.4
+#       jupytext_version: 1.14.6
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -30,7 +30,7 @@
 # Note: The dcument index file is either a pre-existing document index or, if no such index exists, automatically generated during the initial text loading pipeline task.
 # If no pre-existing file exists, then the necessary attributes (e.g. document's year) are extracted from the filename of each  document.
 
-# %% tags=[]
+# %%
 
 import __paths__
 from IPython.display import display

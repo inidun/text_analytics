@@ -141,7 +141,6 @@ data
 output
 deprecated
 /stopwords
-.vscode
 .coverage
 *.out
 typings

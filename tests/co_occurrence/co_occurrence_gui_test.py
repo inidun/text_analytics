@@ -26,7 +26,7 @@ def test_compute_co_occurrence_callback():
     )
 
 
-# @patch('penelope.co_occurrence.to_trends_data', lambda _: Mock(spec=word_trends_gui.BundleTrendsData))
+# @patch('penelope.co_occurrence.to_trends_service', lambda _: Mock(spec=word_trends_gui.BundleTrendsService))
 # @patch(
 #     'penelope.notebook.co_occurrence.ExploreGUI',
 #     lambda: Mock(spec=explore_co_occurrence_gui.ExploreGUI, **{'setup': Mock}),
@@ -49,9 +49,9 @@ def test_compute_co_occurrence_callback():
 #     corpus_source: str = co_occurrence.to_filename(folder='./tests/test_data/VENUS', tag='VENUS')
 #     bundle: co_occurrence.Bundle = co_occurrence.Bundle.load(corpus_source, compute_frame=False)
 
-#     trends_data = main_gui.to_trends_data(bundle).update()
+#     trends_service = main_gui.to_trends_service(bundle).update()
 #     gui_explore: explore_co_occurrence_gui.ExploreGUI = (
-#         explore_co_occurrence_gui.ExploreGUI(bundle).setup().display(trends_data=trends_data)
+#         explore_co_occurrence_gui.ExploreGUI(bundle).setup().display(trends_service=trends_service)
 #     )
 
 #     assert gui_explore is not None
