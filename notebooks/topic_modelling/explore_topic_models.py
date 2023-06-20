@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.4
+#       jupytext_version: 1.14.6
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -20,14 +20,12 @@
 
 # %%
 
-import os
 from typing import Callable
 
 import __paths__  # pylint: disable=unused-import
 import bokeh.plotting
 import penelope.notebook.topic_modelling as ntm
 from IPython.display import display
-from penelope.pipeline.config import CorpusConfig
 from penelope.utility import pandas_utils
 
 bokeh.plotting.output_notebook()
@@ -38,7 +36,6 @@ __paths__.resources_folder = "/data/inidun/resources"
 
 current_state: Callable[[], ntm.TopicModelContainer] = ntm.TopicModelContainer.singleton
 corpus_folder: str = "/data/inidun"
-corpus_config: CorpusConfig = CorpusConfig.load(os.path.join(__paths__.resources_folder, 'courier_page.yml'))
 
 # %% [markdown]
 # ### <span style='color: green'>PREPARE</span> Load Topic Model <span style='float: right; color: red'>MANDATORY</span>
@@ -53,7 +50,7 @@ display(load_gui.layout())
 # Displays topics in which given token is among toplist of dominant words.
 
 # %%
-fd_ui = ntm.FindTopicDocumentsGUI(current_state()).setup()
+fd_ui = ntm.WithPivotKeysText.FindTopicDocumentsGUI(current_state()).setup()
 display(fd_ui.layout())
 
 # %% [markdown]
@@ -62,7 +59,7 @@ display(fd_ui.layout())
 # Displays documents in which a topic occurs above a given threshold.
 
 # %%
-td_ui = ntm.BrowseTopicDocumentsGUI(current_state()).setup()
+td_ui = ntm.WithPivotKeysText.BrowseTopicDocumentsGUI(current_state()).setup()
 display(td_ui.layout())
 
 # %% [markdown]
@@ -106,14 +103,18 @@ ntm.display_topic_topic_network_gui(current_state())
 #
 
 # %%
-dtdn_ui: ntm.TopicDocumentNetworkGui = ntm.DefaultTopicDocumentNetworkGui(state=current_state(), pivot_key_specs={}).setup()
+dtdn_ui: ntm.TopicDocumentNetworkGui = ntm.DefaultTopicDocumentNetworkGui(
+    state=current_state(), pivot_key_specs={}
+).setup()
 display(dtdn_ui.layout())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Focus-Topic Document Network<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
-ftdn_ui: ntm.TopicDocumentNetworkGui = ntm.FocusTopicDocumentNetworkGui(state=current_state(), pivot_key_specs={}).setup()
+ftdn_ui: ntm.TopicDocumentNetworkGui = ntm.FocusTopicDocumentNetworkGui(
+    state=current_state(), pivot_key_specs={}
+).setup()
 display(ftdn_ui.layout())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic-Token  Network<span style='color: red; float: right'>TRY IT</span>

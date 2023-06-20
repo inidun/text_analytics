@@ -7,14 +7,14 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.4
+#       jupytext_version: 1.14.6
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
 
-# %% [markdown] jupyter={"source_hidden": true} tags=[]
+# %% [markdown] jupyter={"source_hidden": true}
 # ### Overview
 #
 # This notebook implements a processing pipeline from computes word co-occurrences from plain text. The term-term co-occurrence matrix is transformed into a DTM corpus that has a vocabulary consisting of token-pairs. The co-occurring word trends can hence be xxplored using the ordinary word trends analysis tools.
@@ -112,7 +112,7 @@
 #
 #
 
-# %% tags=[]
+# %%
 import __paths__
 from bokeh.plotting import output_notebook
 from IPython.display import display
