@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "humlab-inidun"
-version = "0.3.14"
+version = "0.3.15"
 description = "INIDUN research project text analysis tools and utilities"
 authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
 packages = [{ include = "notebooks" }]
