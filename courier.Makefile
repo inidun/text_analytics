@@ -8,6 +8,7 @@ today=$(shell date '+%Y%m%d')
 DATA_FOLDER=/data/inidun
 
 CORPUS_FOLDER=$(DATA_FOLDER)/${CORPUS_NAME}/corpus/$(COURIER_VERSION)
+CORPUS_FILENAME=$(CORPUS_FOLDER)/article_corpus.zip
 CONFIG_FILENAME=$(CORPUS_FOLDER)/courier_article.yml
 FEATHER_FOLDER=$(CORPUS_FOLDER)/article_corpus.feather
 
@@ -103,7 +104,7 @@ TM_NAME := $(TM_NAME).$(TM_ENGINE)
 default-topic-models: $(patsubst %,$(TM_FOLDER)/$(TM_NAME),$(NS))
 $(TM_FOLDER)/$(TM_NAME):
 	@PYTHONPATH=. tm-train \
-		--corpus-source $(CORPUS_FOLDER) \
+		--corpus-source $(CORPUS_FILENAME) \
 		--target-folder $(TM_FOLDER) \
 		--n-topics $* \
 		--alpha asymmetric \
