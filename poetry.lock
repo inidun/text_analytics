@@ -1259,45 +1259,47 @@ version = "0.7.31"
 description = "Utilities that simplify enelpeing in Jupyter Lab"
 optional = false
 python-versions = "==3.11.*"
-files = [
-    {file = "humlab_penelope-0.7.31-py3-none-any.whl", hash = "sha256:49e12cc8cf6de91f55512a0fa080827707146ca3fa47a2f8de3c8c43588ef76b"},
-    {file = "humlab_penelope-0.7.31.tar.gz", hash = "sha256:030cc81bbc2d781f3ac16afa7816bd7b8c53df2e5486106722eb3ad33e9212fb"},
-]
+files = []
+develop = true
 
 [package.dependencies]
 bokeh = "*"
-click = {version = "8.0.4", optional = true, markers = "extra == \"full\""}
+click = {version = "8.0.4", optional = true}
 ftfy = "*"
-gensim = {version = "*", optional = true, markers = "extra == \"full\""}
+gensim = {version = "*", optional = true}
 ipycytoscape = "*"
-ipydatagrid = ">=1.1.8,<2.0.0"
+ipydatagrid = "^1.1.8"
 ipyfilechooser = "*"
 ipywidgets = "*"
 jupyter_bokeh = "*"
 loguru = "*"
 lxml = "*"
-memoization = ">=0.3.1,<0.4.0"
-more_itertools = ">=8.5.0,<9.0.0"
-msgpack = ">=1.0.2,<2.0.0"
-nltk = ">=3.5,<4.0"
+memoization = "^0.3.1"
+more_itertools = "^8.5.0"
+msgpack = "^1.0.2"
+nltk = "^3.5"
 numpy = "*"
-openpyxl = ">=3.0.5,<4.0.0"
+openpyxl = "^3.0.5"
 pandas = "<2.0.0"
-pyarrow = {version = "*", optional = true, markers = "extra == \"full\""}
-python-dotenv = ">=1.0.0,<2.0.0"
-python-louvain = {version = "*", optional = true, markers = "extra == \"full\""}
-PyYAML = {version = "*", optional = true, markers = "extra == \"full\""}
-requests = ">=2.24.0,<3.0.0"
+pyarrow = {version = "*", optional = true}
+python-dotenv = "^1.0.0"
+python-louvain = {version = "*", optional = true}
+PyYAML = {version = "*", optional = true}
+requests = "^2.24.0"
 scipy = "*"
-smart-open = ">=5.2.1,<6.0.0"
-spacy = {version = "*", optional = true, markers = "extra == \"full\""}
-textacy = {version = "*", optional = true, markers = "extra == \"full\""}
-toml = ">=0.10.2,<0.11.0"
-tqdm = ">=4.62.3,<5.0.0"
-wordcloud = {version = "*", optional = true, markers = "extra == \"full\""}
+smart-open = "^5.2.1"
+spacy = {version = "*", optional = true}
+textacy = {version = "*", optional = true}
+toml = "^0.10.2"
+tqdm = "^4.62.3"
+wordcloud = {version = "*", optional = true}
 
 [package.extras]
 full = ["PyYAML", "click (==8.0.4)", "gensim", "pyarrow", "python-louvain", "spacy", "textacy", "wordcloud"]
+
+[package.source]
+type = "directory"
+url = "../../penelope"
 
 [[package]]
 name = "identify"
@@ -4863,4 +4865,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "==3.11.*"
-content-hash = "e4d808b3e01f2ac65ba7aa1d49d5bc153e1c55c2d827d0aa736ae02ed97142f4"
+content-hash = "1aa3d38d42b125849ed9d1499d38b35c16577246907f56d012302f8a81ffc530"

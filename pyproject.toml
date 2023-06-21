@@ -31,7 +31,7 @@ pandas = "*"
 pandas-bokeh = "*"
 python = "==3.11.*"
 tqdm = "*"
-humlab-penelope = {extras = ["full"], version = "^0.7.31"}
+humlab-penelope = {path = "../../penelope", extras = ["full"], develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "*"
