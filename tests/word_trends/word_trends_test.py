@@ -29,7 +29,7 @@ def test_corpus_loaded_callback():
         ],
         document_years=[2013, 2013, 2014, 2014, 2014],
     )
-    main_gui.loaded_callback(corpus)
+    main_gui.loaded_callback(corpus, folder='./tests/output')
 
 
 @patch('penelope.workflows.vectorize.dtm.compute', monkey_patch)
