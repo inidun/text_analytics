@@ -24,14 +24,14 @@ bokeh = "*"
 click = "*"
 ipysheet = "*"
 ipywidgets = "*"
-jupyterlab = "*"
+jupyterlab = "==3.*.*"
 matplotlib = "*"
 msgpack = "*"
 pandas = "*"
 pandas-bokeh = "*"
 python = "==3.11.*"
 tqdm = "*"
-humlab-penelope = {extras = ["full"], version = "^0.7.30"}
+humlab-penelope = {path = "../../penelope", extras = ["full"], develop = true}
 
 [tool.poetry.dev-dependencies]
 black = "*"
