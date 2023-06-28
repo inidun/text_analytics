@@ -84,9 +84,6 @@
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
 # %%
-# %load_ext autoreload
-# %autoreload 2
-
 import __paths__  # pylint: disable=unused-import
 from bokeh.plotting import output_notebook
 from IPython.display import display
