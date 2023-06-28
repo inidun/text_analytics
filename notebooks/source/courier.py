@@ -3,12 +3,11 @@ from os.path import dirname, isdir, isfile, join
 from typing import Callable
 
 import pandas as pd
+from __paths__ import resources_folder
 from loguru import logger
 from penelope import corpus as pc
 from penelope import pipeline as pp
 from penelope.notebook import topic_modelling as tm
-
-from notebooks.topic_modelling.__paths__ import resources_folder
 
 FilenameFieldSpec = list[str] | dict[str, Callable, str]
 
