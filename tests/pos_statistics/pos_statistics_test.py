@@ -6,6 +6,8 @@ import pytest
 from penelope import pipeline
 from penelope.notebook.token_counts import pipeline_gui
 
+# pylint: disable=protected-access
+
 
 def monkey_patch(*_, **__):
     ...
@@ -58,7 +60,7 @@ def test_create_token_count_gui():
 
     gui.display()
 
-    gui._smooth.value = True  # pylint: disable=protected-access
+    gui._smooth.value = True
 
     gui.display()
 
@@ -67,8 +69,19 @@ def test_create_token_count_gui():
 @patch('penelope.plot.plot_multiline', monkey_patch)
 @patch('penelope.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_gui():
-    gui = pipeline_gui.create_token_count_gui('./tests/test_data/')
-    assert gui is not None
+    resources_folder = "./tests/test_data/"
+
+    gui = pipeline_gui.TokenCountsGUI()
+
+    gui.setup(pipeline.CorpusConfig.list_all(resources_folder, recursive=True))
+
+    layout = gui.layout()
+
+    gui._corpus_configs.value = gui._corpus_configs.options['SSI']
+
+    gui.display()
+
+    assert layout is not None
 
 
 @pytest.mark.parametrize(

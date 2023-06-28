@@ -1,7 +1,5 @@
 import pandas as pd
-from penelope import pipeline as pp
 from penelope.notebook import topic_modelling as ntm
-from penelope.notebook.token_counts import pipeline_gui as tc_gui
 from penelope.utility.pivot_keys import PivotKeys
 
 from notebooks.source.courier import load_document_index, overload_state_on_loaded_handler
@@ -83,19 +81,3 @@ def test_courier_tm_find_documents():
     gui._filter_values_picker.value = ['author_category: UN']
 
     gui.update()
-
-
-def test_token_counts_gui():
-    resources_folder = "/data/inidun/resources"
-
-    gui = tc_gui.TokenCountsGUI()
-
-    gui.setup(pp.CorpusConfig.list_all(resources_folder, recursive=True))
-
-    layout = gui.layout()
-
-    gui._corpus_configs.value = gui._corpus_configs.options['curated_courier']
-
-    gui.display()
-
-    assert layout is not None
