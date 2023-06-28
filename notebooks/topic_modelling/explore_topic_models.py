@@ -16,7 +16,7 @@
 
 # %% [markdown]
 # ## Text Analysis - Topic Modeling
-# ### <span style='color: green'>SETUP </span> Prepare and Setup Notebook <span style='float: right; color: red'>MANDATORY</span>
+# ### <span style='color: green'>SETUP </span> Prepare Notebook and Load Model <span style='float: right; color: red'>MANDATORY</span>
 
 # %%
 
@@ -28,14 +28,19 @@ import penelope.notebook.topic_modelling as ntm
 from IPython.display import display
 from penelope.utility import pandas_utils
 
-bokeh.plotting.output_notebook()
+from notebooks.source.courier import overload_state_on_loaded_handler
+
+bokeh.plotting.output_notebook(hide_banner=True)
 pandas_utils.set_default_options()
 
 __paths__.data_folder = "/data/inidun"
-__paths__.resources_folder = "/data/inidun/resources"
+__paths__.resources_folder = f"{__paths__.data_folder}/resources"
+
+corpus_folder: str = __paths__.data_folder
 
 current_state: Callable[[], ntm.TopicModelContainer] = ntm.TopicModelContainer.singleton
-corpus_folder: str = "/data/inidun"
+current_state().register(None, callback=overload_state_on_loaded_handler)
+
 
 # %% [markdown]
 # ### <span style='color: green'>PREPARE</span> Load Topic Model <span style='float: right; color: red'>MANDATORY</span>
@@ -50,7 +55,9 @@ display(load_gui.layout())
 # Displays topics in which given token is among toplist of dominant words.
 
 # %%
-fd_ui = ntm.WithPivotKeysText.FindTopicDocumentsGUI(current_state()).setup()
+fd_ui = ntm.WithPivotKeysText.FindTopicDocumentsGUI(
+    current_state(), vertical=True, year_span=(1990, 1992), width='160px'
+).setup()
 display(fd_ui.layout())
 
 # %% [markdown]
@@ -59,7 +66,9 @@ display(fd_ui.layout())
 # Displays documents in which a topic occurs above a given threshold.
 
 # %%
-td_ui = ntm.WithPivotKeysText.BrowseTopicDocumentsGUI(current_state()).setup()
+td_ui = ntm.WithPivotKeysText.BrowseTopicDocumentsGUI(
+    current_state(), vertical=True, year_span=(1990, 1995), width='400px'
+).setup()
 display(td_ui.layout())
 
 # %% [markdown]
@@ -104,16 +113,23 @@ ntm.display_topic_topic_network_gui(current_state())
 
 # %%
 dtdn_ui: ntm.TopicDocumentNetworkGui = ntm.DefaultTopicDocumentNetworkGui(
-    state=current_state(), pivot_key_specs={}
+    state=current_state(), pivot_key_specs=None
 ).setup()
 display(dtdn_ui.layout())
+# %% [markdown]
+# ### <span style='color: green;'>VISUALIZE</span> Pivot-Topic Network<span style='color: red; float: right'>TRY IT</span>
+#
+
+# %%
+ptn_ui: ntm.PivotTopicNetworkGUI = ntm.PivotTopicNetworkGUI(pivot_key_specs=None, state=current_state()).setup()
+display(ptn_ui.layout())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Focus-Topic Document Network<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
 ftdn_ui: ntm.TopicDocumentNetworkGui = ntm.FocusTopicDocumentNetworkGui(
-    state=current_state(), pivot_key_specs={}
+    state=current_state(), pivot_key_specs=None
 ).setup()
 display(ftdn_ui.layout())
 # %% [markdown]
@@ -123,3 +139,5 @@ display(ftdn_ui.layout())
 custom_styles = {'edges': {'curve-style': 'haystack'}}
 w = ntm.create_topics_token_network_gui(data_folder=corpus_folder, custom_styles=custom_styles)
 display(w.layout())
+
+# %%
