@@ -41,14 +41,7 @@ def patch_pipeline(*_, **__):
 @patch('penelope.plot.plot_multiline', monkey_patch)
 @patch('penelope.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_token_count_gui():
-    def compute_callback(_: pipeline_gui.TokenCountsGUI, __: pd.DataFrame) -> pd.DataFrame:
-        ...
-
-    gui = pipeline_gui.TokenCountsGUI(
-        compute_callback=compute_callback,
-        load_document_index_callback=load_document_index_patch,
-        load_corpus_config_callback=load_corpus_config,
-    )
+    gui = pipeline_gui.TokenCountsGUI()
 
     gui = gui.setup(['tests/test_data/SSI.yml'])
 
@@ -74,7 +67,7 @@ def test_create_token_count_gui():
 @patch('penelope.plot.plot_multiline', monkey_patch)
 @patch('penelope.plot.plot_stacked_bar', lambda *_, **__: None)
 def test_create_gui():
-    gui = pipeline_gui.create_token_count_gui('./tests/test_data/', './tests/test_data/')
+    gui = pipeline_gui.create_token_count_gui('./tests/test_data/')
     assert gui is not None
 
 
