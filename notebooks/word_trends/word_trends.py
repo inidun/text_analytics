@@ -84,7 +84,6 @@
 # To match all words starting with `info`you can enter `|^info.*|` where `^` specifies the start of the word.
 #
 # %%
-
 import __paths__  # pylint: disable=unused-import
 from bokeh.plotting import output_notebook
 from IPython.display import display
@@ -98,7 +97,6 @@ output_notebook()
 gui = main_gui.create_to_dtm_gui(
     corpus_folder=__paths__.corpus_folder,
     data_folder=__paths__.data_folder,
-    corpus_config="courier_article_pages",
     resources_folder=__paths__.resources_folder,
 )
 display(gui)

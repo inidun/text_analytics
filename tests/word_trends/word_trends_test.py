@@ -29,7 +29,7 @@ def test_corpus_loaded_callback():
         ],
         document_years=[2013, 2013, 2014, 2014, 2014],
     )
-    main_gui.loaded_callback(corpus)
+    main_gui.loaded_callback(corpus, folder='./tests/output')
 
 
 @patch('penelope.workflows.vectorize.dtm.compute', monkey_patch)
@@ -39,10 +39,9 @@ def test_corpus_compute_callback():
 
 @patch('penelope.pipeline.CorpusConfig.find', find_corpus_config)
 def test_create_gui():
-    config_name = "SSI"
     corpus_folder = f'./tests/output/{uuid.uuid1()}'
     data_folder = f'./tests/output/{uuid.uuid1()}'
     os.makedirs(corpus_folder)
     os.makedirs(data_folder)
-    gui = main_gui.create_to_dtm_gui(corpus_folder=corpus_folder, data_folder=data_folder, corpus_config=config_name)
+    gui = main_gui.create_to_dtm_gui(corpus_folder=corpus_folder, data_folder=data_folder, corpus_config=None)
     assert gui is not None

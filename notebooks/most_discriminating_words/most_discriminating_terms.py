@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.6
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -21,6 +21,8 @@
 #     http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.458.1445&rep=rep1&type=pdf
 
 # %%
+# %load_ext autoreload
+# %autoreload 2
 
 import __paths__
 from IPython.display import display
@@ -32,4 +34,3 @@ __paths__.resources_folder = "/data/inidun/resources"
 gui = create_main_gui(corpus_folder=__paths__.data_folder)
 
 display(gui)
-# %%

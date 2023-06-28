@@ -1,0 +1,105 @@
+corpus_name: courier
+corpus_type: 1
+corpus_pattern: '*.zip'
+language: english
+checkpoint_opts:
+    content_type_code: 1
+    document_index_name: null
+    document_index_sep: "\t"
+    sep: "\t"
+    quoting: 3
+    custom_serializer_classname: null
+    deserialize_processes: 1
+    deserialize_chunksize: 4
+    text_column: text
+    lemma_column: lemma_
+    pos_column: pos_
+    extra_columns: []
+    frequency_column: null
+    index_column: null
+    feather_folder: /data/inidun/courier/corpus/v0.2.0/article_corpus.feather
+    lower_lemma: true
+text_transform_opts: null
+pipelines:
+    tagged_frame_pipeline:
+        class_name: penelope.pipeline.pipelines.to_tagged_frame_pipeline
+    topic_modeling_pipeline:
+        class_name: penelope.pipeline.topic_model.pipelines.from_tagged_frame_pipeline
+pipeline_payload:
+  source: /data/inidun/courier/corpus/v0.2.0/article_corpus.zip
+  document_index_source: /data/inidun/courier/corpus/v0.2.0/document_index.csv
+  pos_schema_name: Universal
+  memory_store:
+    lang: en
+    text_column: text
+    lemma_column: lemma_
+    pos_column: pos_
+    text_transform_opts: normalize-whitespace
+    tagged_corpus_source: /data/inidun/courier/corpus/v0.2.0/article_corpus_pos_csv.zip
+    pos_schema_name: Universal
+
+text_reader_opts:
+  as_binary: false
+  filename_fields:
+  - year:_:0
+  - courier_id:_:1
+  - record_number:_:2
+  filename_filter: null
+  filename_pattern: '*.txt'
+  index_field: null
+  sep: "\t"
+  quoting: 3
+  n_processes: 1
+  n_chunksize: 2
+  dehyphen_expr: "\\b(\\w+)[-\xAC]\\s*\\r?\\n\\s*(\\w+)\\s*\\b"
+
+dependencies:
+  tagger:
+      class_name: penelope.pipeline.spacy.SpacyTagger
+      options:
+          model: en_core_web_sm
+          disable: null
+          exclude: null
+          keep_hyphens: false
+          remove_whitespace_ents: false
+          attributes:
+          - text
+          - lemma_
+          - pos_
+          - is_punct
+          - is_stop
+          filters: null
+  text_repository:
+    class_name: penelope.corpus.render.TextRepository
+    options:
+      source: config@text_loader
+      document_index: local@document_index
+      transforms: normalize-whitespace
+    dependencies:
+      document_index:
+        class_name: notebooks.source.courier.load_document_index
+        options:
+          filename: /data/inidun/courier/corpus/v0.2.0/document_index.csv
+          sep: "\t"
+  render_text:
+    class_name: penelope.corpus.render.RenderService
+    options:
+      template: /data/inidun/resources/article_corpus.jinja
+      links_registry:
+        PDF: '<a href="https://demo.humlab.umu.se/courier/{{courier_id}}.pdf" target="_blank" style="font-weight: bold;color: blue;">PDF</a>'
+        MD: '<a href=""https://raw.githubusercontent.com/inidun/courier_article_corpus/main/article_corpus/{{filename}}" target="_blank" style="font-weight: bold;color: blue;">TEXT</a>'
+  text_loader:
+    class_name: penelope.corpus.render.ZippedTextCorpusLoader
+    options:
+      source: /data/inidun/courier/corpus/v0.2.0/article_corpus.zip
+
+extra_opts:
+  pivot_keys:
+    author_category:
+      text_name: 'author_category'
+      id_name: 'author_category_id'
+      values:
+          Unknown: 0
+          UNESCO: 1
+          UN: 2
+          Named: 3
