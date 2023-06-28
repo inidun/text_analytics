@@ -22,8 +22,8 @@
 # | -- | :------------- | :------------- | :------------- |
 # | 💾 | <b>Checkpoint</b> | checkpoint_filename | Checkpoint (tagged frames) to file
 #
-# The PoS tagging notebook uses the same processing pipeline as the Word trends tnotebook  do to produce a tagged data frame. The processing will henceread
-# a checkpoint file if it exists, otherwise resolve the full pipeline.
+# The PoS tagging notebook uses the same processing pipeline as the Word trends notebook to produce VRT data frames. The processing reads
+# a checkpoint file if it exists, otherwise it will resolve the full pipeline.
 #
 # The word count statistics are collected in the tagging task (part-of-speech and lemma annotation). The computed statistics, total word count and the word counts for each PoS-grouping, are added (or updated) to the _document index file_ as new columns. This file is stored in the tagged text archive as `document_index.csv`.
 #
@@ -32,14 +32,18 @@
 
 # %%
 
-import __paths__
+import __paths__  # pylint: disable=unused-import
 from IPython.display import display
-from penelope.notebook.token_counts import pipeline_gui
+from penelope import pipeline as pp
+from penelope.notebook.token_counts import pipeline_gui as tc_gui
 
-__paths__.data_folder = "/data/inidun"
-__paths__.resources_folder = "/data/inidun/resources"
+from bokeh.io import output_notebook
 
-gui = pipeline_gui.create_token_count_gui(
-    corpus_folder=__paths__.corpus_folder, resources_folder=__paths__.resources_folder
-)
+output_notebook()
+
+resources_folder = "/data/inidun/resources"
+config_filenames: str = pp.CorpusConfig.list_all(resources_folder, recursive=True, try_load=True)
+
+gui = tc_gui.TokenCountsGUI().setup(config_filenames).display()
+
 display(gui.layout())
