@@ -1,7 +1,8 @@
 import pandas as pd
+from penelope import corpus as pc
 from penelope.notebook import topic_modelling as ntm
 from penelope.utility.pivot_keys import PivotKeys
-from penelope import corpus as pc
+
 from notebooks.source import courier
 
 # pylint: disable=protected-access
@@ -14,8 +15,8 @@ def test_load_document_index():
 
     assert 'author_category_id' in di.columns
 
-def test_overload_with_author_category():
 
+def test_overload_with_author_category():
     filename: str = "/data/inidun/courier/corpus/v0.2.0/document_index.csv"
 
     corpus_index: pd.DataFrame = pc.load_document_index(filename=filename, sep='\t')
