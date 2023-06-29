@@ -85,12 +85,14 @@ def overload_with_author_category(document_index: pd.DataFrame) -> pd.DataFrame:
 
     document_index['author_category_id'] = 3
 
-    for code, key in [(1, 'unesco'), (2, 'united_nations')]:
+    for code, key in [(1, 'unesco'), (2, 'united nations')]:
         document_index.loc[
             ~document_index.authors.isna() & document_index.authors.str.lower().str.contains(key),
             ['author_category_id'],
         ] = code
     document_index.loc[document_index.authors.isna(), ['author_category_id']] = 0
+    document_index.authors.fillna('Unknown', inplace=True)
+
     return document_index
 
 

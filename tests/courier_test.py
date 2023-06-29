@@ -1,8 +1,8 @@
 import pandas as pd
 from penelope.notebook import topic_modelling as ntm
 from penelope.utility.pivot_keys import PivotKeys
-
-from notebooks.source.courier import load_document_index, overload_state_on_loaded_handler
+from penelope import corpus as pc
+from notebooks.source import courier
 
 # pylint: disable=protected-access
 
@@ -10,9 +10,20 @@ from notebooks.source.courier import load_document_index, overload_state_on_load
 def test_load_document_index():
     filename: str = "/data/inidun/courier/corpus/v0.2.0/document_index.csv"
     sep: str = "\t"
-    di: pd.DataFrame = load_document_index(filename, sep=sep)
+    di: pd.DataFrame = courier.load_document_index(filename, sep=sep)
 
     assert 'author_category_id' in di.columns
+
+def test_overload_with_author_category():
+
+    filename: str = "/data/inidun/courier/corpus/v0.2.0/document_index.csv"
+
+    corpus_index: pd.DataFrame = pc.load_document_index(filename=filename, sep='\t')
+    document_index: pd.DataFrame = courier.overload_with_author_category(corpus_index)
+
+    assert 'author_category_id' in document_index.columns
+    assert set(document_index.author_category_id.unique()) == {0, 1, 2, 3}
+    assert set(document_index[document_index.author_category_id == 0].authors.unique()) == {'Unknown'}
 
 
 PIVOT_KEYS_SPECIFICATION: dict = {
@@ -64,7 +75,7 @@ def test_courier_tm_find_documents():
 
     state: ntm.TopicModelContainer = ntm.TopicModelContainer()
 
-    state.register(object(), callback=overload_state_on_loaded_handler)
+    state.register(object(), callback=courier.overload_state_on_loaded_handler)
     state.load(folder=folder)
 
     assert 'author_category_id' in state.inferred_topics.document_index.columns
