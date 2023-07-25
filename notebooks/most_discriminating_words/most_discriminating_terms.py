@@ -31,6 +31,8 @@ from penelope.notebook.mdw import create_main_gui
 __paths__.data_folder = "/data/inidun"
 __paths__.resources_folder = "/data/inidun/resources"
 
-gui = create_main_gui(corpus_folder=__paths__.data_folder)
+gui = create_main_gui(folder=__paths__.data_folder)
 
-display(gui)
+display(gui.layout())
+
+# %%
