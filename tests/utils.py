@@ -3,8 +3,7 @@ from typing import Callable, List, Sequence, Union
 
 import numpy as np
 import pandas as pd
-from penelope.corpus import VectorizedCorpus
-from penelope.corpus.readers import TextReaderOpts, ZipTextIterator
+from penelope.corpus import TextReaderOpts, VectorizedCorpus, ZipCorpusReader
 
 TEST_CORPUS_FILENAME = './tests/test_data/test_corpus.zip'
 TEST_OUTPUT_FOLDER = './tests/output'
@@ -19,8 +18,8 @@ def create_text_files_reader(
     filename: str = TEST_CORPUS_FILENAME,
     filename_pattern: str = "*.txt",
     filename_filter: Union[Callable, Sequence[str]] = None,
-) -> ZipTextIterator:
-    reader = ZipTextIterator(
+) -> ZipCorpusReader:
+    reader = ZipCorpusReader(
         filename,
         reader_opts=TextReaderOpts(
             filename_pattern=filename_pattern,

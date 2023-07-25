@@ -24,7 +24,7 @@ def main(config_filename: str = None):  # pylint: disable=redefined-outer-name
         .load_text(reader_opts=config.text_reader_opts, transform_opts=transform_opts)
         .to_tagged_frame(tagger=config.resolve_dependency('tagger'))
         .checkpoint(filename=tagged_corpus_source)
-        .checkpoint_feather(folder=config.checkpoint_opts.feather_folder, force=True)
+        .checkpoint_feather(folder=config.serialize_opts.feather_folder, force=True)
     )
 
     _ = pipeline.exhaust()

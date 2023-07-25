@@ -94,7 +94,7 @@ __paths__.resources_folder = "/data/inidun/resources"
 
 output_notebook()
 
-gui = main_gui.create_to_dtm_gui(
+gui = main_gui.ComplexTrendsGUI(
     corpus_folder=__paths__.corpus_folder,
     data_folder=__paths__.data_folder,
     resources_folder=__paths__.resources_folder,
